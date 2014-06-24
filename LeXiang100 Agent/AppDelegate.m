@@ -10,11 +10,16 @@
 
 @implementation AppDelegate
 
+@synthesize nav;
+@synthesize viewController;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.viewController = [[MainViewController alloc] init];
+    self.nav = [[UINavigationController alloc]initWithRootViewController:self.viewController];
+    self.window.rootViewController = self.nav;
     [self.window makeKeyAndVisible];
     return YES;
 }

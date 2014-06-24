@@ -19,6 +19,7 @@
 		5660EB7C19599E18008D9264 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5660EB6419599E18008D9264 /* UIKit.framework */; };
 		5660EB8419599E18008D9264 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5660EB8219599E18008D9264 /* InfoPlist.strings */; };
 		5660EB8619599E18008D9264 /* LeXiang100_AgentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5660EB8519599E18008D9264 /* LeXiang100_AgentTests.m */; };
+		5660EB9119599E3B008D9264 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5660EB9019599E3B008D9264 /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		5660EB8119599E18008D9264 /* LeXiang100 AgentTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LeXiang100 AgentTests-Info.plist"; sourceTree = "<group>"; };
 		5660EB8319599E18008D9264 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5660EB8519599E18008D9264 /* LeXiang100_AgentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeXiang100_AgentTests.m; sourceTree = "<group>"; };
+		5660EB8F19599E3B008D9264 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		5660EB9019599E3B008D9264 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 			children = (
 				5660EB6F19599E18008D9264 /* AppDelegate.h */,
 				5660EB7019599E18008D9264 /* AppDelegate.m */,
+				5660EB8F19599E3B008D9264 /* MainViewController.h */,
+				5660EB9019599E3B008D9264 /* MainViewController.m */,
 				5660EB7219599E18008D9264 /* Images.xcassets */,
 				5660EB6719599E18008D9264 /* Supporting Files */,
 			);
@@ -240,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5660EB7119599E18008D9264 /* AppDelegate.m in Sources */,
+				5660EB9119599E3B008D9264 /* MainViewController.m in Sources */,
 				5660EB6D19599E18008D9264 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
