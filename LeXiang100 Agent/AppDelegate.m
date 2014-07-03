@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+//#import "IQKeyboardManager.h"
 
 @implementation AppDelegate
 
@@ -18,6 +19,8 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     self.viewController = [[MainViewController alloc] init];
+    //[[IQKeyboardManager sharedManager] setEnable:YES];
+    //[[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:50];
     self.nav = [[UINavigationController alloc]initWithRootViewController:self.viewController];
     self.window.rootViewController = self.nav;
     [self.window makeKeyAndVisible];

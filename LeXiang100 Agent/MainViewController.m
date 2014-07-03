@@ -8,6 +8,9 @@
 
 #import "MainViewController.h"
 
+#define viewWidth   self.view.frame.size.width
+#define viewHeight  self.view.frame.size.height
+
 @interface MainViewController ()
 
 @end
@@ -18,7 +21,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
+     
+        
+        
+        
     }
     return self;
 }
@@ -27,6 +34,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // Custom initialization
+       login=[[LoginViewController alloc]init];
+    
+    [self.navigationController pushViewController:login animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

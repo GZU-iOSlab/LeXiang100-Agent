@@ -6,8 +6,14 @@
 //  Copyright (c) 2014年 ZengYifei. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@interface MainViewController : UIViewController
+#import <UIKit/UIKit.h>
+#import "loginViewController.h"
+
+
+@interface MainViewController : UIViewController{
+
+    LoginViewController *login;
+}
 
 @end

@@ -20,6 +20,9 @@
 		5660EB8419599E18008D9264 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5660EB8219599E18008D9264 /* InfoPlist.strings */; };
 		5660EB8619599E18008D9264 /* LeXiang100_AgentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5660EB8519599E18008D9264 /* LeXiang100_AgentTests.m */; };
 		5660EB9119599E3B008D9264 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5660EB9019599E3B008D9264 /* MainViewController.m */; };
+		C26CBA851961A773005CC76D /* favourite1.png in Resources */ = {isa = PBXBuildFile; fileRef = C26CBA841961A773005CC76D /* favourite1.png */; };
+		C2E3FCEE1964F177006C7975 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3FCED1964F177006C7975 /* LoginViewController.m */; };
+		C2E3FCF0196551DF006C7975 /* lx100.png in Resources */ = {isa = PBXBuildFile; fileRef = C2E3FCEF196551DF006C7975 /* lx100.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,10 @@
 		5660EB8519599E18008D9264 /* LeXiang100_AgentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeXiang100_AgentTests.m; sourceTree = "<group>"; };
 		5660EB8F19599E3B008D9264 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		5660EB9019599E3B008D9264 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		C26CBA841961A773005CC76D /* favourite1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favourite1.png; sourceTree = "<group>"; };
+		C2E3FCEC1964F177006C7975 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		C2E3FCED1964F177006C7975 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C2E3FCEF196551DF006C7975 /* lx100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lx100.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +91,7 @@
 				5660EB7F19599E18008D9264 /* LeXiang100 AgentTests */,
 				5660EB5F19599E18008D9264 /* Frameworks */,
 				5660EB5E19599E18008D9264 /* Products */,
+				C26CBA831961901D005CC76D /* resourses */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +123,7 @@
 				5660EB8F19599E3B008D9264 /* MainViewController.h */,
 				5660EB9019599E3B008D9264 /* MainViewController.m */,
 				5660EB7219599E18008D9264 /* Images.xcassets */,
+				C26CBA7F19618AAD005CC76D /* tab */,
 				5660EB6719599E18008D9264 /* Supporting Files */,
 			);
 			path = "LeXiang100 Agent";
@@ -147,6 +156,24 @@
 				5660EB8219599E18008D9264 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C26CBA7F19618AAD005CC76D /* tab */ = {
+			isa = PBXGroup;
+			children = (
+				C2E3FCEC1964F177006C7975 /* LoginViewController.h */,
+				C2E3FCED1964F177006C7975 /* LoginViewController.m */,
+			);
+			name = tab;
+			sourceTree = "<group>";
+		};
+		C26CBA831961901D005CC76D /* resourses */ = {
+			isa = PBXGroup;
+			children = (
+				C2E3FCEF196551DF006C7975 /* lx100.png */,
+				C26CBA841961A773005CC76D /* favourite1.png */,
+			);
+			name = resourses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,6 +252,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5660EB6B19599E18008D9264 /* InfoPlist.strings in Resources */,
+				C2E3FCF0196551DF006C7975 /* lx100.png in Resources */,
+				C26CBA851961A773005CC76D /* favourite1.png in Resources */,
 				5660EB7319599E18008D9264 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E3FCEE1964F177006C7975 /* LoginViewController.m in Sources */,
 				5660EB7119599E18008D9264 /* AppDelegate.m in Sources */,
 				5660EB9119599E3B008D9264 /* MainViewController.m in Sources */,
 				5660EB6D19599E18008D9264 /* main.m in Sources */,
@@ -445,6 +475,7 @@
 				5660EB8B19599E18008D9264 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5660EB8C19599E18008D9264 /* Build configuration list for PBXNativeTarget "LeXiang100 AgentTests" */ = {
 			isa = XCConfigurationList;
@@ -453,6 +484,7 @@
 				5660EB8E19599E18008D9264 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
