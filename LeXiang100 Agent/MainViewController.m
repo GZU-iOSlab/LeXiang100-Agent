@@ -37,8 +37,11 @@
     
     // Custom initialization
        login=[[LoginViewController alloc]init];
+    update=[[UpdateCheckingViewController alloc]init];
+    payRecord=[[PayRecordViewController alloc]init];
+   //login=[[LoginViewController alloc]init];
     
-    [self.navigationController pushViewController:login animated:YES];
+   [self.navigationController pushViewController:payRecord animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

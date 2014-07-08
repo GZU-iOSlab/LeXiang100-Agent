@@ -39,13 +39,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.view .backgroundColor=[UIColor colorWithRed:(63.0/255.0) green:(165.0/255.0) blue:(173.0/255.0) alpha:1];
+        self.view .backgroundColor=[UIColor lightGrayColor];
         
         
         //乐享图标
-        UIImage * Image = [UIImage imageNamed:@"lx100.png"];
+        UIImage * Image = [UIImage imageNamed:@"login_title.png"];
         UIImageView * imgView = [[UIImageView alloc]initWithImage:Image];
-        imgView.frame = CGRectMake(viewWidth/2-viewWidth/8, viewHeight/7, viewWidth/4, viewWidth/4);
+        imgView.frame = CGRectMake(viewWidth/2-viewWidth/8, viewHeight/6, viewWidth/3, viewWidth/6);
         
         [self.view addSubview:imgView];
         

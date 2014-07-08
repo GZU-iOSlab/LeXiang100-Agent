@@ -9,11 +9,14 @@
 
 #import <UIKit/UIKit.h>
 #import "loginViewController.h"
-
+#import "UpdateCheckingViewController.h"
+#import "PayRecordViewController.h"
 
 @interface MainViewController : UIViewController{
 
     LoginViewController *login;
+    UpdateCheckingViewController *update;
+    PayRecordViewController *payRecord;
+    
 }
-
 @end
