@@ -58,12 +58,26 @@
        
 
         
-     UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
-       self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:loginImg style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
-       
+    // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
+
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"个人信息" style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
+  
+        UITextView * background = [[[UITextView alloc]init]autorelease];
+        background.frame = self.view.frame;
         
         
-        //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"充值" style:UIBarButtonItemStyleBordered target:self action:@selector(login)];
+        //背景框
+        UITextField * backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/35, viewHeight/60, viewWidth/1.1, viewHeight/1.2) ];
+        
+        backgroundText.enabled = NO;
+        backgroundText.borderStyle = UITextBorderStyleRoundedRect;
+        backgroundText.backgroundColor = [UIColor clearColor];
+        backgroundText.autoresizesSubviews = YES;
+        [self.view addSubview:backgroundText];
+        backgroundText.delegate = self;
+        [self.view addSubview:backgroundText];
+        
         
         //营销活动
         UIImage * markingImg = [UIImage imageNamed:@"main_marketing_normal.jpg"];
@@ -141,22 +155,10 @@
         
         
         
-        classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.5, viewHeight/4, viewWidth/2, viewHeight/3.2)style:UITableViewStylePlain];
-        
-        classTableview.delegate=self;
-        classTableview.dataSource=self;
-        classTableview.backgroundColor=[UIColor whiteColor];
-        [self.view addSubview:classTableview];
-        classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
-        NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-        [arrayValue addObject:@" 工号 : 88888888"];
-        [arrayValue addObject:@"手机号: 18286057264"];
-        [arrayValue addObject:@"         密码修改  "];
-        [arrayValue addObject:@"            注销    "];
+    
         
         
-        array=arrayValue;
-        tableShowed = NO;
+       
         
         
         
@@ -174,17 +176,55 @@
             [self.view sendSubviewToBack:imgViewMetal];
         }
         
+        //针对iPad的界面调整
+     
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-            messageText.frame = CGRectMake(0,viewHeight/25,viewWidth,viewHeight/30);
+            
+            buttonMarketing.frame = CGRectMake(firstY*2-viewWidth/30, firstY, iconSizeX, iconSizeY);
+            buttonPay.frame = CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY, iconSizeX, iconSizeY);
+            buttonCredit.frame = CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 2, iconSizeX, iconSizeY);
+            buttonPick.frame =  CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 3, iconSizeX, iconSizeY);
+            buttonPaid.frame =  CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 4, iconSizeX, iconSizeY);
+            buttonUpdate.frame =  CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 5, iconSizeX, iconSizeY);
+            
+             //classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
+            
+            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.2, viewHeight/100, viewWidth/2.8, viewHeight/6) style:UITableViewStylePlain];
+            
+            classTableview.delegate=self;
+            classTableview.dataSource=self;
+            classTableview.backgroundColor=[UIColor whiteColor];
+            [self.view addSubview:classTableview];
+            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/10);
+            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
+            [arrayValue addObject:@"   工号 : 88888888"];
+            [arrayValue addObject:@"手机号: 18286057264"];
+            [arrayValue addObject:@"       密码修改  "];
+            [arrayValue addObject:@"          注销    "];
+            array=arrayValue;
+            tableShowed = NO;
+
+        } else {
+            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.5, viewHeight/4, viewWidth/2, viewHeight/3.2)style:UITableViewStylePlain];
+            
+            classTableview.delegate=self;
+            classTableview.dataSource=self;
+            classTableview.backgroundColor=[UIColor whiteColor];
+            [self.view addSubview:classTableview];
+            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
+            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
+            [arrayValue addObject:@" 工号 : 88888888"];
+            [arrayValue addObject:@"手机号: 18286057264"];
+            [arrayValue addObject:@"         密码修改  "];
+            [arrayValue addObject:@"            注销    "];
+            array=arrayValue;
+            tableShowed = NO;
         }
     }
     return self;
 }
 
--(void)login{
 
-
-}
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
@@ -260,18 +300,7 @@
     [alert dismissWithClickedButtonIndex:[alert cancelButtonIndex]animated:YES];
 }
 
-#pragma mark - UISearchBarDelegate 协议
 
-// UISearchBar得到焦点并开始编辑时，执行该方法
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    return YES;
-}
-
-// 取消按钮被按下时，执行的方法
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    
-    
-}
 
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -282,6 +311,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [array count];
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -304,12 +334,26 @@
 }
 -(void)showTable
 {
-   if (tableShowed) {
-        [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/5);}];
-        tableShowed = NO;
-    }else{
-        [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.3, viewHeight/5);}];
-        tableShowed = YES;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (tableShowed) {
+            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/10);}];
+            tableShowed = NO;
+            self.classTableview.hidden = YES;
+        }else{
+            self.classTableview.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.2, viewHeight/10);}];
+            tableShowed = YES;
+        }
+    }else {
+        if (tableShowed) {
+            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/5);}];
+            tableShowed = NO;
+            self.classTableview.hidden = YES;
+        }else{
+            self.classTableview.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.3, viewHeight/5);}];
+            tableShowed = YES;
+        }
     }
 }
 
@@ -335,9 +379,10 @@
     UITouch *touch = [touches anyObject];
     
     if ([touch view] != classTableview) {
-        [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/5);}];
+        [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*3/2);}];
     }
 }
+
 
 #pragma mark textefield delegate
 

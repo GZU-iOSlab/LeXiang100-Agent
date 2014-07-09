@@ -129,8 +129,8 @@ extern NSMutableDictionary * payInfoDic;
         }
         //针对iPad的界面调整
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            backgroundText.frame = CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight/5);
-            bossPWD.frame = CGRectMake( viewWidth/32+viewWidth/40 , viewHeight/10, viewWidth/1.5, viewHeight/15);
+            backgroundText.frame = CGRectMake(viewWidth/40, viewHeight/60, viewWidth/1.1+viewWidth/30, viewHeight/2);
+            bossPWD.frame = CGRectMake( viewWidth/32+viewWidth/40 , viewHeight/4, viewWidth/1.2, viewHeight/15);
             bossPWD.keyboardType = UIKeyboardTypeNumberPad;
 
         }
@@ -146,7 +146,17 @@ extern NSMutableDictionary * payInfoDic;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
+    [bossPWD resignFirstResponder];
+}
+
+#pragma mark UesrTouche
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
     
+    if ([touch view] != bossPWD) {
+        [bossPWD resignFirstResponder];
+    }
 }
 
 

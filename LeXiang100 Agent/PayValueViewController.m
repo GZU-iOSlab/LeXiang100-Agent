@@ -132,7 +132,7 @@ extern NSMutableDictionary * payInfoDic;
             self.navigationController.navigationBar.translucent = NO;
             classTableview.backgroundColor=[UIColor iOS7blueGradientStartColor];
             self.view .backgroundColor = [UIColor groupTableViewBackgroundColor];
-            feedbackButton.backgroundColor=[UIColor iOS7tealGradientEndColor];
+          
             
         }
         if([[[UIDevice currentDevice]systemVersion]floatValue]<7)
@@ -144,6 +144,10 @@ extern NSMutableDictionary * payInfoDic;
     return self;
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [phoneText resignFirstResponder];
+}
+
 
 #pragma mark UesrTouche
 
@@ -152,6 +156,9 @@ extern NSMutableDictionary * payInfoDic;
 
     if ([touch view] != classTableview) {
         [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*3/2);}];
+    }
+    if ([touch view] != classTableview) {
+        [phoneText resignFirstResponder];
     }
 }
 
