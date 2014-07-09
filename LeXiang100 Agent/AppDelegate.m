@@ -13,12 +13,13 @@
 
 @synthesize nav;
 @synthesize viewController;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    self.viewController = [[MainViewController alloc] init];
+    self.viewController = [[MainUIViewController alloc] init];
     //[[IQKeyboardManager sharedManager] setEnable:YES];
     //[[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:50];
     self.nav = [[UINavigationController alloc]initWithRootViewController:self.viewController];
@@ -35,7 +36,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

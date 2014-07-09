@@ -19,7 +19,7 @@
 		5660EB7C19599E18008D9264 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5660EB6419599E18008D9264 /* UIKit.framework */; };
 		5660EB8419599E18008D9264 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5660EB8219599E18008D9264 /* InfoPlist.strings */; };
 		5660EB8619599E18008D9264 /* LeXiang100_AgentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5660EB8519599E18008D9264 /* LeXiang100_AgentTests.m */; };
-		5660EB9119599E3B008D9264 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5660EB9019599E3B008D9264 /* MainViewController.m */; };
+		5660EB9119599E3B008D9264 /* MainUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5660EB9019599E3B008D9264 /* MainUIViewController.m */; };
 		C239F837196981550043DA26 /* UIColorForiOS7Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = C239F836196981550043DA26 /* UIColorForiOS7Colors.m */; };
 		C239F867196BE1C20043DA26 /* acquire_btn_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = C239F83B196BE1C20043DA26 /* acquire_btn_normal.png */; };
 		C239F868196BE1C20043DA26 /* acquire_btn_press.png in Resources */ = {isa = PBXBuildFile; fileRef = C239F83C196BE1C20043DA26 /* acquire_btn_press.png */; };
@@ -68,6 +68,14 @@
 		C2E3FCEE1964F177006C7975 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3FCED1964F177006C7975 /* LoginViewController.m */; };
 		C2E3FCF619668A39006C7975 /* UpdateCheckingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3FCF519668A39006C7975 /* UpdateCheckingViewController.m */; };
 		C2E3FCF919669B30006C7975 /* PayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3FCF819669B30006C7975 /* PayRecordViewController.m */; };
+		DCC3D626196C21CD0069B605 /* AddresseBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */; };
+		DCC3D62B196C21FF0069B605 /* TableLevle2TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */; };
+		DCC3D62C196C21FF0069B605 /* UIColorForiOS7Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D62A196C21FF0069B605 /* UIColorForiOS7Colors.m */; };
+		DCC3D632196C227B0069B605 /* ConnectionAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D62F196C227B0069B605 /* ConnectionAPI.m */; };
+		DCC3D633196C227B0069B605 /* DES3Util.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D631196C227B0069B605 /* DES3Util.m */; };
+		DCC3D637196C22B80069B605 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D635196C22B80069B605 /* GTMBase64.m */; };
+		DCC3D640196C23040069B605 /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D63F196C23040069B605 /* PayViewController.m */; };
+		DCC3D643196C23650069B605 /* PayValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D642196C23650069B605 /* PayValueViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,8 +105,8 @@
 		5660EB8119599E18008D9264 /* LeXiang100 AgentTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LeXiang100 AgentTests-Info.plist"; sourceTree = "<group>"; };
 		5660EB8319599E18008D9264 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5660EB8519599E18008D9264 /* LeXiang100_AgentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeXiang100_AgentTests.m; sourceTree = "<group>"; };
-		5660EB8F19599E3B008D9264 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		5660EB9019599E3B008D9264 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		5660EB8F19599E3B008D9264 /* MainUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainUIViewController.h; sourceTree = "<group>"; };
+		5660EB9019599E3B008D9264 /* MainUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainUIViewController.m; sourceTree = "<group>"; };
 		C239F835196981550043DA26 /* UIColorForiOS7Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIColorForiOS7Colors.h; path = ../UIColorForiOS7Colors.h; sourceTree = "<group>"; };
 		C239F836196981550043DA26 /* UIColorForiOS7Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIColorForiOS7Colors.m; path = ../UIColorForiOS7Colors.m; sourceTree = "<group>"; };
 		C239F83B196BE1C20043DA26 /* acquire_btn_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = acquire_btn_normal.png; path = "drawable-hdpi/acquire_btn_normal.png"; sourceTree = "<group>"; };
@@ -151,6 +159,23 @@
 		C2E3FCF519668A39006C7975 /* UpdateCheckingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateCheckingViewController.m; sourceTree = "<group>"; };
 		C2E3FCF719669B30006C7975 /* PayRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayRecordViewController.h; sourceTree = "<group>"; };
 		C2E3FCF819669B30006C7975 /* PayRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayRecordViewController.m; sourceTree = "<group>"; };
+		DCC3D624196C21CD0069B605 /* AddresseBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddresseBookTableViewController.h; sourceTree = "<group>"; };
+		DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddresseBookTableViewController.m; sourceTree = "<group>"; };
+		DCC3D627196C21FF0069B605 /* TableLevle2TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLevle2TableViewController.h; sourceTree = "<group>"; };
+		DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLevle2TableViewController.m; sourceTree = "<group>"; };
+		DCC3D629196C21FF0069B605 /* UIColorForiOS7Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorForiOS7Colors.h; sourceTree = "<group>"; };
+		DCC3D62A196C21FF0069B605 /* UIColorForiOS7Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorForiOS7Colors.m; sourceTree = "<group>"; };
+		DCC3D62E196C227B0069B605 /* ConnectionAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionAPI.h; sourceTree = "<group>"; };
+		DCC3D62F196C227B0069B605 /* ConnectionAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionAPI.m; sourceTree = "<group>"; };
+		DCC3D630196C227B0069B605 /* DES3Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DES3Util.h; sourceTree = "<group>"; };
+		DCC3D631196C227B0069B605 /* DES3Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DES3Util.m; sourceTree = "<group>"; };
+		DCC3D634196C22B80069B605 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		DCC3D635196C22B80069B605 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		DCC3D636196C22B80069B605 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		DCC3D63E196C23040069B605 /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
+		DCC3D63F196C23040069B605 /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
+		DCC3D641196C23650069B605 /* PayValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayValueViewController.h; sourceTree = "<group>"; };
+		DCC3D642196C23650069B605 /* PayValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayValueViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,10 +236,13 @@
 		5660EB6619599E18008D9264 /* LeXiang100 Agent */ = {
 			isa = PBXGroup;
 			children = (
+				5660EB8F19599E3B008D9264 /* MainUIViewController.h */,
+				5660EB9019599E3B008D9264 /* MainUIViewController.m */,
 				5660EB6F19599E18008D9264 /* AppDelegate.h */,
 				5660EB7019599E18008D9264 /* AppDelegate.m */,
-				5660EB8F19599E3B008D9264 /* MainViewController.h */,
-				5660EB9019599E3B008D9264 /* MainViewController.m */,
+				DCC3D62D196C22500069B605 /* conn */,
+				DCC3D623196C21B80069B605 /* ui */,
+				DCC3D622196C20C50069B605 /* pay */,
 				5660EB7219599E18008D9264 /* Images.xcassets */,
 				C26CBA7F19618AAD005CC76D /* tab */,
 				5660EB6719599E18008D9264 /* Supporting Files */,
@@ -315,6 +343,44 @@
 				C239F866196BE1C20043DA26 /* update_btn_sel.9.png */,
 			);
 			name = resourses;
+			sourceTree = "<group>";
+		};
+		DCC3D622196C20C50069B605 /* pay */ = {
+			isa = PBXGroup;
+			children = (
+				DCC3D63E196C23040069B605 /* PayViewController.h */,
+				DCC3D63F196C23040069B605 /* PayViewController.m */,
+				DCC3D641196C23650069B605 /* PayValueViewController.h */,
+				DCC3D642196C23650069B605 /* PayValueViewController.m */,
+			);
+			name = pay;
+			sourceTree = "<group>";
+		};
+		DCC3D623196C21B80069B605 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				DCC3D624196C21CD0069B605 /* AddresseBookTableViewController.h */,
+				DCC3D627196C21FF0069B605 /* TableLevle2TableViewController.h */,
+				DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */,
+				DCC3D629196C21FF0069B605 /* UIColorForiOS7Colors.h */,
+				DCC3D62A196C21FF0069B605 /* UIColorForiOS7Colors.m */,
+				DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */,
+			);
+			name = ui;
+			sourceTree = "<group>";
+		};
+		DCC3D62D196C22500069B605 /* conn */ = {
+			isa = PBXGroup;
+			children = (
+				DCC3D62E196C227B0069B605 /* ConnectionAPI.h */,
+				DCC3D634196C22B80069B605 /* GTMBase64.h */,
+				DCC3D635196C22B80069B605 /* GTMBase64.m */,
+				DCC3D636196C22B80069B605 /* GTMDefines.h */,
+				DCC3D62F196C227B0069B605 /* ConnectionAPI.m */,
+				DCC3D630196C227B0069B605 /* DES3Util.h */,
+				DCC3D631196C227B0069B605 /* DES3Util.m */,
+			);
+			name = conn;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,12 +522,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCC3D62B196C21FF0069B605 /* TableLevle2TableViewController.m in Sources */,
+				DCC3D640196C23040069B605 /* PayViewController.m in Sources */,
+				DCC3D62C196C21FF0069B605 /* UIColorForiOS7Colors.m in Sources */,
+				DCC3D633196C227B0069B605 /* DES3Util.m in Sources */,
 				C2E3FCF919669B30006C7975 /* PayRecordViewController.m in Sources */,
 				C2E3FCEE1964F177006C7975 /* LoginViewController.m in Sources */,
 				C2E3FCF619668A39006C7975 /* UpdateCheckingViewController.m in Sources */,
+				DCC3D643196C23650069B605 /* PayValueViewController.m in Sources */,
+				DCC3D632196C227B0069B605 /* ConnectionAPI.m in Sources */,
+				DCC3D626196C21CD0069B605 /* AddresseBookTableViewController.m in Sources */,
 				5660EB7119599E18008D9264 /* AppDelegate.m in Sources */,
 				C239F837196981550043DA26 /* UIColorForiOS7Colors.m in Sources */,
-				5660EB9119599E3B008D9264 /* MainViewController.m in Sources */,
+				DCC3D637196C22B80069B605 /* GTMBase64.m in Sources */,
+				5660EB9119599E3B008D9264 /* MainUIViewController.m in Sources */,
 				5660EB6D19599E18008D9264 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,7 +585,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -550,7 +624,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
