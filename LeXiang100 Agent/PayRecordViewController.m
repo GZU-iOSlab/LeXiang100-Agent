@@ -47,8 +47,6 @@
         backgroudText.delegate = self;
         [self.view addSubview:backgroudText];
         
-        
-        
         UILabel * startMonthLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, viewWidth/4, viewHeight/20)];
         startMonthLabel.text = @"月份：";
         startMonthLabel.font = [UIFont systemFontOfSize:viewHeight/40];
@@ -74,7 +72,7 @@
         
         dateSureBtn =  [UIButton buttonWithType:UIButtonTypeRoundedRect];//[[UIButton alloc]initWithFrame:CGRectMake(viewWidth/2, viewHeight+viewHeight/8, viewWidth/5, viewHeight/18)];
         dateSureBtn.frame = CGRectMake(viewWidth/2, viewHeight+viewHeight/8, viewWidth/5, viewHeight/25);
-        dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight/2+viewHeight/25);
+        dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight/2+viewHeight/10);
         [dateSureBtn setTitle:@"确定" forState:UIControlStateNormal];
         dateSureBtn.titleLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         [dateSureBtn addTarget:self action:@selector(dateForSure) forControlEvents:UIControlEventTouchUpInside];
@@ -92,11 +90,14 @@
         formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy/MM"];
         
+        if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+        self.view.backgroundColor = [UIColor whiteColor];
+        }
          if([[UIDevice currentDevice] userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
          {
              backgroudText.center=CGPointMake(viewWidth/2, viewHeight/6);
              //startDatePicker
-            dateSureBtn.center=CGPointMake(viewWidth/2, viewHeight*0.7);
+            dateSureBtn.center=CGPointMake(viewWidth/2, viewHeight*0.8);
              //searchBtn
          }
     }

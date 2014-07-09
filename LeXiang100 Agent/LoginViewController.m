@@ -39,7 +39,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.view .backgroundColor=[UIColor lightGrayColor];
+        self.view .backgroundColor=[UIColor scrollViewTexturedBackgroundColor];
+        
         
         
         //乐享图标
@@ -51,7 +52,7 @@
         
         self.backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(0, viewHeight/2-viewHeight/40, viewWidth*0.9, viewHeight/3)];
         self.backgroundText.borderStyle = UITextBorderStyleRoundedRect;
-        self.backgroundText.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        self.backgroundText.backgroundColor = [UIColor lightTextColor];
         self.backgroundText.center=CGPointMake(viewWidth/2, viewHeight/2-viewHeight/40);
         self.backgroundText.delegate = self;
         [self.view addSubview:backgroundText];
@@ -117,7 +118,7 @@
         [DPasswdBtn setTitle:@"获 取" forState:UIControlStateNormal];
         DPasswdBtn.titleLabel.textColor=[UIColor whiteColor];
         //DPasswdBtn.center=CGPointMake(viewWidth/2-viewWidth/20, viewHeight/4+viewHeight/40);
-        DPasswdBtn.backgroundColor=[UIColor colorWithRed:(188.0/255.0) green:(122.0/255.0) blue:(216.0/255.0) alpha:1];
+        DPasswdBtn.backgroundColor=[UIColor colorWithRed:(188.0/255.0) green:(122.0/255.0) blue:(216.0/255.0) alpha:0];
         DPasswdBtn.titleLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         [self.backgroundText addSubview:DPasswdBtn];
         
@@ -127,7 +128,7 @@
         [loginBtn setTitle:@"登 录" forState:UIControlStateNormal];
         loginBtn.titleLabel.textColor=[UIColor whiteColor];
         loginBtn.center=CGPointMake(viewWidth/2-viewWidth/20, viewHeight/4+viewHeight/40);
-        loginBtn.backgroundColor=[UIColor colorWithRed:(63.0/255.0) green:(165.0/255.0) blue:(173.0/255.0) alpha:1];
+        loginBtn.backgroundColor=[UIColor colorWithRed:(63.0/255.0) green:(165.0/255.0) blue:(173.0/255.0) alpha:0];
         loginBtn.titleLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         [self.backgroundText addSubview:loginBtn];
         
@@ -150,7 +151,10 @@
         copyright_c.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:copyright_c];
         
-        
+        if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
+            self.view .backgroundColor=[UIColor lightTextColor];
+            backgroundText.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        }
     }
     return self;
 }
