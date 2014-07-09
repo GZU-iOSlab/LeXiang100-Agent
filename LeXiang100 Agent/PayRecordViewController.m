@@ -53,7 +53,7 @@
         startMonthLabel.backgroundColor = [UIColor clearColor];
         [backgroudText addSubview:startMonthLabel];
         
-        startMonthText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/160, viewWidth*0.88, viewHeight/25)];
+        startMonthText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/9.5, viewHeight/160, viewWidth*0.75, viewHeight/25)];
         startMonthText.borderStyle = UITextBorderStyleRoundedRect;
         startMonthText.backgroundColor = [UIColor whiteColor];
         startMonthText.delegate = self;
