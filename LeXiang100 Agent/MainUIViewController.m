@@ -67,11 +67,11 @@
         
         //营销活动
         UIImage * markingImg = [UIImage imageNamed:@"main_marketing_normal.jpg"];
-        UIImage * markingImgPressed = [UIImage imageNamed:@"main_marketing_press.jpg"];
+        //UIImage * markingImgPressed = [UIImage imageNamed:@"main_marketing_press.jpg"];
         
         buttonMarketing = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonMarketing setBackgroundImage:markingImg forState:UIControlStateNormal];
-        [buttonMarketing setImage:markingImgPressed forState:UIControlStateHighlighted];
+        //[buttonMarketing setImage:markingImgPressed forState:UIControlStateHighlighted];
         
         buttonMarketing.frame = CGRectMake(firstY, firstY, iconSizeX, iconSizeY);
         [self.view addSubview:buttonMarketing];
@@ -81,11 +81,11 @@
         
         //充值缴费
         UIImage * payImg = [UIImage imageNamed:@"main_pay_normal.jpg"];
-        UIImage * payImgPressed = [UIImage imageNamed:@"main_pay_press.jpg"];
+        //UIImage * payImgPressed = [UIImage imageNamed:@"main_pay_press.jpg"];
         
         buttonPay = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonPay setBackgroundImage:payImg forState:UIControlStateNormal];
-        [buttonPay setImage:payImgPressed forState:UIControlStateHighlighted];
+        //[buttonPay setImage:payImg forState:UIControlStateNormal];
         buttonPay.frame = CGRectMake(firstY, firstY + iconSizeY, iconSizeX, iconSizeY);
         [self.view addSubview:buttonPay];
         buttonPay.userInteractionEnabled = YES;
@@ -94,11 +94,11 @@
         
         //信控充值
         UIImage * creditImg = [UIImage imageNamed:@"main_credit_normal.jpg"];
-        UIImage * creditImgPressed = [UIImage imageNamed:@"main_credit_press.jpg"];
+        //UIImage * creditImgPressed = [UIImage imageNamed:@"main_credit_press.jpg"];
         
         buttonCredit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonCredit setBackgroundImage:creditImg forState:UIControlStateNormal];
-        [buttonCredit setImage:creditImgPressed forState:UIControlStateHighlighted];
+        //[buttonCredit setImage:creditImgPressed forState:UIControlStateHighlighted];
         buttonCredit.frame = CGRectMake(firstY, firstY + iconSizeY * 2, iconSizeX, iconSizeY);
         [self.view addSubview:buttonCredit];
         buttonCredit.userInteractionEnabled = YES;
@@ -106,11 +106,11 @@
         
         //选号入网
         UIImage * pickImge = [UIImage imageNamed:@"main_pick_normal.jpg"];
-        UIImage * pickImgePressed = [UIImage imageNamed:@"main_pick_press.jpg"];
+        //UIImage * pickImgePressed = [UIImage imageNamed:@"main_pick_press.jpg"];
         
         buttonPick = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonPick setBackgroundImage:pickImge forState:UIControlStateNormal];
-        [buttonPick setImage:pickImgePressed forState:UIControlStateHighlighted];
+        //[buttonPick setImage:pickImgePressed forState:UIControlStateHighlighted];
         buttonPick.frame = CGRectMake(firstY, firstY + iconSizeY * 3, iconSizeX, iconSizeY);
         [self.view addSubview:buttonPick];
         buttonPick.userInteractionEnabled = YES;
@@ -118,26 +118,27 @@
         
         //缴费查询
         UIImage * paidImg = [UIImage imageNamed:@"main_pay_history_normal.JPG"];
-        UIImage * paidImgPressed = [UIImage imageNamed:@"main_pay_history_normal.JPG"];
+        //UIImage * paidImgPressed = [UIImage imageNamed:@"main_pay_history_normal.JPG"];
         
         buttonPaid = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonPaid setBackgroundImage:paidImg forState:UIControlStateNormal];
-        [buttonPaid setImage:paidImgPressed forState:UIControlStateHighlighted];
+        //[buttonPaid setImage:paidImgPressed forState:UIControlStateHighlighted];
         buttonPaid.frame = CGRectMake(firstY, firstY + iconSizeY * 4, iconSizeX, iconSizeY);
         [self.view addSubview:buttonPaid];
-        buttonPay.userInteractionEnabled = YES;
+        buttonPaid.userInteractionEnabled = YES;
+        [buttonPaid addTarget:self action:@selector(paidPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         //检查更新
         UIImage * updateImg = [UIImage imageNamed:@"main_update_normal.JPG"];
-        UIImage * updateImgPressed = [UIImage imageNamed:@"main_update_press.JPG"];
+        //UIImage * updateImgPressed = [UIImage imageNamed:@"main_update_press.JPG"];
         
         buttonUpdate = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonUpdate setBackgroundImage:updateImg forState:UIControlStateNormal];
-        [buttonUpdate setImage:updateImgPressed forState:UIControlStateHighlighted];
+        //[buttonUpdate setImage:updateImgPressed forState:UIControlStateHighlighted];
         buttonUpdate.frame = CGRectMake(firstY, firstY + iconSizeY * 5, iconSizeX, iconSizeY);
         [self.view addSubview:buttonUpdate];
-        buttonPay.userInteractionEnabled = YES;
-        
+        buttonUpdate.userInteractionEnabled = YES;
+        [buttonUpdate addTarget:self action:@selector(updatePressed:) forControlEvents:UIControlEventTouchUpInside];
         
         
         
@@ -154,11 +155,13 @@
         [arrayValue addObject:@"         密码修改  "];
         [arrayValue addObject:@"            注销    "];
         
-        
         array=arrayValue;
         tableShowed = NO;
         
-        
+        pay = [[PayValueViewController alloc] init];
+        tableContrl = [[TableLevle2TableViewController alloc] init];
+        update = [[UpdateCheckingViewController alloc]init];
+        payRecord = [[PayRecordViewController alloc]init];
         
         //解决ios界面上移
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -179,6 +182,11 @@
         }
     }
     return self;
+}
+
+- (void)dealloc{
+    [super dealloc];
+    
 }
 
 -(void)login{
@@ -211,20 +219,14 @@
 
 //营销活动
 -(void)marketingPressed:(id)sender {
-    
-   
-   TableLevle2TableViewController *tableContrl = [[TableLevle2TableViewController alloc] init];
     [self.navigationController pushViewController:tableContrl animated:YES];
 }
 //充值缴费
 -(void)payPressed:(id)sender{
-    
-    PayValueViewController *pay = [[PayValueViewController alloc] init];
    [self.navigationController pushViewController:pay animated:YES];
 }
 //控充值
 -(void)creditPressed:(id)sender {
-    
     [[[[UIAlertView alloc] initWithTitle:@"提示" message:@"模块建设中" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil]autorelease]show];
     
 //    PayValueViewController *payValue = [[[PayValueViewController alloc] init]autorelease];
@@ -236,28 +238,12 @@
     [[[[UIAlertView alloc] initWithTitle:@"提示" message:@"模块建设中" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil]autorelease]show];
 }
 
-#pragma mark - alertview 协议
-
-
-- (void)showAlerView{
-    testAlert = [[UIAlertView alloc]initWithTitle:@"点击了"
-                                          message:nil
-                                         delegate:nil
-                                cancelButtonTitle:@"取消"
-                                otherButtonTitles:@"确定",nil];
-    testAlert.alertViewStyle = UIAlertViewStyleDefault;
-    testAlert.delegate = self;
-    [testAlert show];
-    [testAlert release];
+-(void)paidPressed:(id)sender{
+    [self.navigationController pushViewController:payRecord animated:YES];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-}
-
-- (void) dimissAlert:(UIAlertView *)alert
-{
-    [alert dismissWithClickedButtonIndex:[alert cancelButtonIndex]animated:YES];
+-(void)updatePressed:(id)sender{
+    [self.navigationController pushViewController:update animated:YES];
 }
 
 #pragma mark - UISearchBarDelegate 协议
@@ -292,9 +278,7 @@
     {
         //cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault:CellIdentifier];
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
     }
-   
     cell.imageView.image=[arrayImage objectAtIndex:[indexPath row]];
     //}
     cell.backgroundColor=[UIColor groupTableViewBackgroundColor];
@@ -315,10 +299,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.3, viewHeight/5);}];
- 
-    
 }
 
 
@@ -379,7 +360,6 @@
     
     [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*3/2);}];
     tableShowed = NO;
-    
 }
 
 
@@ -393,12 +373,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc{
-    [super dealloc];
-    
-    
 }
 
 @end

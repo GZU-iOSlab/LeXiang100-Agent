@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MainUIViewController.h"
-#import "PayInfo.h"
+#import "LoginViewController.h"
 
 NSNotificationCenter *nc;
 NSString * phoneNumber;

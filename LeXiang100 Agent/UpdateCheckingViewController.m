@@ -20,7 +20,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    
     if (self) {
         // Custom initialization
         
@@ -34,7 +34,6 @@
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
             self.view.backgroundColor = [UIColor whiteColor];
-            
         }
         
         UIScrollView *scrollview=[[UIScrollView alloc] initWithFrame:self.view.frame];

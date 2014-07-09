@@ -22,6 +22,7 @@
     self.viewController = [[MainUIViewController alloc] init];
     //[[IQKeyboardManager sharedManager] setEnable:YES];
     //[[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:50];
+    //LoginViewController * login = [[LoginViewController alloc]init];
     self.nav = [[UINavigationController alloc]initWithRootViewController:self.viewController];
     self.window.rootViewController = self.nav;
     [self.window makeKeyAndVisible];

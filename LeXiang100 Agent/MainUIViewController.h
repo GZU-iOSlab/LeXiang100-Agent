@@ -12,7 +12,8 @@
 #import "TableLevle2TableViewController.h"
 #import "PayValueViewController.h"
 #import "ConnectionAPI.h"
-
+#import "UpdateCheckingViewController.h"
+#import "PayRecordViewController.h"
 
 
 @interface MainUIViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate>{
@@ -30,9 +31,13 @@
     UIButton * buttonUpdate;
     UIButton * button7;
     
-     NSArray *arrayImage;
+    NSArray *arrayImage;
     
-     BOOL tableShowed;
+    BOOL tableShowed;
+    PayValueViewController *pay;
+    TableLevle2TableViewController *tableContrl;
+    UpdateCheckingViewController * update;
+    PayRecordViewController * payRecord;
 }
 
 @property (nonatomic, retain) NSMutableArray *resultArray;
