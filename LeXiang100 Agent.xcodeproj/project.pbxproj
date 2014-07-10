@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5610F50D196ECC7700670856 /* TestData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5610F50C196ECC7700670856 /* TestData.m */; };
 		5660EB6119599E18008D9264 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5660EB6019599E18008D9264 /* Foundation.framework */; };
 		5660EB6319599E18008D9264 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5660EB6219599E18008D9264 /* CoreGraphics.framework */; };
 		5660EB6519599E18008D9264 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5660EB6419599E18008D9264 /* UIKit.framework */; };
@@ -70,7 +71,6 @@
 		C2E3FCF919669B30006C7975 /* PayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3FCF819669B30006C7975 /* PayRecordViewController.m */; };
 		DCC3D626196C21CD0069B605 /* AddresseBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */; };
 		DCC3D62B196C21FF0069B605 /* TableLevle2TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */; };
-		DCC3D62C196C21FF0069B605 /* UIColorForiOS7Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D62A196C21FF0069B605 /* UIColorForiOS7Colors.m */; };
 		DCC3D632196C227B0069B605 /* ConnectionAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D62F196C227B0069B605 /* ConnectionAPI.m */; };
 		DCC3D633196C227B0069B605 /* DES3Util.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D631196C227B0069B605 /* DES3Util.m */; };
 		DCC3D637196C22B80069B605 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D635196C22B80069B605 /* GTMBase64.m */; };
@@ -89,6 +89,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5610F50B196ECC7700670856 /* TestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestData.h; sourceTree = "<group>"; };
+		5610F50C196ECC7700670856 /* TestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestData.m; sourceTree = "<group>"; };
 		5660EB5D19599E18008D9264 /* LeXiang100 Agent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LeXiang100 Agent.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5660EB6019599E18008D9264 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5660EB6219599E18008D9264 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -163,8 +165,6 @@
 		DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddresseBookTableViewController.m; sourceTree = "<group>"; };
 		DCC3D627196C21FF0069B605 /* TableLevle2TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLevle2TableViewController.h; sourceTree = "<group>"; };
 		DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLevle2TableViewController.m; sourceTree = "<group>"; };
-		DCC3D629196C21FF0069B605 /* UIColorForiOS7Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIColorForiOS7Colors.h; sourceTree = "<group>"; };
-		DCC3D62A196C21FF0069B605 /* UIColorForiOS7Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIColorForiOS7Colors.m; sourceTree = "<group>"; };
 		DCC3D62E196C227B0069B605 /* ConnectionAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionAPI.h; sourceTree = "<group>"; };
 		DCC3D62F196C227B0069B605 /* ConnectionAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionAPI.m; sourceTree = "<group>"; };
 		DCC3D630196C227B0069B605 /* DES3Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DES3Util.h; sourceTree = "<group>"; };
@@ -241,10 +241,8 @@
 				5660EB6F19599E18008D9264 /* AppDelegate.h */,
 				5660EB7019599E18008D9264 /* AppDelegate.m */,
 				DCC3D62D196C22500069B605 /* conn */,
-				DCC3D623196C21B80069B605 /* ui */,
-				DCC3D622196C20C50069B605 /* pay */,
 				5660EB7219599E18008D9264 /* Images.xcassets */,
-				C26CBA7F19618AAD005CC76D /* tab */,
+				C26CBA7F19618AAD005CC76D /* MainView */,
 				5660EB6719599E18008D9264 /* Supporting Files */,
 			);
 			path = "LeXiang100 Agent";
@@ -253,6 +251,12 @@
 		5660EB6719599E18008D9264 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5610F50B196ECC7700670856 /* TestData.h */,
+				5610F50C196ECC7700670856 /* TestData.m */,
+				DCC3D624196C21CD0069B605 /* AddresseBookTableViewController.h */,
+				DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */,
+				DCC3D627196C21FF0069B605 /* TableLevle2TableViewController.h */,
+				DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */,
 				C239F835196981550043DA26 /* UIColorForiOS7Colors.h */,
 				C239F836196981550043DA26 /* UIColorForiOS7Colors.m */,
 				5660EB6819599E18008D9264 /* LeXiang100 Agent-Info.plist */,
@@ -281,7 +285,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C26CBA7F19618AAD005CC76D /* tab */ = {
+		C26CBA7F19618AAD005CC76D /* MainView */ = {
 			isa = PBXGroup;
 			children = (
 				C2E3FCEC1964F177006C7975 /* LoginViewController.h */,
@@ -290,8 +294,12 @@
 				C2E3FCF519668A39006C7975 /* UpdateCheckingViewController.m */,
 				C2E3FCF719669B30006C7975 /* PayRecordViewController.h */,
 				C2E3FCF819669B30006C7975 /* PayRecordViewController.m */,
+				DCC3D63E196C23040069B605 /* PayViewController.h */,
+				DCC3D63F196C23040069B605 /* PayViewController.m */,
+				DCC3D641196C23650069B605 /* PayValueViewController.h */,
+				DCC3D642196C23650069B605 /* PayValueViewController.m */,
 			);
-			name = tab;
+			name = MainView;
 			sourceTree = "<group>";
 		};
 		C26CBA831961901D005CC76D /* resourses */ = {
@@ -343,30 +351,6 @@
 				C239F866196BE1C20043DA26 /* update_btn_sel.9.png */,
 			);
 			name = resourses;
-			sourceTree = "<group>";
-		};
-		DCC3D622196C20C50069B605 /* pay */ = {
-			isa = PBXGroup;
-			children = (
-				DCC3D63E196C23040069B605 /* PayViewController.h */,
-				DCC3D63F196C23040069B605 /* PayViewController.m */,
-				DCC3D641196C23650069B605 /* PayValueViewController.h */,
-				DCC3D642196C23650069B605 /* PayValueViewController.m */,
-			);
-			name = pay;
-			sourceTree = "<group>";
-		};
-		DCC3D623196C21B80069B605 /* ui */ = {
-			isa = PBXGroup;
-			children = (
-				DCC3D624196C21CD0069B605 /* AddresseBookTableViewController.h */,
-				DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */,
-				DCC3D627196C21FF0069B605 /* TableLevle2TableViewController.h */,
-				DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */,
-				DCC3D629196C21FF0069B605 /* UIColorForiOS7Colors.h */,
-				DCC3D62A196C21FF0069B605 /* UIColorForiOS7Colors.m */,
-			);
-			name = ui;
 			sourceTree = "<group>";
 		};
 		DCC3D62D196C22500069B605 /* conn */ = {
@@ -524,12 +508,12 @@
 			files = (
 				DCC3D62B196C21FF0069B605 /* TableLevle2TableViewController.m in Sources */,
 				DCC3D640196C23040069B605 /* PayViewController.m in Sources */,
-				DCC3D62C196C21FF0069B605 /* UIColorForiOS7Colors.m in Sources */,
 				DCC3D633196C227B0069B605 /* DES3Util.m in Sources */,
 				C2E3FCF919669B30006C7975 /* PayRecordViewController.m in Sources */,
 				C2E3FCEE1964F177006C7975 /* LoginViewController.m in Sources */,
 				C2E3FCF619668A39006C7975 /* UpdateCheckingViewController.m in Sources */,
 				DCC3D643196C23650069B605 /* PayValueViewController.m in Sources */,
+				5610F50D196ECC7700670856 /* TestData.m in Sources */,
 				DCC3D632196C227B0069B605 /* ConnectionAPI.m in Sources */,
 				DCC3D626196C21CD0069B605 /* AddresseBookTableViewController.m in Sources */,
 				5660EB7119599E18008D9264 /* AppDelegate.m in Sources */,

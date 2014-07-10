@@ -24,7 +24,6 @@
 @synthesize payNumButton;
 @synthesize phoneText;
 @synthesize payNumVaue;
-@synthesize dic;
 
 extern NSMutableDictionary * payInfoDic;
 

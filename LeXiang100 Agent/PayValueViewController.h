@@ -45,6 +45,5 @@
 @property (nonatomic,assign) NSArray *arrayImage;
 @property (nonatomic,assign)UITextField * phoneText;
 @property (nonatomic,assign)NSString * payNumVaue;//充值金额
-@property (nonatomic,assign)NSMutableDictionary *dic;
 
 @end
