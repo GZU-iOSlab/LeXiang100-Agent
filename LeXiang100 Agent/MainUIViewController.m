@@ -55,29 +55,10 @@
         NSLog(@"!!%f",self.view.frame.size.height);
         
         self.title = @"中国移动通信-乐享100";
-       
-
-        
     // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
-
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"个人信息" style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
-  
-        UITextView * background = [[[UITextView alloc]init]autorelease];
-        background.frame = self.view.frame;
-        
-        
-        //背景框
-        UITextField * backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/35, viewHeight/60, viewWidth/1.1, viewHeight/1.2) ];
-        
-        backgroundText.enabled = NO;
-        backgroundText.borderStyle = UITextBorderStyleRoundedRect;
-        backgroundText.backgroundColor = [UIColor clearColor];
-        backgroundText.autoresizesSubviews = YES;
-        [self.view addSubview:backgroundText];
-        backgroundText.delegate = self;
-        [self.view addSubview:backgroundText];
-        
+        self.view.backgroundColor = [UIColor whiteColor];
         
         //营销活动
         UIImage * markingImg = [UIImage imageNamed:@"main_marketing_normal.jpg"];
@@ -224,6 +205,16 @@
 - (void)dealloc{
     [super dealloc];
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    classTableview.hidden =YES;
+    tableShowed = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    classTableview.hidden =YES;
+    tableShowed = NO;
 }
 
 -(void)login{
