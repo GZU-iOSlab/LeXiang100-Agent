@@ -46,7 +46,7 @@ extern NSMutableDictionary * payInfoDic;
         addressBook.uerInfoArray = [[NSMutableArray alloc]init];
         
         //背景框
-        UITextField * backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight/2) ];
+        UITextField * backgroundText = [[[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight/2) ]autorelease];
         backgroundText.enabled = NO;
         backgroundText.borderStyle = UITextBorderStyleRoundedRect;
         backgroundText.backgroundColor = [UIColor lightTextColor];
@@ -193,7 +193,8 @@ extern NSMutableDictionary * payInfoDic;
 
 - (void)toPayPage{
     
-    NSString * number = [[[NSString alloc]init]autorelease];
+    NSString * number;// = [[[NSString alloc]init]autorelease];
+    
     if ([phoneText.text isEqualToString:@""]) {
         [connectionAPI showAlertWithTitle:@"请输入手机号" AndMessages:@"手机号码不能为空,请检查后重新输入！"];
     }else{
@@ -261,7 +262,7 @@ extern NSMutableDictionary * payInfoDic;
     if(cell==nil)
     {
         //cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault:CellIdentifier];
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
         
     }
     // if(indexPath.section==0)

@@ -36,7 +36,7 @@
             self.view.backgroundColor = [UIColor whiteColor];
         }
         
-        UIScrollView *scrollview=[[UIScrollView alloc] initWithFrame:self.view.frame];
+        UIScrollView *scrollview=[[[UIScrollView alloc] initWithFrame:self.view.frame]autorelease];
         scrollview.contentSize=CGSizeMake(viewWidth, viewHeight*1.1);
         scrollview.showsHorizontalScrollIndicator=FALSE;
         scrollview.showsVerticalScrollIndicator=TRUE;
@@ -70,7 +70,7 @@
         [self.view addSubview:Lexiang100];
         
         //版本号标题
-        UILabel * version = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/3, viewHeight/20)];
+        UILabel * version = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/2-viewWidth/7+viewWidth/60, viewHeight/6-viewHeight/80+viewHeight/40, viewWidth/3, viewHeight/20)]autorelease];
         version.text = @"版 本 号：1.0.0";
         version.font=font1;
         version.center=CGPointMake(viewWidth/2, viewHeight/3);
@@ -79,7 +79,7 @@
         [self.view addSubview:version];
         
         //检查更新按钮
-        UIButton *updateButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/3, viewWidth/4, viewHeight/20)];
+        UIButton *updateButton=[[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/3+viewWidth/70, viewHeight/3, viewWidth/4, viewHeight/20)]autorelease];
         updateButton.backgroundColor=myColorRGB;
         updateButton.center=CGPointMake(viewWidth/2, viewHeight/2.5);
         updateButton.backgroundColor = [UIColor colorWithRed:0.27f green:0.85f blue:0.46f alpha:1.0f];
@@ -97,7 +97,7 @@
         [self.view addSubview:copyright];
         
         //乐享版权
-        UILabel *  copyright_c= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth, viewHeight/20)];
+        UILabel *  copyright_c= [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth, viewHeight/20)]autorelease];
         copyright_c.center = CGPointMake(viewWidth/2, viewHeight/1.8);
         copyright_c.text = @"Copyright© 2010 乐享100.All Right Rreserved.";
         copyright_c.font=font1;

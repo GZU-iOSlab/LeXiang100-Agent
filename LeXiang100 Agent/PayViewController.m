@@ -59,7 +59,7 @@ extern NSMutableDictionary * payInfoDic;
         
         [self.view addSubview:phoneLabel];
         
-        UILabel * phoneLabelValue = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/20 + viewHeight/4, viewHeight/30 + viewHeight/40, viewWidth/2, viewHeight/15)];
+        UILabel * phoneLabelValue = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/20 + viewHeight/4, viewHeight/30 + viewHeight/40, viewWidth/2, viewHeight/15)]autorelease];
         phoneLabelValue.text = [payInfoDic objectForKey:@"phoneNum"];
         phoneLabelValue.font = [UIFont boldSystemFontOfSize:viewHeight/30];
         phoneLabelValue.textColor = [UIColor redColor];
@@ -67,7 +67,7 @@ extern NSMutableDictionary * payInfoDic;
         phoneLabelValue.userInteractionEnabled = NO;
         [self.view addSubview:phoneLabelValue];
         
-        UILabel * payNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/20, viewHeight/10 + viewHeight/40, viewWidth/2.5, viewHeight/15)];
+        UILabel * payNumLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/20, viewHeight/10 + viewHeight/40, viewWidth/2.5, viewHeight/15)]autorelease];
         payNumLabel.text = @"   充值金额:";
         payNumLabel.font = [UIFont boldSystemFontOfSize:viewHeight/30];
        
@@ -75,7 +75,7 @@ extern NSMutableDictionary * payInfoDic;
         payNumLabel.userInteractionEnabled = NO;
         [self.view addSubview:payNumLabel];
         
-        UILabel * payNumLabelValue = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/20 + viewHeight/4, viewHeight/10 + viewHeight/40, viewWidth/2,viewHeight/15)];
+        UILabel * payNumLabelValue = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/20 + viewHeight/4, viewHeight/10 + viewHeight/40, viewWidth/2,viewHeight/15)]autorelease];
         payNumLabelValue.text = [payInfoDic objectForKey:@"payNum"];
         payNumLabelValue.textColor = [UIColor redColor];
         payNumLabelValue.font = [UIFont boldSystemFontOfSize:viewHeight/30];

@@ -142,7 +142,7 @@
         [self.view addSubview:copyright];
         
         //乐享版权
-        UILabel *  copyright_c= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth/1.5, viewHeight/20)];
+        UILabel *  copyright_c= [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth/1.5, viewHeight/20)]autorelease];
         //copyright_c.center = CGPointMake(viewWidth/2, viewHeight/0.8);
         copyright_c.text = @"Copyright© 2010 乐享100.All Right Rreserved.";
         copyright_c.center=CGPointMake(viewWidth/2, viewHeight*0.75);

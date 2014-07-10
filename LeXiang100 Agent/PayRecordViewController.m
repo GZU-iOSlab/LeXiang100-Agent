@@ -253,7 +253,7 @@
     static NSString * identifier = @"basis-cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (nil == cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier]autorelease];
         
     }    // Configure the cell...
     NSString * text = [self.tableArray objectAtIndex:indexPath.row];

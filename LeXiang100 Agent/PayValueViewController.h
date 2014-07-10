@@ -21,7 +21,7 @@
 
 //#import "PayInfo.h"
 
-@interface PayValueViewController : UIViewController<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface PayValueViewController : UIViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *array;
     UIButton *feedbackButton;

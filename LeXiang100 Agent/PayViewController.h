@@ -16,8 +16,6 @@
 @interface PayViewController : UIViewController<UITextFieldDelegate>{
     
     UITextField * bossPWD;
-
-    
     AddresseBookTableViewController * addressBook;
     UILabel * busiLabel;
     UITextField * busiText;

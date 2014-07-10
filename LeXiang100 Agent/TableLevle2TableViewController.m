@@ -83,9 +83,7 @@
     }    // Configure the cell...
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     //NSString * text = [tableArray objectAtIndex:indexPath.row];
-    NSString * text = [[NSString init] alloc];
-    text = @"暂无业务";
-    cell.textLabel.text = text;
+    cell.textLabel.text =  @"暂无业务";
     cell.textLabel.font = [UIFont systemFontOfSize:20];
    // cell.detailTextLabel.text = @"haha";
     cell.detailTextLabel.text = [[self.dataSources objectAtIndex:indexPath.row]objectForKey:@"busiMoney"];
@@ -179,7 +177,7 @@
     //如果没重复
     if (!isCollected) {
         //把resultArray这个数组存入程序指定的一个文件里
-        NSMutableArray * writeArray = [[NSMutableArray alloc]initWithArray:readArray];
+        NSMutableArray * writeArray = [[[NSMutableArray alloc]initWithArray:readArray]autorelease];
         [writeArray addObject:collectedBusi];
         [writeArray writeToFile:[self documentsPath:@"collectedBusi.txt"] atomically:YES];
         NSString * str =[NSString stringWithFormat: @"%@收藏成功",collectedName ];
