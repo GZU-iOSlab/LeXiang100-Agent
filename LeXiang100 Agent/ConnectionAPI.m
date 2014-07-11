@@ -337,8 +337,21 @@ extern NSMutableDictionary * UserInfo;
 
 //获取动态验证码，接口6
 -(void)acquireAgentVerifyWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Phone:(NSString *)phone{
-    [self getSoapFromInterface:interface Parameter1:parameter1 Value1:phone];
     [self showAlerView];
+    if (testDataOn) {
+        [getXMLResults setString:@""];
+        [getXMLResults appendString:@"acquireAgentVerify"];
+        needToAnalysis = YES;
+        NSData *aData = [testData.verify dataUsingEncoding: NSUTF8StringEncoding];
+        [soapResults setString:@""];
+        [soapResults appendString:testData.verify];
+        resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        [resultDic setValue:testData.verify forKey:@"verify"];
+        NSXMLParser * test;
+        NSString * testString;
+        [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
+    }else
+    [self getSoapFromInterface:interface Parameter1:parameter1 Value1:phone];
 }
 
 //代理商登录手机客户端，接口7
@@ -505,6 +518,12 @@ extern NSMutableDictionary * UserInfo;
         else if ([getXMLResults rangeOfString:@"payMoneyToCustPhone"].length>0){
             if ([soapResults isEqualToString:@"0"]) {
                 //NSLog(@"payMoneyToCustPhone:%@",resultDic);
+            }
+        }
+        //验证码
+        else if ([getXMLResults rangeOfString:@"acquireAgentVerify"].length>0){
+            if (soapResults != NULL) {
+                [nc postNotificationName:@"acquireAgentVerify" object:self userInfo:d];
             }
         }
     }
