@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @interface TestData : NSObject
 @property (nonatomic,retain) NSString * payment;                //缴费         接口1
 @property (nonatomic,retain) NSString * paymentList;            //缴费金额      接口2

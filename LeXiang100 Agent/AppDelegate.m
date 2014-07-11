@@ -16,16 +16,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //文件级变量初始化
+    nc = [NSNotificationCenter defaultCenter];
+    soap = [[ConnectionAPI alloc]init];
+    //++++++++++++++++测试数据+++++++++++++++
+    testData = [[TestData alloc]init];
+    testDataOn = YES;
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     //self.window.backgroundColor = [UIColor whiteColor];
     self.viewController = [[MainUIViewController alloc] init];
     //[[IQKeyboardManager sharedManager] setEnable:YES];
     //[[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:50];
-    //LoginViewController * login = [[LoginViewController alloc]init];
-    self.nav = [[UINavigationController alloc]initWithRootViewController:self.viewController];
+    LoginViewController * login = [[LoginViewController alloc]init];
+    self.nav = [[UINavigationController alloc]initWithRootViewController:login];
     self.window.rootViewController = self.nav;
     [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 

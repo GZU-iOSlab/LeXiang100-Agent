@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "DES3Util.h"
-
+#import "TestData.h"
 #import <math.h>
 
-@interface connectionAPI : NSObject<NSXMLParserDelegate, NSURLConnectionDelegate>{
+@interface ConnectionAPI : NSObject<NSXMLParserDelegate, NSURLConnectionDelegate>{
     
     BOOL needToAnalysis;
 }

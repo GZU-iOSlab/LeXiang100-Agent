@@ -15,8 +15,8 @@
 
 @implementation MainUIViewController
 
-
-
+extern TestData * testData;
+extern BOOL testDataOn;
 @synthesize resultArray;
 @synthesize classTableview;
 @synthesize array;
@@ -198,8 +198,19 @@
             array=arrayValue;
             tableShowed = NO;
         }
+        
+        
+        
+        
     }
     return self;
+}
+
++ (void)testDataMode{
+    if (testDataOn == YES) {
+        testDataOn = NO;
+    }else
+    testDataOn = YES;
 }
 
 - (void)dealloc{

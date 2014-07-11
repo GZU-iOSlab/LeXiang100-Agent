@@ -14,7 +14,7 @@
 #import "ConnectionAPI.h"
 #import "UpdateCheckingViewController.h"
 #import "PayRecordViewController.h"
-
+#import "TestData.h"
 
 @interface MainUIViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate>{
     

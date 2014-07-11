@@ -10,13 +10,15 @@
 #import <UIKit/UIKit.h>
 #import "MainUIViewController.h"
 #import "LoginViewController.h"
-
+#import "TestData.h"
+#import "ConnectionAPI.h"
 NSNotificationCenter *nc;
 NSString * phoneNumber;
 NSMutableString * service;
 NSMutableDictionary * payInfoDic;
-
-
+TestData * testData;
+BOOL testDataOn;
+ConnectionAPI * soap;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -25,7 +25,8 @@
 
 
 @implementation LoginViewController
-
+extern NSNotificationCenter *nc;
+extern ConnectionAPI * soap;
 @synthesize backgroundText;
 @synthesize loginNameText;
 @synthesize loginPasswordText;
@@ -41,7 +42,8 @@
         // Custom initialization
         self.view .backgroundColor=[UIColor scrollViewTexturedBackgroundColor];
         
-        
+        [nc addObserver:self selector:@selector(loginFeedback:) name:@"agentLogin" object:nil];
+        mainView = [[MainUIViewController alloc]init];
         
         //乐享图标
         UIImage * Image = [UIImage imageNamed:@"login_title.png"];
@@ -130,6 +132,7 @@
         loginBtn.center=CGPointMake(viewWidth/2-viewWidth/20, viewHeight/4+viewHeight/40);
         loginBtn.backgroundColor=[UIColor colorWithRed:(63.0/255.0) green:(165.0/255.0) blue:(173.0/255.0) alpha:0];
         loginBtn.titleLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+        [loginBtn addTarget:self action:@selector(loginWithName:AndPassword:AndVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
         [self.backgroundText addSubview:loginBtn];
         
         //乐享版权标题
@@ -181,6 +184,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)loginWithName:(NSString *)name AndPassword:(NSString *)password AndVerifyCode:(NSString *)verifyCode{
+    [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"phone" Phone:@"15585867996" Parameter2:@"passWord" passWord:@"123456" Parameter3:@"verifyCode" VerifyCode:@"xvyf"];
+}
+
+- (void)loginFeedback:(NSNotification *)note{
+    [self.navigationController pushViewController:mainView animated:YES];
+}
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (textField == backgroundText) {

@@ -9,7 +9,7 @@
 
 #import "ConnectionAPI.h"
 
-@implementation connectionAPI
+@implementation ConnectionAPI
 
 
 @synthesize webData;
@@ -22,13 +22,14 @@
 @synthesize alerts;
 @synthesize elementFound;
 
-
-
+extern TestData * testData;
+extern BOOL testDataOn;
 extern NSNotificationCenter *nc;
 extern NSMutableDictionary * UserInfo;
 
--(void) RSAEncrypt{
-   
+-(ConnectionAPI *) init{
+    getXMLResults = [[NSMutableString alloc]init];
+    return self;
 }
 - (void)getSoapFromInterface:(NSString *)interface {
 
@@ -299,7 +300,6 @@ extern NSMutableDictionary * UserInfo;
     [self showAlerView];
 }
 
-
 //查询缴费历史记录，接口3
 -(void)queryPayHistoryWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 Month:(NSString *)month Parameter3:(NSString *)parameter3 Start:(NSString *)start Parameter4:(NSString *)parameter4 Token:(NSString *)token{
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:opPhone Parameter2:parameter2 Value2:month Parameter3:parameter3 Value3:start Parameter4:parameter4 Value4:token];
@@ -327,8 +327,20 @@ extern NSMutableDictionary * UserInfo;
 
 //代理商登录手机客户端，接口7
 -(void)agentLoginWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Phone:(NSString *)phone Parameter2:(NSString *)parameter2 passWord:(NSString *)passWord Parameter3:(NSString *)parameter3 VerifyCode:(NSString *)verifyCode{
-    [self getSoapForInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:passWord Parameter3:parameter3 Value3:verifyCode];
     [self showAlerView];
+    if (testDataOn) {
+        [getXMLResults setString:@""];
+        [getXMLResults appendString:@"agentLogin"];
+        needToAnalysis = YES;
+        NSData *aData = [testData.loginList dataUsingEncoding: NSUTF8StringEncoding];
+        
+        resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        NSXMLParser * test;
+        NSString * testString;
+        [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
+    }else
+    [self getSoapForInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:passWord Parameter3:parameter3 Value3:verifyCode];
+    
 }
 
 //查询营销活动列表,接口8
@@ -350,115 +362,6 @@ extern NSMutableDictionary * UserInfo;
     [self getSoapFromInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:newPwd];
     [self showAlerView];
 }
-
-
-//- (NSData *)PublicKeyItems
-//{
-//    NSString *exp = @"010001";
-//    NSLog(@"Publickeyexp -%@",exp);
-//    NSData *publickeyexpdata= [self stringasdata:exp];
-//    NSLog(@"publickeyexpdata = %@",publickeyexpdata);
-//    NSString *mod = @"008903fb6d15f352ed3b45add3216f632f7139954a5631337aba7d645ed38482e3a810b4db26aab4d1df58c147230f0c75631a3dd0554b50de44e79f4fcf205c89fd3f80e0ff8d16c2e9f56ed3ab177953d54c9c30357d04e677cedd9912906ef8a046d7b0185b7f2022a8e435b0c6ecaef93f089fc3aa3f3677550b5d842046c7";
-//    NSLog(@"Publickeymod -%@",mod);
-//    NSData *publickeymoddata= [self stringasdata:mod];
-//    NSLog(@"publickeymod = %@",publickeyexpdata);
-//    
-//    NSMutableArray *publicarray = [[NSMutableArray alloc] init];
-//    [publicarray addObject:publickeyexpdata];
-//    [publicarray addObject:publickeymoddata];
-//    NSData *testData = [publicarray berData];
-//    NSLog(@"testdata = %@",testData);
-//    NSMutableArray *testArray2 = [testData berDecode];
-//    NSLog(@"testarray = %@",testArray2);
-//    //STAssertEqualObjects(testArray, testArray2,
-//    // @"Big items decode failed");
-//    
-//    NSData *testData2 = [testArray2 berData];
-//    NSLog(@"PublicKeyData using Publickeyitems = %@",testData2);
-//    return testData2;
-//}
-//-(NSData *)stringasdata:(NSString *)command {
-//    command = [command stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    command = [command stringByReplacingOccurrencesOfString:@"<" withString:@""];
-//    command = [command stringByReplacingOccurrencesOfString:@">" withString:@""];
-//    NSLog(@"command= %@",command);
-//    NSMutableData *commandToSend= [[NSMutableData alloc] init]; unsigned char whole_byte;
-//    int len = [command length];
-//    int n = len/2;
-//    char byte_chars[3] = {'\0','\0','\0'}; int i;
-//    for (i=0; i < n; i++) {
-//        byte_chars[0] = [command characterAtIndex:i*2]; byte_chars[1] = [command characterAtIndex:i*2+1]; whole_byte = strtol(byte_chars, NULL, 16); [commandToSend appendBytes:&whole_byte length:1];
-//    }
-//    // [commandToSend setLength:[commandToSend length]-1];
-//    return commandToSend; 
-//    
-//}
-//
-//
-////获取公钥
-//-(SecKeyRef)getPublicKey{
-//    
-//    
-//    NSString *certPath = [[NSBundle mainBundle] pathForResource:@"keystore" ofType:@"p7b"];
-//
-//    SecCertificateRef myCertificate = nil;
-//    NSData *certificateData = [[NSData alloc] initWithContentsOfFile:certPath];
-//    myCertificate = SecCertificateCreateWithData(kCFAllocatorDefault, (CFDataRef)certificateData);
-//    SecPolicyRef myPolicy = SecPolicyCreateBasicX509();
-//    SecTrustRef myTrust;
-//    OSStatus status = SecTrustCreateWithCertificates(myCertificate,myPolicy,&myTrust);
-//    SecTrustResultType trustResult;
-//    if (status == noErr) {
-//        
-//        status = SecTrustEvaluate(myTrust, &trustResult);
-//    }
-//    return SecTrustCopyPublicKey(myTrust);
-//}
-//
-////加密
-//-(NSString *)RSAEncrypotoTheData:(NSString *)plainText
-//{
-//    
-//    SecKeyRef publicKey=nil;
-//    publicKey=[self getPublicKey];
-//    size_t cipherBufferSize = SecKeyGetBlockSize(publicKey);
-//    uint8_t *cipherBuffer = NULL;
-//    
-//    cipherBuffer = malloc(cipherBufferSize * sizeof(uint8_t));
-//    memset((void *)cipherBuffer, 0*0, cipherBufferSize);
-//    
-//    NSData *plainTextBytes = [plainText dataUsingEncoding:NSUTF8StringEncoding];
-//    int blockSize = cipherBufferSize-11;  // 这个地方比较重要是加密问组长度
-//    int numBlock = (int)ceil([plainTextBytes length] / (double)blockSize);
-//    NSMutableData *encryptedData = [[NSMutableData alloc] init];
-//    for (int i=0; i<numBlock; i++) {
-//        int bufferSize = MIN(blockSize,[plainTextBytes length]-i*blockSize);
-//        NSData *buffer = [plainTextBytes subdataWithRange:NSMakeRange(i * blockSize, bufferSize)];
-//        OSStatus status = SecKeyEncrypt(publicKey,
-//                                        kSecPaddingPKCS1,
-//                                        (const uint8_t *)[buffer bytes],
-//                                        [buffer length],
-//                                        cipherBuffer,
-//                                        &cipherBufferSize);
-//        if (status == noErr)
-//        {
-//            NSData *encryptedBytes = [[[NSData alloc]
-//                                       initWithBytes:(const void *)cipherBuffer
-//                                       length:cipherBufferSize] autorelease];
-//            [encryptedData appendData:encryptedBytes];
-//        }
-//        else
-//        {
-//            return nil;
-//        }
-//    }
-//    if (cipherBuffer)
-//    {
-//        free(cipherBuffer);
-//    }
-//    NSString *encrypotoResult=[NSString stringWithFormat:@"%@",[encryptedData base64EncodedString]];
-//    return encrypotoResult;
-//}
 
 #pragma mark -
 #pragma mark URL Connection Data Delegate Methods
@@ -490,10 +393,10 @@ extern NSMutableDictionary * UserInfo;
     NSLog(@"Connection failed! Error - ");
     //%@ %@",[error localizedDescription],[[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
     //如果显示alert   取消
-    if (self.alerts.visible == YES) {
+    //if (self.alerts.visible == YES) {
         [self dimissAlert:self.alerts];
-    }
-    [connectionAPI showAlertWithTitle:@"网络连接错误" AndMessages:@"网络连接错误,请重新尝试！"];
+    //}
+    [ConnectionAPI showAlertWithTitle:@"网络连接错误" AndMessages:@"网络连接错误,请重新尝试！"];
     [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
     needToAnalysis = NO;
 }
@@ -512,13 +415,13 @@ extern NSMutableDictionary * UserInfo;
         [self dimissAlert:self.alerts];
     }
     if ([getXMLResults isEqualToString:@""]) {
-        [connectionAPI showAlertWithTitle:@"网络返回为空" AndMessages:@"网络返回为空,请重新尝试！"];
+        [ConnectionAPI showAlertWithTitle:@"网络返回为空" AndMessages:@"网络返回为空,请重新尝试！"];
         [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
         needToAnalysis = NO;
     }
     else if([getXMLResults rangeOfString:@"faultcode"].length>0){
         resultDic = [[[NSDictionary alloc]init]autorelease];
-        [connectionAPI showAlertWithTitle:@"错误" AndMessages:@"调用地址或参数错误！"];
+        [ConnectionAPI showAlertWithTitle:@"错误" AndMessages:@"调用地址或参数错误！"];
         needToAnalysis = NO;
     }
 
@@ -536,7 +439,6 @@ extern NSMutableDictionary * UserInfo;
 // 开始解析一个元素名
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
     if ([elementName isEqualToString:@"return"]) {
-        
         elementFound = YES;
     }
 }
@@ -554,7 +456,7 @@ extern NSMutableDictionary * UserInfo;
         
         //参数错误时返回soap中return为空
         if ([soapResults isEqualToString:@"{}"]) {
-            [connectionAPI showAlertWithTitle:@"输入参数错误" AndMessages:@"输入参数错误，请检查输入项！"];
+            [ConnectionAPI showAlertWithTitle:@"输入参数错误" AndMessages:@"输入参数错误，请检查输入项！"];
             [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
             needToAnalysis = NO;
             //||soapResults.length<4
@@ -575,11 +477,35 @@ extern NSMutableDictionary * UserInfo;
         
         NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObject:resultDic forKey:@"1"];
         //版本更新
-             if ([getXMLResults rangeOfString:@"queryVersionInfoResponse"].length>0 ) {
-                 [self showAlerView];
-             }
+        if ([getXMLResults rangeOfString:@"queryVersionInfoResponse"].length>0 ) {
+            [self showAlerView];
+        }else if ([getXMLResults rangeOfString:@"agentLogin"].length > 0){
+            //做判断 默认成功
+            [nc postNotificationName:@"agentLogin" object:self userInfo:d];
+        }
+    }
+    //如果显示alert   取消   bug
+    if (self.alerts.visible == YES) {
+        [self dimissAlert:self.alerts];
     }
 }
+
+// 解析整个文件结束后
+- (void)parserDidEndDocument:(NSXMLParser *)parser {
+    if (soapResults) {
+        soapResults = nil;
+    }
+
+}
+
+// 出错时，例如强制结束解析
+- (void) parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+    if (soapResults) {
+        soapResults = nil;
+    }
+}
+
+
 // 结束解析这个元素名
 //-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 //    

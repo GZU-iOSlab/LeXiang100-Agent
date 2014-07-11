@@ -12,7 +12,7 @@
 @synthesize payment,paymentList,payRecordList,updateCheckList,verify,loginList,marketList,modifyPasswrldList,activitiesList;
 - (TestData*)init{
     //1缴费金额列表
-    self.paymentList = [[NSString alloc]initWithString:@"[{&quot;id&quot;:1,&quot;payMoney&quot;:&quot;10.00&quot;,&quot;status&quot;:0,&quot;paySort&quot;:1},{&quot;id&quot;:2,&quot;payMoney&quot;:&quot;20.00&quot;,&quot;status&quot;:0,&quot;paySort&quot;:2},{&quot;id&quot;:3,&quot;payMoney&quot;:&quot;30.00&quot;,&quot;status&quot;:0,&quot;paySort&quot;:3},{&quot;id&quot;:4,&quot;payMoney&quot;:&quot;50.00&quot;,&quot;status&quot;:0,&quot;paySort&quot;:4},{&quot;id&quot;:5,&quot;payMoney&quot;:&quot;100.00&quot;,&quot;status&quot;:0,&quot;paySort&quot;:5},{&quot;id&quot;:6,&quot;payMoney&quot;:&quot;200.00&quot;,&quot;status&quot;:0,&quot;paySort&quot;:6},{&quot;id&quot;:7,&quot;payMoney&quot;:&quot;300.00&quot;,&quot;status&quot;:0,&quot;paySort&quot;:7}]"];
+    self.paymentList = [[NSString alloc]initWithString:@"[{\"id\":1,\"payMoney\":\"10.00\",\"status\":0,\"paySort\":1},{\"id\":2,\"payMoney\":\"20.00\",\"status\":0,\"paySort\":2},{\"id\":3,\"payMoney\":\"30.00\",\"status\":0,\"paySort\":3},{\"id\":4,\"payMoney\":\"50.00\",\"status\":0,\"paySort\":4},{\"id\":5,\"payMoney\":\"100.00\",\"status\":0,\"paySort\":5},{\"id\":6,\"payMoney\":\"200.00\",\"status\":0,\"paySort\":6},{\"id\":7,\"payMoney\":\"300.00\",\"status\":0,\"paySort\":7}]"];
     //2缴费
     self.payment = [[NSString alloc]initWithString:@"0"];
     //3缴费历史
@@ -22,7 +22,7 @@
     //6获取验证码
     self.verify = [[NSString alloc]initWithString:@"XT5Y"];
     //7登录接口
-    self.loginList = [[NSString alloc]initWithString:@"{&quot;status&quot;:4,&quot;token&quot;:&quot;be93439a-4425-47de-b281-4f41afb7ff60&quot;,&quot;staffName&quot;:&quot;乐享测试1&quot;,&quot;staffId&quot;:&quot;88888888&quot;,&quot;ifFirstLogin&quot;:0}"];
+    self.loginList = [[NSString alloc]initWithString:@"{\"status\":4,\"token\":\"be93439a-4425-47de-b281-4f41afb7ff60\",\"staffName\":\"乐享测试1\",\"staffId\":\"88888888\",\"ifFirstLogin\":0}"];
     //8营销活动接口
     self.marketList = [[NSString alloc]initWithString:@"[{&quot;id&quot;:3,&quot;cityCode&quot;:&quot;851&quot;,&quot;campaignName&quot;:&quot;预交50元送50元话费（网龄3-12个月）&quot;,&quot;campaignDesc&quot;:&quot;预交50元送50元话费（网龄3-12个月）&quot;,&quot;status&quot;:0,&quot;offerId&quot;:&quot;310000281701&quot;,&quot;campSort&quot;:1},{&quot;id&quot;:4,&quot;cityCode&quot;:&quot;851&quot;,&quot;campaignName&quot;:&quot;预交40元送50元话费（网龄12-36个月）&quot;,&quot;campaignDesc&quot;:&quot;预交40元送50元话费（网龄12-36个月）&quot;,&quot;status&quot;:0,&quot;offerId&quot;:&quot;310000281702&quot;,&quot;campSort&quot;:2}]"];
     //9活动办理接口

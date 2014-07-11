@@ -195,14 +195,14 @@ extern NSMutableDictionary * payInfoDic;
     NSString * number;// = [[[NSString alloc]init]autorelease];
     
     if ([phoneText.text isEqualToString:@""]) {
-        [connectionAPI showAlertWithTitle:@"请输入手机号" AndMessages:@"手机号码不能为空,请检查后重新输入！"];
+        [ConnectionAPI showAlertWithTitle:@"请输入手机号" AndMessages:@"手机号码不能为空,请检查后重新输入！"];
     }else{
         number = [phoneText.text substringWithRange:NSMakeRange(0,1)];
         if (phoneText.text.length != 11 || ![number isEqualToString:@"1"]) {
-            [connectionAPI showAlertWithTitle:@"号码错误" AndMessages:@"手机号码错误,请检查后重新输入！"];
+            [ConnectionAPI showAlertWithTitle:@"号码错误" AndMessages:@"手机号码错误,请检查后重新输入！"];
         }
         else if ([payNumVaue isEqualToString:@""]){
-            [connectionAPI showAlertWithTitle:@"提示" AndMessages:@"请输入充值金额！"];
+            [ConnectionAPI showAlertWithTitle:@"提示" AndMessages:@"请输入充值金额！"];
         } else {
             
             [payInfoDic setObject:phoneText.text forKey:@"phoneNum"];
