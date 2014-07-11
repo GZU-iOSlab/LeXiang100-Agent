@@ -29,6 +29,7 @@ extern NSMutableDictionary * UserInfo;
 
 -(ConnectionAPI *) init{
     getXMLResults = [[NSMutableString alloc]init];
+    soapResults = [[NSMutableString alloc]init];
     return self;
 }
 - (void)getSoapFromInterface:(NSString *)interface {
@@ -296,8 +297,23 @@ extern NSMutableDictionary * UserInfo;
 }
 //提交缴费请求，接口2
 - (void)payMoneyToCustPhoneWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)ophone Parameter2:(NSString *)parameter2 PayMoney:(NSString *)payMoney Parameter3:(NSString *)parameter3 CustPhone:(NSString *)custPhone Parameter4:(NSString *)parameter4 BossPwd:(NSString *)bossPwd Parameter5:(NSString *)parameter5 Token:(NSString *)token{
-    [self getSoapForInterface:interface Parameter1:parameter1 Value1:ophone Parameter2:parameter2 Value2:payMoney Parameter3:parameter3 Value3:custPhone Parameter4:parameter4 Value4:bossPwd Parameter5:parameter5 Value5:token];
     [self showAlerView];
+    if (testDataOn) {
+        [getXMLResults setString:@""];
+        [getXMLResults appendString:@"payMoneyToCustPhone"];
+        needToAnalysis = YES;
+        NSData *aData = [testData.payment dataUsingEncoding: NSUTF8StringEncoding];
+        [soapResults setString:@""];
+        [soapResults appendString:testData.payment];
+        resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        if (self.resultDic == nil) {
+            self.resultDic = [[NSDictionary alloc]init];
+        }
+        NSXMLParser * test;
+        NSString * testString;
+        [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
+    }else
+    [self getSoapForInterface:interface Parameter1:parameter1 Value1:ophone Parameter2:parameter2 Value2:payMoney Parameter3:parameter3 Value3:custPhone Parameter4:parameter4 Value4:bossPwd Parameter5:parameter5 Value5:token];
 }
 
 //查询缴费历史记录，接口3
@@ -479,9 +495,17 @@ extern NSMutableDictionary * UserInfo;
         //版本更新
         if ([getXMLResults rangeOfString:@"queryVersionInfoResponse"].length>0 ) {
             [self showAlerView];
-        }else if ([getXMLResults rangeOfString:@"agentLogin"].length > 0){
+        }
+        //客户登陆
+        else if ([getXMLResults rangeOfString:@"agentLogin"].length > 0){
             //做判断 默认成功
             [nc postNotificationName:@"agentLogin" object:self userInfo:d];
+        }
+        //缴费
+        else if ([getXMLResults rangeOfString:@"payMoneyToCustPhone"].length>0){
+            if ([soapResults isEqualToString:@"0"]) {
+                //NSLog(@"payMoneyToCustPhone:%@",resultDic);
+            }
         }
     }
     //如果显示alert   取消   bug

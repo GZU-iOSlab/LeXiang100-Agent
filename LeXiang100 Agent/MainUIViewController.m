@@ -14,7 +14,7 @@
 @end
 
 @implementation MainUIViewController
-
+extern ConnectionAPI * soap;
 extern TestData * testData;
 extern BOOL testDataOn;
 @synthesize resultArray;
@@ -58,6 +58,7 @@ extern BOOL testDataOn;
     // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"个人信息" style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"测试" style:UIBarButtonItemStyleBordered target:self action:@selector(test)];
         self.view.backgroundColor = [UIColor whiteColor];
         
         //营销活动
@@ -204,6 +205,10 @@ extern BOOL testDataOn;
         
     }
     return self;
+}
+
+- (void)test{
+    [soap payMoneyToCustPhoneWithInterface:@"payMoneyToCustPhone" Parameter1:@"opPhone" OpPhone:@"123" Parameter2:@"payMoney" PayMoney:@"payMoney" Parameter3:@"payMoney" CustPhone:@"payMoney" Parameter4:@"payMoney" BossPwd:@"payMoney" Parameter5:@"payMoney" Token:@"payMoney"];
 }
 
 + (void)testDataMode{
