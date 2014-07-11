@@ -186,7 +186,21 @@ extern ConnectionAPI * soap;
 */
 
 - (void)loginWithName:(NSString *)name AndPassword:(NSString *)password AndVerifyCode:(NSString *)verifyCode{
-    [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"phone" Phone:@"15585867996" Parameter2:@"passWord" passWord:@"123456" Parameter3:@"verifyCode" VerifyCode:@"xvyf"];
+    if ([loginNameText.text  isEqual: @""]) {
+        [ConnectionAPI showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
+        //[self showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
+    }else if ([loginPasswordText.text  isEqual: @""]){
+        [ConnectionAPI showAlertWithTitle:nil AndMessages:@"密码不能为空"];
+        //[self showAlertWithTitle:nil AndMessages:@"密码不能为空"];
+    }
+    else if([loginDPasswordText.text isEqualToString:@""])
+    {
+        [ConnectionAPI showAlertWithTitle:nil AndMessages:@"动态密码不能为空"];
+    }
+    else
+    {
+        [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"phone" Phone:@"15585867996" Parameter2:@"passWord" passWord:@"123456" Parameter3:@"verifyCode" VerifyCode:@"xvyf"];
+    }
 }
 
 - (void)loginFeedback:(NSNotification *)note{

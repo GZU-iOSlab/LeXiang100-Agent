@@ -547,7 +547,11 @@ extern NSMutableDictionary * UserInfo;
         soapResults = nil;
     }
 }
-
+-(void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
+    
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+    [alert show];
+}
 
 // 结束解析这个元素名
 //-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
