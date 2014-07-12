@@ -41,7 +41,7 @@ extern NSMutableDictionary * userDic;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.view .backgroundColor=[UIColor scrollViewTexturedBackgroundColor];
+        self.view.backgroundColor=[UIColor scrollViewTexturedBackgroundColor];
         
         [nc addObserver:self selector:@selector(loginFeedback:) name:@"agentLogin" object:nil];
         mainView = [[MainUIViewController alloc]init];
@@ -77,6 +77,7 @@ extern NSMutableDictionary * userDic;
         self.loginNameText.placeholder=@"乐享100注册的手机号码";
         self.loginNameText.clearButtonMode =UITextFieldViewModeWhileEditing;
         self.loginNameText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        [self.loginNameText becomeFirstResponder];
         [self.backgroundText addSubview:self.loginNameText];
         
         //密码输入标题
@@ -158,7 +159,7 @@ extern NSMutableDictionary * userDic;
         [self.view addSubview:copyright_c];
         
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
-            self.view .backgroundColor=[UIColor lightTextColor];
+            self.view.backgroundColor=[UIColor iOS7lightBlueColor];
             backgroundText.backgroundColor = [UIColor groupTableViewBackgroundColor];
         }
     }

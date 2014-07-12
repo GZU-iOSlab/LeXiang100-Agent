@@ -59,15 +59,15 @@ extern NSMutableDictionary * userDic;
         
         
         self.view.frame = [[UIScreen mainScreen] bounds];
-        
-        NSLog(@"!!%f",self.view.frame.size.height);
+        self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        //NSLog(@"!!%f",self.view.frame.size.height);
         
         self.title = @"中国移动通信-乐享100";
         // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"个人信息" style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"注销" style:UIBarButtonItemStyleBordered target:self action:@selector(test)];
-        self.view.backgroundColor = [UIColor whiteColor];
+        
         
         //营销活动
         UIImage * markingImg = [UIImage imageNamed:@"main_marketing_normal.jpg"];
@@ -157,11 +157,12 @@ extern NSMutableDictionary * userDic;
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
             self.view.backgroundColor = [UIColor lightTextColor];
-            UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
-            UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
-            imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
-            [self.view addSubview:imgViewMetal];
-            [self.view sendSubviewToBack:imgViewMetal];
+//            UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
+//            UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
+//            imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
+//            [self.view addSubview:imgViewMetal];
+//            [self.view sendSubviewToBack:imgViewMetal];
+            self.view.backgroundColor = [UIColor whiteColor];
         }
         
         //针对iPad的界面调整

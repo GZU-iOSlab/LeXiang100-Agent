@@ -236,8 +236,6 @@
 		5660EB6619599E18008D9264 /* LeXiang100 Agent */ = {
 			isa = PBXGroup;
 			children = (
-				5660EB8F19599E3B008D9264 /* MainUIViewController.h */,
-				5660EB9019599E3B008D9264 /* MainUIViewController.m */,
 				5660EB6F19599E18008D9264 /* AppDelegate.h */,
 				5660EB7019599E18008D9264 /* AppDelegate.m */,
 				DCC3D62D196C22500069B605 /* conn */,
@@ -288,6 +286,8 @@
 		C26CBA7F19618AAD005CC76D /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				5660EB8F19599E3B008D9264 /* MainUIViewController.h */,
+				5660EB9019599E3B008D9264 /* MainUIViewController.m */,
 				C2E3FCEC1964F177006C7975 /* LoginViewController.h */,
 				C2E3FCED1964F177006C7975 /* LoginViewController.m */,
 				C2E3FCF419668A39006C7975 /* UpdateCheckingViewController.h */,

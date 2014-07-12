@@ -305,7 +305,7 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.paymentList];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
@@ -326,7 +326,7 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.payment];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
@@ -348,7 +348,7 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.payRecordList];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
@@ -377,7 +377,7 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.updateCheckList];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
@@ -507,7 +507,7 @@ extern NSMutableDictionary * UserInfo;
         needToAnalysis = NO;
     }
     else if([getXMLResults rangeOfString:@"faultcode"].length>0){
-        resultDic = [[[NSDictionary alloc]init]autorelease];
+        resultDic = [[[NSMutableDictionary alloc]init]autorelease];
         [ConnectionAPI showAlertWithTitle:@"错误" AndMessages:@"调用地址或参数错误！"];
         needToAnalysis = NO;
     }
@@ -554,7 +554,7 @@ extern NSMutableDictionary * UserInfo;
         
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (resultDic == nil) {
-            resultDic = [[[NSDictionary alloc]init]autorelease];
+            resultDic = [[[NSMutableDictionary alloc]init]autorelease];
         }
     }
 }
