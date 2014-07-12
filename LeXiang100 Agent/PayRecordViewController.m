@@ -309,6 +309,7 @@ extern NSMutableDictionary * userDic;
         NSMutableString * startYearAndMonth = [[NSMutableString alloc]init];
         [startYearAndMonth appendString:startYear];
         [startYearAndMonth appendString:startMonth];
+        
         //[soap queryPayHistoryWithInterface:@"queryPayHistory" Parameter1:"opPhone" OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 Month:(NSString *)month Parameter3:(NSString *)parameter3 Start:(NSString *)start Parameter4:(NSString *)parameter4 Token:(NSString *)token
                                 //Parameter1:@"opPhone" ophone:name Parameter2:@"startMonth" StartMonth:startYearAndMonth Parameter3:@"endMonth" EndMonth:endYearAndMonth Parameter4:@"token" Token:token];
         
