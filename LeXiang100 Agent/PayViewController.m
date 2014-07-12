@@ -21,6 +21,7 @@ extern NSString * phoneNumber;
 extern NSString * service;
 extern NSMutableDictionary * payInfoDic;
 extern ConnectionAPI * soap;
+extern NSMutableDictionary * userDic;
 
 @synthesize alerts;
 
@@ -180,8 +181,8 @@ extern ConnectionAPI * soap;
         [self dimissAlert:alerts]; ;
     } else{
         
-        //代理商手机号和token要在登录之后获取========================================================================================================
-        [soap payMoneyToCustPhoneWithInterface:@"payMoneyToCustPhone" Parameter1:@"ophone" OpPhone:@"" Parameter2:@"payMoney" PayMoney:[payInfoDic objectForKey:@"payNum"] Parameter3:@"custPhone" CustPhone:[payInfoDic objectForKey:@"phoneNum"] Parameter4:@"bossPwd" BossPwd:bossPWD.text Parameter5:@"tobken" Token:@""];
+        [soap payMoneyToCustPhoneWithInterface:@"payMoneyToCustPhone" Parameter1:@"ophone" OpPhone:[userDic objectForKey:@"phone"] Parameter2:@"payMoney" PayMoney:[payInfoDic objectForKey:@"payNum"] Parameter3:@"custPhone" CustPhone:[payInfoDic objectForKey:@"phoneNum"] Parameter4:@"bossPwd" BossPwd:bossPWD.text Parameter5:@"tobken" Token:[userDic objectForKey:@"token"]];
+        NSLog(@"==%@==%@==",[userDic objectForKey:@"phone"], [userDic objectForKey:@"token"]);
     }
 }
 

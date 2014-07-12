@@ -30,7 +30,7 @@
     UIButton * buttonPaid;
     UIButton * buttonUpdate;
     UIButton * button7;
-    
+    NSString * staffId ;
     NSArray *arrayImage;
     
     BOOL tableShowed;

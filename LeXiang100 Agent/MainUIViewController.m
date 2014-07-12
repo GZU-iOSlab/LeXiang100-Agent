@@ -20,6 +20,7 @@ extern BOOL testDataOn;
 
 
 extern NSNotificationCenter *nc;
+extern NSMutableDictionary * userDic;
 
 @synthesize classTableview;
 @synthesize array;
@@ -65,7 +66,7 @@ extern NSNotificationCenter *nc;
         // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"个人信息" style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"测试" style:UIBarButtonItemStyleBordered target:self action:@selector(test)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"注销" style:UIBarButtonItemStyleBordered target:self action:@selector(test)];
         self.view.backgroundColor = [UIColor whiteColor];
         
         //营销活动
@@ -175,49 +176,57 @@ extern NSNotificationCenter *nc;
             buttonUpdate.frame =  CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 5, iconSizeX, iconSizeY);
             
             //classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
-            
-            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.2, viewHeight/100, viewWidth/2.8, viewHeight/6) style:UITableViewStylePlain];
-            
-            classTableview.delegate=self;
-            classTableview.dataSource=self;
-            classTableview.backgroundColor=[UIColor whiteColor];
-            [self.view addSubview:classTableview];
-            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/10);
-            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-            [arrayValue addObject:@"   工号 : 88888888"];
-            [arrayValue addObject:@"手机号: 18286057264"];
-            [arrayValue addObject:@"       密码修改  "];
-            [arrayValue addObject:@"          注销    "];
-            array=arrayValue;
-            tableShowed = NO;
-            
-        } else {
-            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.5, viewHeight/4, viewWidth/2, viewHeight/3.2)style:UITableViewStylePlain];
-            
-            classTableview.delegate=self;
-            classTableview.dataSource=self;
-            classTableview.backgroundColor=[UIColor whiteColor];
-            [self.view addSubview:classTableview];
-            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
-            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-            
-            [arrayValue addObject:@" 工号 : 88888888"];
-            [arrayValue addObject:@"手机号: 18286057264"];
-            [arrayValue addObject:@"         密码修改  "];
-            [arrayValue addObject:@"            注销    "];
-            array=arrayValue;
-            tableShowed = NO;
         }
+//            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.2, viewHeight/100, viewWidth/2.8, viewHeight/6) style:UITableViewStylePlain];
+//            
+//            classTableview.delegate=self;
+//            classTableview.dataSource=self;
+//            classTableview.backgroundColor=[UIColor whiteColor];
+//            [self.view addSubview:classTableview];
+//            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/10);
+//            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
+//            [arrayValue addObject:@"   工号 : 88888888"];
+//            [arrayValue addObject:@"手机号: 18286057264"];
+//            [arrayValue addObject:@"       密码修改  "];
+//            [arrayValue addObject:@"          注销    "];
+//            array=arrayValue;
+//            tableShowed = NO;
+//            
+//        } else {
+//            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.5, viewHeight/4, viewWidth/2, viewHeight/3.2)style:UITableViewStylePlain];
+//            
+//            classTableview.delegate=self;
+//            classTableview.dataSource=self;
+//            classTableview.backgroundColor=[UIColor whiteColor];
+//            [self.view addSubview:classTableview];
+//            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
+//            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
+//            
+//            [arrayValue addObject:@" 工号 : 88888888"];
+//            [arrayValue addObject:@"手机号: 18286057264"];
+//            [arrayValue addObject:@"         密码修改  "];
+//            [arrayValue addObject:@"            注销    "];
+//            array=arrayValue;
+//            tableShowed = NO;
+//        }
         
         
         
         
     }
     
-    
+    //staffId = [[NSString alloc]init];
+//    
+//    token = [userDic objectForKey:@"token"];
+//    staffId = [userDic objectForKey:@"staffId"];
+//    
+//    [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
+//    [staffId setDictionary:[[note userInfo] objectForKey:@"staffId"]];
+//    [staffName setDictionary:[[note userInfo] objectForKey:@"staffName"]];
+//    [userDic setDictionary:self.UserInfoDic];
     
     //定义存放soap返回数据的数组，适用于缴费列表接口
-    NSMutableArray * resultArray = [[NSMutableArray alloc] init];
+   // NSMutableArray * resultArray = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -273,7 +282,7 @@ extern NSNotificationCenter *nc;
 #pragma mark soapFeedback
 
 - (void)payPressedFeedback:(NSNotification *)note{
-    NSLog(@"进来了");
+  
     
     self.resultArray = (NSMutableArray*)[[note userInfo] objectForKey:@"1"];
     
@@ -292,27 +301,10 @@ extern NSNotificationCenter *nc;
 }
 //充值缴费
 -(void)payPressed:(id)sender {
-    // NSNotification * note = [[NSNotification init]alloc];
-    //======================================================================================
+  
     
-    [soap queryAllPayMoneysWithInterface:@"queryAllPayMoneys" Parameter1:@"token" Token:@""];
-    //
-    // NSArray * resultArray = (NSArray *)[note userInfo];
-    //
-    //    NSLog(@"%d", resultArray.count);
-    //    for (int i=0; i<resultArray.count; i++)
-    //  {
-    //        NSLog(@"第%d个元素---%@", i, [resultArray[i] objectForKey:@"payMoney"]);
-    ////        payMentArray[i] = [resultArray[i] objectForKey:@"payMoney"];
-    //  }//            if ([soapResults rangeOfString:@"payMoney"].length > 0) {
-    //
-    
-    
-    //    NSDictionary * dic =[[note userInfo] objectForKey:@"1"];
-    //    //NSDictionary * offerList = [dic objectForKey:@"returnOfferList"];
-    //    NSArray * payMentArray = [dic objectForKey:@"payMentList"];
-    //    [payMent setString:@""];
-    [self.navigationController pushViewController:pay animated:YES];
+    [soap queryAllPayMoneysWithInterface:@"queryAllPayMoneys" Parameter1:@"token" Token:[userDic objectForKey:@"token"]];
+        [self.navigationController pushViewController:pay animated:YES];
 }
 //控充值
 -(void)creditPressed:(id)sender {
@@ -450,8 +442,10 @@ extern NSNotificationCenter *nc;
 
 
 - (void)personMsgAlerView{
-    
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"个人信息" message:@"工号: \n手机号" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"注销",@"修改密码", nil];
+
+    staffId = [NSString stringWithFormat:@"工 号:%@ \n 手机号:%@",[userDic objectForKey:@"staffId"], [userDic objectForKey:@"phone"]];
+    NSLog(@"===========satffid%@", [userDic objectForKey:@"staffId"]);
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"个人信息" message:staffId delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"修改密码", nil];
     
     [alert show];
 }

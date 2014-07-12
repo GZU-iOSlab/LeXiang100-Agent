@@ -71,7 +71,6 @@
 		C2E3FCF919669B30006C7975 /* PayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3FCF819669B30006C7975 /* PayRecordViewController.m */; };
 		DC84ED8819713F40004FC315 /* MarketingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC84ED8719713F40004FC315 /* MarketingTableViewController.m */; };
 		DCC3D626196C21CD0069B605 /* AddresseBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */; };
-		DCC3D62B196C21FF0069B605 /* TableLevle2TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */; };
 		DCC3D632196C227B0069B605 /* ConnectionAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D62F196C227B0069B605 /* ConnectionAPI.m */; };
 		DCC3D633196C227B0069B605 /* DES3Util.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D631196C227B0069B605 /* DES3Util.m */; };
 		DCC3D637196C22B80069B605 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D635196C22B80069B605 /* GTMBase64.m */; };
@@ -166,8 +165,6 @@
 		DC84ED8719713F40004FC315 /* MarketingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketingTableViewController.m; sourceTree = "<group>"; };
 		DCC3D624196C21CD0069B605 /* AddresseBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddresseBookTableViewController.h; sourceTree = "<group>"; };
 		DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddresseBookTableViewController.m; sourceTree = "<group>"; };
-		DCC3D627196C21FF0069B605 /* TableLevle2TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLevle2TableViewController.h; sourceTree = "<group>"; };
-		DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLevle2TableViewController.m; sourceTree = "<group>"; };
 		DCC3D62E196C227B0069B605 /* ConnectionAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionAPI.h; sourceTree = "<group>"; };
 		DCC3D62F196C227B0069B605 /* ConnectionAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionAPI.m; sourceTree = "<group>"; };
 		DCC3D630196C227B0069B605 /* DES3Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DES3Util.h; sourceTree = "<group>"; };
@@ -260,8 +257,6 @@
 				DC84ED8619713F40004FC315 /* MariketingTableViewController.h */,
 				DC84ED8719713F40004FC315 /* MarketingTableViewController.m */,
 				DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */,
-				DCC3D627196C21FF0069B605 /* TableLevle2TableViewController.h */,
-				DCC3D628196C21FF0069B605 /* TableLevle2TableViewController.m */,
 				C239F835196981550043DA26 /* UIColorForiOS7Colors.h */,
 				C239F836196981550043DA26 /* UIColorForiOS7Colors.m */,
 				5660EB6819599E18008D9264 /* LeXiang100 Agent-Info.plist */,
@@ -514,7 +509,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCC3D62B196C21FF0069B605 /* TableLevle2TableViewController.m in Sources */,
 				DCC3D640196C23040069B605 /* PayViewController.m in Sources */,
 				DC84ED8819713F40004FC315 /* MarketingTableViewController.m in Sources */,
 				DCC3D633196C227B0069B605 /* DES3Util.m in Sources */,

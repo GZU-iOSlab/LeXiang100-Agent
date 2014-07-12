@@ -212,8 +212,13 @@ extern NSNotificationCenter *nc;
     
     
     resultArray = (NSMutableArray*)[[note userInfo] objectForKey:@"1"];
+    
+    NSString * str = [[NSString alloc]init];
+    int len = 0;
     for(int i = 0; i < resultArray.count; i++) {
-        payMentArray[i] =  [resultArray[i] objectForKey:@"payMoney"];
+        str = [resultArray[i] objectForKey:@"payMoney"];
+        len = [str length];
+        payMentArray[i] = [str substringToIndex:len-3];
     }
     NSLog(@"== payMentArray.count=%d==", payMentArray.count);
     
