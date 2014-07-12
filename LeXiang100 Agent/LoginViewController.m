@@ -125,6 +125,7 @@ extern NSMutableDictionary * staffName;
         DPasswdBtn.titleLabel.textColor=[UIColor whiteColor];
         //DPasswdBtn.center=CGPointMake(viewWidth/2-viewWidth/20, viewHeight/4+viewHeight/40);
         DPasswdBtn.backgroundColor=[UIColor colorWithRed:(188.0/255.0) green:(122.0/255.0) blue:(216.0/255.0) alpha:0];
+         [DPasswdBtn addTarget:self action:@selector(loginWithName:AndPassword:AndVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
         DPasswdBtn.titleLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         [self.backgroundText addSubview:DPasswdBtn];
         
@@ -212,6 +213,11 @@ extern NSMutableDictionary * staffName;
         [loginDPasswordText resignFirstResponder];
     }
 }
+
+/*- (void)getDPw:(NSString *)name
+{
+    [soap acquireAgentVerifyWithInterface::@"agentLogin" Parameter1:@"phone" Phone:loginNameText.text];
+}*/
 
 - (void)loginFeedback:(NSNotification *)note{
     [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
