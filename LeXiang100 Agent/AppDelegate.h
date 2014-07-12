@@ -19,7 +19,9 @@ NSMutableDictionary * payInfoDic;
 TestData * testData;
 BOOL testDataOn;
 ConnectionAPI * soap;
-
+NSMutableDictionary * userDic;
+NSMutableDictionary *staffName;
+NSMutableDictionary *staffId;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

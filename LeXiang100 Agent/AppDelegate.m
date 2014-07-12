@@ -22,6 +22,9 @@
     //++++++++++++++++测试数据+++++++++++++++
     testData = [[TestData alloc]init];
     testDataOn = YES;
+    userDic = [[NSMutableDictionary alloc]init];
+    staffId=[[NSMutableDictionary alloc]init];
+    staffName=[[NSMutableDictionary alloc]init];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

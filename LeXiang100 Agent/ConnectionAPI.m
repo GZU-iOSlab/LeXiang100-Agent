@@ -362,10 +362,13 @@ extern NSMutableDictionary * UserInfo;
         [getXMLResults appendString:@"agentLogin"];
         needToAnalysis = YES;
         NSData *aData = [testData.loginList dataUsingEncoding: NSUTF8StringEncoding];
-        
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         NSXMLParser * test;
         NSString * testString;
+        //NSString * verfyPw=[resultDic objectForKey:@"status"];
+        if (![verifyCode isEqualToString:testData.verify]) {
+            [ConnectionAPI showAlertWithTitle:@"动态密码错误" AndMessages:nil];
+        }else
         [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
     }else
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:passWord Parameter3:parameter3 Value3:verifyCode];
@@ -512,7 +515,20 @@ extern NSMutableDictionary * UserInfo;
         //客户登陆
         else if ([getXMLResults rangeOfString:@"agentLogin"].length > 0){
             //做判断 默认成功
-            [nc postNotificationName:@"agentLogin" object:self userInfo:d];
+            NSString * loginResult =[NSString stringWithFormat:@"%@",[resultDic objectForKey:@"status"]];
+            if ([loginResult isEqualToString:@"4"]) {
+                [nc postNotificationName:@"agentLogin" object:self userInfo:d];
+            }else if ([loginResult isEqualToString:@"1"]){
+                [ConnectionAPI showAlertWithTitle:@"服务器错误" AndMessages:nil];
+            }
+            else if ([loginResult isEqualToString:@"2"])
+            {
+                [ConnectionAPI showAlertWithTitle:@"密码错误" AndMessages:nil];
+            }
+            //else if ([loginResult isEqualToString:@"3"])
+            //{
+                //[ConnectionAPI showAlertWithTitle:@"动态密码错误" AndMessages:nil];
+            //}
         }
         //缴费
         else if ([getXMLResults rangeOfString:@"payMoneyToCustPhone"].length>0){

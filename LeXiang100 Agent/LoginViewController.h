@@ -17,5 +17,6 @@
 @property(nonatomic,strong)UITextField * loginNameText;
 @property(nonatomic,strong)UITextField * loginPasswordText;
 @property(nonatomic,strong)UITextField * loginDPasswordText;
+@property(nonatomic,strong)NSMutableDictionary * UserInfoDic;
 @end
 

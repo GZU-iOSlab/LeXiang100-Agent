@@ -27,11 +27,14 @@
 @implementation LoginViewController
 extern NSNotificationCenter *nc;
 extern ConnectionAPI * soap;
+extern NSMutableDictionary * userDic;
+extern NSMutableDictionary * staffId;
+extern NSMutableDictionary * staffName;
 @synthesize backgroundText;
 @synthesize loginNameText;
 @synthesize loginPasswordText;
 @synthesize loginDPasswordText;
-
+@synthesize UserInfoDic;
 
 
 
@@ -44,6 +47,7 @@ extern ConnectionAPI * soap;
         
         [nc addObserver:self selector:@selector(loginFeedback:) name:@"agentLogin" object:nil];
         mainView = [[MainUIViewController alloc]init];
+        self.UserInfoDic = [[NSMutableDictionary alloc]init];
         
         //乐享图标
         UIImage * Image = [UIImage imageNamed:@"login_title.png"];
@@ -196,14 +200,24 @@ extern ConnectionAPI * soap;
     else if([loginDPasswordText.text isEqualToString:@""])
     {
         [ConnectionAPI showAlertWithTitle:nil AndMessages:@"动态密码不能为空"];
+    }else if ((![[loginNameText.text substringToIndex:1] isEqualToString:@"1"])||loginNameText.text.length!=11)
+    {
+        [ConnectionAPI showAlertWithTitle:nil AndMessages:@"请输入正确的手机号码"];
     }
     else
     {
-        [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"phone" Phone:@"15585867996" Parameter2:@"passWord" passWord:@"123456" Parameter3:@"verifyCode" VerifyCode:@"xvyf"];
+        [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"phone" Phone:loginNameText.text Parameter2:@"passWord" passWord:loginPasswordText.text Parameter3:@"verifyCode" VerifyCode:loginDPasswordText.text];
+        [loginPasswordText resignFirstResponder];
+        [loginNameText resignFirstResponder];
+        [loginDPasswordText resignFirstResponder];
     }
 }
 
 - (void)loginFeedback:(NSNotification *)note{
+    [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
+    [staffId setDictionary:[[note userInfo] objectForKey:@"staffId"]];
+    [staffName setDictionary:[[note userInfo] objectForKey:@"staffName"]];
+    [userDic setDictionary:self.UserInfoDic];
     [self.navigationController pushViewController:mainView animated:YES];
 }
 
