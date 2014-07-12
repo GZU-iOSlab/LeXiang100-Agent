@@ -42,7 +42,7 @@ extern NSMutableDictionary * userDic;
     if (self) {
         // Custom initialization
         self.view.backgroundColor=[UIColor scrollViewTexturedBackgroundColor];
-        
+        //self.navigationController.navigationBar.tintColor = [UIColor iOS7lightBlueColor];
         [nc addObserver:self selector:@selector(loginFeedback:) name:@"agentLogin" object:nil];
         mainView = [[MainUIViewController alloc]init];
         self.UserInfoDic = [[NSMutableDictionary alloc]init];
@@ -51,7 +51,6 @@ extern NSMutableDictionary * userDic;
         UIImage * Image = [UIImage imageNamed:@"login_title.png"];
         UIImageView * imgView = [[UIImageView alloc]initWithImage:Image];
         imgView.frame = CGRectMake(viewWidth/2-viewWidth/6, viewHeight/16, viewWidth/3, viewWidth/6);
-        //imgView.center = CGPointMake(viewWidth/2-, <#CGFloat y#>)
         [self.view addSubview:imgView];
         
         self.backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(0, viewHeight/2-viewHeight/40, viewWidth*0.9, viewHeight/3)];
