@@ -614,7 +614,20 @@ extern NSMutableDictionary * UserInfo;
         }
         //缴费记录
         else if ([getXMLResults rangeOfString:@"queryPayHistory"].length>0){
-            NSString * result = [self.resultDic objectForKey:@"status"];
+            NSString * result =[NSString stringWithFormat:@"%@",[resultDic objectForKey:@"status"]];
+            //[self.resultDic objectForKey:@"status"];
+            if ([result isEqualToString:@"0"])
+            {
+                [ConnectionAPI showAlertWithTitle:@"调用接口失败" AndMessages:nil];
+            }
+            else if([result isEqualToString:@"1"])
+            {
+                [ConnectionAPI showAlertWithTitle:@"服务端异常" AndMessages:nil];
+            }
+            else if ([result isEqualToString:@"2"])
+            {
+                [nc postNotificationName:@"queryPayHistory" object:self userInfo:d];
+            }
         }
         //缴费金额列表
         else if ([getXMLResults rangeOfString:@"queryAllPayMoneys"].length>0){

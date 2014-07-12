@@ -40,7 +40,6 @@
     PayRecordViewController * payRecord;
     
     
-    
     NSMutableString * payMent;
     //NSNotification * note;
     

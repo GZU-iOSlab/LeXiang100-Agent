@@ -24,6 +24,8 @@
 @synthesize tableArray;
 @synthesize recordTableview;
 extern NSMutableDictionary * userDic;
+extern ConnectionAPI * soap;
+extern NSNotificationCenter *nc;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,6 +36,7 @@ extern NSMutableDictionary * userDic;
         
         self.title = @"缴费查询";
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        [nc addObserver:self selector:@selector(showTableview:) name:@"queryPayHistory" object:nil];
         self.tableArray = [[NSMutableArray alloc]init];
         self.tableCellArray  = [[NSMutableArray alloc]init];
         self.recordTableview = [[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
@@ -193,15 +196,15 @@ extern NSMutableDictionary * userDic;
 #pragma mark tableview 
 
 - (void)showTableview:(NSNotification *)note{
-    
+    [self dateForSure];
     [UIView beginAnimations:@"下降" context:nil];
     [UIView setAnimationDuration:0.3];
     startDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-    endDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
+    //endDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
     dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/8);
     [UIView commitAnimations];
     startDatePickerShowed = NO;
-    endDatePickerShowed = NO;
+    //endDatePickerShowed = NO;
     
     //    if (self.recordTableview != nil) {
     //        self.recordTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, viewHeight, viewWidth, viewHeight/2) style:UITableViewStyleGrouped];
@@ -211,16 +214,21 @@ extern NSMutableDictionary * userDic;
     
     [self.tableCellArray removeAllObjects];
     [self.tableArray removeAllObjects];
+    if ([[[note userInfo] objectForKey:@"1"]isKindOfClass:[NSDictionary class]]) {
+        NSLog(@"dic");
+    }
+    NSDictionary * dic =[[note userInfo] objectForKey:@"1"];
+    for (NSString * str in dic) {
+        
+    }
     NSArray * cellArray = [[NSArray alloc]initWithArray:[[note userInfo] objectForKey:@"1"]];
     for (NSMutableDictionary * dic in cellArray){
-        NSString * str = [NSString stringWithFormat:@"总推荐量%@笔,成功%@笔，失败%@笔",[dic objectForKey: @"totalRecommend"],[dic objectForKey: @"succRecommend"],[dic objectForKey: @"failRecommend"]];
+        NSString * str = [NSString stringWithFormat:@"手机号码:%@,充值金额:%@元,充值%@",[dic objectForKey: @"opPhone"],[dic objectForKey: @"payMoney"],[dic objectForKey: @"statusDesc"]];
         [self.tableCellArray addObject:str];
-        NSString * str1=[dic objectForKey: @"months"];
-        NSString * str2 = [str1 substringWithRange:NSMakeRange(0, 4)];
-        NSString * str3 = [str1 substringWithRange:NSMakeRange(4, 2)];
-        str1 = [NSString stringWithFormat:@"%@年%@月",str2,str3];
+        NSString * str1=[NSString stringWithFormat:@"充值时间:%@",[dic objectForKey: @"payTime"]];
+        //str1 = [NSString stringWithFormat:@"%@年%@月",str2,str3];
         [self.tableArray addObject:str1];
-        NSLog(@"months:%@",str1);
+        //NSLog(@"months:%@",str1);
     }
     
     
@@ -251,10 +259,10 @@ extern NSMutableDictionary * userDic;
         tableView.scrollEnabled = NO;
     tableView.tableHeaderView = nil;
     //tableView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-    static NSString * identifier = @"basis-cell";
+    static NSString * identifier = @"style-subtitle";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (nil == cell) {
-        cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier]autorelease];
+        cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier]autorelease];
         
     }    // Configure the cell...
     NSString * text = [self.tableArray objectAtIndex:indexPath.row];
@@ -296,23 +304,26 @@ extern NSMutableDictionary * userDic;
 
 - (void)recommendedsoap
 {
+    [UIView beginAnimations:@"下降" context:nil];
+    [UIView setAnimationDuration:0.3];
     startDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
+    dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/8);
     if(self.recordTableview != nil){
         self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/3);
     }
     
-    if (!([startLeftLabel.text isEqual:@""]))
+    if (!([startMonthText.text isEqual:@""]))
     {
         NSString * token = [userDic objectForKey:@"token"];
-        NSString * startYear = [startLeftLabel.text substringWithRange:NSMakeRange(0,4)];
-        NSString * startMonth = [startLeftLabel.text substringWithRange:NSMakeRange(5,2)];
+        NSString *opPhone=[userDic objectForKey:@"phone"];
+        NSString *start=@"2";
+        NSString * startYear = [startMonthText.text substringWithRange:NSMakeRange(0,4)];
+        NSString * startMonth = [startMonthText.text substringWithRange:NSMakeRange(5,2)];
         NSMutableString * startYearAndMonth = [[NSMutableString alloc]init];
         [startYearAndMonth appendString:startYear];
         [startYearAndMonth appendString:startMonth];
-        
-        //[soap queryPayHistoryWithInterface:@"queryPayHistory" Parameter1:"opPhone" OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 Month:(NSString *)month Parameter3:(NSString *)parameter3 Start:(NSString *)start Parameter4:(NSString *)parameter4 Token:(NSString *)token
-                                //Parameter1:@"opPhone" ophone:name Parameter2:@"startMonth" StartMonth:startYearAndMonth Parameter3:@"endMonth" EndMonth:endYearAndMonth Parameter4:@"token" Token:token];
-        
+        [soap queryPayHistoryWithInterface:@"queryPayHistory" Parameter1:@"opPhone" OpPhone:opPhone Parameter2:@"month" Month:startYearAndMonth Parameter3:@"start" Start:start Parameter4:@"token" Token:token];
+        [startYearAndMonth release];
     }
     /*[self dateForSure];
     
