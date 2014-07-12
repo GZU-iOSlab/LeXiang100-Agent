@@ -19,10 +19,11 @@
 extern NSNotificationCenter *nc;
 extern NSString * phoneNumber;
 extern NSString * service;
-//extern PayInfo * payInfo;
+extern NSMutableDictionary * payInfoDic;
+extern ConnectionAPI * soap;
 
 @synthesize alerts;
-extern NSMutableDictionary * payInfoDic;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,16 +33,16 @@ extern NSMutableDictionary * payInfoDic;
         // Custom initialization
         
         self.title = @"话费充值";
-       // self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+        // self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"充值" style:UIBarButtonItemStyleBordered target:self action:@selector(confirmPay)];
         UITextView * background = [[[UITextView alloc]init]autorelease];
         background.frame = self.view.frame;
         //[self.view addSubview: background];
-   
+        
         
         //背景框
         UITextField * backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/40, viewHeight/60, viewWidth-viewWidth/20, viewHeight/2) ];
-
+        
         backgroundText.enabled = NO;
         backgroundText.borderStyle = UITextBorderStyleRoundedRect;
         backgroundText.backgroundColor = [UIColor lightTextColor];
@@ -70,7 +71,7 @@ extern NSMutableDictionary * payInfoDic;
         UILabel * payNumLabel = [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/20, viewHeight/10 + viewHeight/40, viewWidth/2.5, viewHeight/15)]autorelease];
         payNumLabel.text = @"   充值金额:";
         payNumLabel.font = [UIFont boldSystemFontOfSize:viewHeight/30];
-       
+        
         payNumLabel.backgroundColor = [UIColor clearColor];
         payNumLabel.userInteractionEnabled = NO;
         [self.view addSubview:payNumLabel];
@@ -82,15 +83,15 @@ extern NSMutableDictionary * payInfoDic;
         payNumLabelValue.backgroundColor = [UIColor clearColor];
         payNumLabelValue.userInteractionEnabled = NO;
         [self.view addSubview:payNumLabelValue];
-
-//        
-//        UITextField *phoneText =  [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/32+viewWidth/20, viewHeight/10, viewWidth/2.5, viewHeight/15)];
-//        phoneText.placeholder = @"手机号码";
-//        phoneText.borderStyle = UITextBorderStyleRoundedRect;
-//        phoneText.backgroundColor = [UIColor clearColor];
-//        phoneText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-//        phoneText.clearButtonMode = UITextFieldViewModeWhileEditing;
-//        
+        
+        //
+        //        UITextField *phoneText =  [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/32+viewWidth/20, viewHeight/10, viewWidth/2.5, viewHeight/15)];
+        //        phoneText.placeholder = @"手机号码";
+        //        phoneText.borderStyle = UITextBorderStyleRoundedRect;
+        //        phoneText.backgroundColor = [UIColor clearColor];
+        //        phoneText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        //        phoneText.clearButtonMode = UITextFieldViewModeWhileEditing;
+        //
         bossPWD = [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/20 + viewHeight/40, viewHeight/4, viewWidth/1.2, viewHeight/15)];
         bossPWD.placeholder = @"请输入BOSS工号密码";
         bossPWD.font = [UIFont systemFontOfSize:viewHeight/25];
@@ -100,22 +101,22 @@ extern NSMutableDictionary * payInfoDic;
         bossPWD.clearButtonMode = UITextFieldViewModeWhileEditing;
         
         bossPWD.delegate = self;
-       
+        
         bossPWD.secureTextEntry = YES;
         bossPWD.delegate = self;
         
         [self.view addSubview:bossPWD];
-     
+        
         
         UILabel * servicesLabel = [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/32+viewWidth/41, viewHeight/7.5, viewWidth/2, viewHeight/20)];
         servicesLabel.text = @"请输入BOSS工号密码:";
         servicesLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         servicesLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
-//        [self.view addSubview:servicesLabel];
-
-      
+        //        [self.view addSubview:servicesLabel];
         
-//        //解决ios7界面上移  配色等问题
+        
+        
+        //        //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
             self.extendedLayoutIncludesOpaqueBars =NO;
@@ -132,7 +133,7 @@ extern NSMutableDictionary * payInfoDic;
             backgroundText.frame = CGRectMake(viewWidth/40, viewHeight/60, viewWidth/1.1+viewWidth/30, viewHeight/2);
             bossPWD.frame = CGRectMake( viewWidth/32+viewWidth/40 , viewHeight/4, viewWidth/1.2, viewHeight/15);
             bossPWD.keyboardType = UIKeyboardTypeNumberPad;
-
+            
         }
     }
     return self;
@@ -160,14 +161,27 @@ extern NSMutableDictionary * payInfoDic;
 }
 
 
-#pragma mark - AlertView
+#pragma mark - alertview 协议
+
+-(void)showAlertView {
+    confirmPayAlert = [[UIAlertView alloc]initWithTitle:@"确认充值"
+                                                message:@"确认充值吗?"
+                                               delegate:self
+                                      cancelButtonTitle:@"取消"
+                                      otherButtonTitles:@"确认",nil];
+    
+    confirmPayAlert.delegate = self;
+    [confirmPayAlert show];
+    [confirmPayAlert release];
+}
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         [self dimissAlert:alerts]; ;
-    }
-    else{
-        //在这里如何获取UIAlertView里的LoginAndPasswordInput值？
+    } else{
+        
+        //代理商手机号和token要在登录之后获取========================================================================================================
+        [soap payMoneyToCustPhoneWithInterface:@"payMoneyToCustPhone" Parameter1:@"ophone" OpPhone:@"" Parameter2:@"payMoney" PayMoney:[payInfoDic objectForKey:@"payNum"] Parameter3:@"custPhone" CustPhone:[payInfoDic objectForKey:@"phoneNum"] Parameter4:@"bossPwd" BossPwd:bossPWD.text Parameter5:@"tobken" Token:@""];
     }
 }
 
@@ -210,10 +224,12 @@ extern NSMutableDictionary * payInfoDic;
 
 
 - (void)confirmPay{
- 
-    [[[[UIAlertView alloc] initWithTitle:@"提示" message:@"确认充值吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil]autorelease]show];
+    
+    // [[[[UIAlertView alloc] initWithTitle:@"提示" message:@"确认充值吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil]autorelease]show];
+    [self showAlertView];
+    
+    
 }
-
 
 
 
@@ -223,9 +239,11 @@ extern NSMutableDictionary * payInfoDic;
 }
 
 
+
+
 - (void)dealloc{
     [super dealloc];
-   
+    
 }
 
 - (void)didReceiveMemoryWarning

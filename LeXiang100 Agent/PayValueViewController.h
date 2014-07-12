@@ -34,6 +34,10 @@
     UITextField * phoneText;
     AddresseBookTableViewController * addressBook;
     
+    NSMutableArray *arrayValue;
+    
+    NSMutableArray * resultArray;
+    NSMutableArray * payMentArray;
 }
 
 
@@ -44,6 +48,6 @@
 @property (nonatomic,assign) UILabel *noteMessage;//提示
 @property (nonatomic,assign) NSArray *arrayImage;
 @property (nonatomic,assign)UITextField * phoneText;
-@property (nonatomic,assign)NSString * payNumVaue;//充值金额
+@property (nonatomic,assign)NSMutableString * payNumVaue;//充值金额
 
 @end
