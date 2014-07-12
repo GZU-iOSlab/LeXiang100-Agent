@@ -21,7 +21,7 @@
 @property (nonatomic) BOOL elementFound;
 @property (strong, nonatomic) NSURLConnection *conn;
 @property (strong, nonatomic) NSMutableString *getXMLResults;
-@property (strong, nonatomic) NSDictionary *resultDic;
+@property (strong, nonatomic) NSMutableDictionary *resultDic;
 @property (strong, nonatomic) NSArray *resultArray;
 @property (strong, nonatomic) UIAlertView * alerts;
 

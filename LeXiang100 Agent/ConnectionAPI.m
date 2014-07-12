@@ -307,7 +307,7 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.payment];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
@@ -367,8 +367,9 @@ extern NSMutableDictionary * UserInfo;
         NSString * testString;
         //NSString * verfyPw=[resultDic objectForKey:@"status"];
         if (![verifyCode isEqualToString:testData.verify]) {
-            [ConnectionAPI showAlertWithTitle:@"动态密码错误" AndMessages:nil];
-        }else
+            [resultDic removeObjectForKey:@"status"];
+            [resultDic setObject:@"3" forKey:@"status"];
+        }
         [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
     }else
     [self getSoapForInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:passWord Parameter3:parameter3 Value3:verifyCode];
@@ -452,7 +453,7 @@ extern NSMutableDictionary * UserInfo;
         needToAnalysis = NO;
     }
     else if([getXMLResults rangeOfString:@"faultcode"].length>0){
-        resultDic = [[[NSDictionary alloc]init]autorelease];
+        resultDic = [[[NSMutableDictionary alloc]init]autorelease];
         [ConnectionAPI showAlertWithTitle:@"错误" AndMessages:@"调用地址或参数错误！"];
         needToAnalysis = NO;
     }
@@ -499,7 +500,7 @@ extern NSMutableDictionary * UserInfo;
         
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (resultDic == nil) {
-            resultDic = [[[NSDictionary alloc]init]autorelease];
+            resultDic = [[[NSMutableDictionary alloc]init]autorelease];
         }
     }
 }
@@ -525,10 +526,10 @@ extern NSMutableDictionary * UserInfo;
             {
                 [ConnectionAPI showAlertWithTitle:@"密码错误" AndMessages:nil];
             }
-            //else if ([loginResult isEqualToString:@"3"])
-            //{
-                //[ConnectionAPI showAlertWithTitle:@"动态密码错误" AndMessages:nil];
-            //}
+            else if ([loginResult isEqualToString:@"3"])
+            {
+                [ConnectionAPI showAlertWithTitle:@"动态密码错误" AndMessages:nil];
+            }
         }
         //缴费
         else if ([getXMLResults rangeOfString:@"payMoneyToCustPhone"].length>0){
@@ -544,9 +545,9 @@ extern NSMutableDictionary * UserInfo;
         }
     }
     //如果显示alert   取消   bug
-    if (self.alerts.visible == YES) {
+    //if (self.alerts.visible == YES) {
         [self dimissAlert:self.alerts];
-    }
+    //}
 }
 
 // 解析整个文件结束后
