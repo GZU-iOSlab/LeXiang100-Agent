@@ -28,9 +28,6 @@
 extern NSNotificationCenter *nc;
 extern ConnectionAPI * soap;
 extern NSMutableDictionary * userDic;
-extern NSMutableDictionary * staffId;
-extern NSMutableDictionary * staffName;
-extern NSMutableDictionary * loginPhone;
 @synthesize backgroundText;
 @synthesize loginNameText;
 @synthesize loginPasswordText;
@@ -221,11 +218,13 @@ extern NSMutableDictionary * loginPhone;
 }*/
 
 - (void)loginFeedback:(NSNotification *)note{
-    [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
-    [staffId setDictionary:[[note userInfo] objectForKey:@"staffId"]];
-    [staffName setDictionary:[[note userInfo] objectForKey:@"staffName"]];
-    [loginPhone setDictionary:(NSMutableDictionary*)loginNameText.text];
+
+//    [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
+//    [staffId setDictionary:[[note userInfo] objectForKey:@"staffId"]];
+//    [staffName setDictionary:[[note userInfo] objectForKey:@"staffName"]];
+    [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"1" ]];
     [userDic setDictionary:self.UserInfoDic];
+    [userDic setObject:self.loginNameText.text forKey:@"phone"];
     [self.navigationController pushViewController:mainView animated:YES];
 }
 

@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MainUIViewController.h"
-#import "TableLevle2TableViewController.h"
+#import "MariketingTableViewController.h"
 #import "PayValueViewController.h"
 #import "ConnectionAPI.h"
 #import "UpdateCheckingViewController.h"
@@ -20,7 +20,7 @@
     
     UITextField * messageText;
     
-       
+    
     UIAlertView *testAlert;
     
     UIButton * buttonMarketing;
@@ -30,20 +30,28 @@
     UIButton * buttonPaid;
     UIButton * buttonUpdate;
     UIButton * button7;
-    
+    NSString * staffId ;
     NSArray *arrayImage;
     
     BOOL tableShowed;
     PayValueViewController *pay;
-    TableLevle2TableViewController *tableContrl;
+    MariketingTableViewController *marketingTableView;
     UpdateCheckingViewController * update;
     PayRecordViewController * payRecord;
+    
+    
+    
+    NSMutableString * payMent;
+    //NSNotification * note;
+    
 }
 
 @property (nonatomic, retain) NSMutableArray *resultArray;
 @property (nonatomic,assign) UITableView * classTableview;
 @property (nonatomic,assign) NSArray *array;
 
+@property (strong, nonatomic) UIAlertView * alerts;
 
+- (void)personMsgAlerView;
 
 @end

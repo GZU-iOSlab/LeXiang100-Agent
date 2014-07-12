@@ -23,7 +23,6 @@
 @synthesize tableCellArray;
 @synthesize tableArray;
 @synthesize recordTableview;
-extern NSMutableDictionary * loginPhone;
 extern NSMutableDictionary * userDic;
 
 
@@ -304,8 +303,7 @@ extern NSMutableDictionary * userDic;
     
     if (!([startLeftLabel.text isEqual:@""]))
     {
-        NSString * name = (NSString *)loginPhone;
-        NSString * token = (NSString *)userDic;
+        NSString * token = [userDic objectForKey:@"token"];
         NSString * startYear = [startLeftLabel.text substringWithRange:NSMakeRange(0,4)];
         NSString * startMonth = [startLeftLabel.text substringWithRange:NSMakeRange(5,2)];
         NSMutableString * startYearAndMonth = [[NSMutableString alloc]init];

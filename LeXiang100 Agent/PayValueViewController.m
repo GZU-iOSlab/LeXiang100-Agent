@@ -27,6 +27,8 @@
 
 extern NSMutableDictionary * payInfoDic;
 
+extern NSNotificationCenter *nc;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,6 +36,9 @@ extern NSMutableDictionary * payInfoDic;
         // Custom initialization
         
         //self.title = service;
+        
+        [nc addObserver:self selector:@selector(payMentListFeedback:) name:@"queryAllPayMoneysResponse" object:nil];
+        
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"下一步" style:UIBarButtonItemStyleBordered target:self action:@selector(toPayPage)];
         UITextView * background = [[[UITextView alloc]init]autorelease];
@@ -60,7 +65,7 @@ extern NSMutableDictionary * payInfoDic;
         phoneText.backgroundColor = [UIColor lightTextColor];
         phoneText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         phoneText.clearButtonMode = UITextFieldViewModeWhileEditing;
-      
+        
         [self.view addSubview:phoneText];
         
         UIButton * linkManBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -84,7 +89,7 @@ extern NSMutableDictionary * payInfoDic;
         payNumButton=[[UIButton alloc] initWithFrame:CGRectMake(viewWidth/35, viewHeight/5 + viewHeight/40,  viewWidth-viewWidth/18, viewHeight/20)];
         payNumButton.backgroundColor=[UIColor grayColor];
         [payNumButton setTitle:@"请选择充值金额" forState:UIControlStateNormal];
-        [payNumButton addTarget:self action:@selector(showTable) forControlEvents:UIControlEventTouchUpInside];
+        [payNumButton addTarget:self action:@selector(showTables) forControlEvents:UIControlEventTouchUpInside];
         selectedString = [[NSString alloc]initWithString:@"请选择充值金额"];
         
         [payNumButton setTitle:selectedString forState:UIControlStateNormal];
@@ -98,30 +103,38 @@ extern NSMutableDictionary * payInfoDic;
         [self.view addSubview:noteLabel];
         
         
-        classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
-        
-        classTableview.delegate=self;
-        classTableview.dataSource=self;
-        classTableview.backgroundColor=[UIColor whiteColor];
-        [self.view addSubview:classTableview];
-        classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
-        NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-        [arrayValue addObject:@"10元"];
-        [arrayValue addObject:@"20元"];
-        [arrayValue addObject:@"30元"];
-        [arrayValue addObject:@"50元"];
-        [arrayValue addObject:@"100元"];
-        [arrayValue addObject:@"200元"];
-        [arrayValue addObject:@"300元"];
-        
-        
-        array=arrayValue;
-        tableShowed = NO;
-        
-        
-        //初始化存放充值信息的字典，用来传值到下一个页面
-        payInfoDic = [[NSMutableDictionary alloc] init];
-        payNumVaue = [[NSString alloc]init];
+        //        classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
+        //
+        //        classTableview.delegate=self;
+        //        classTableview.dataSource=self;
+        //        classTableview.backgroundColor=[UIColor whiteColor];
+        //        [self.view addSubview:classTableview];
+        //        classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
+        //         array=[[NSMutableArray alloc]init];
+        //        arrayValue=[[NSMutableArray alloc]init];
+        //
+        ////        for (int i=0; i<payMentArray.count; i++)
+        ////        {
+        ////            //NSLog(@"第%d个元素---%@", i, [resultArray1[i] objectForKey:@"payMoney"]);
+        ////            [arrayValue addObject: payMentArray[i]] ;
+        ////        }//            if (
+        //
+        //        [arrayValue addObject:@"10元"];
+        //        [arrayValue addObject:@"20元"];
+        //        [arrayValue addObject:@"30元"];
+        //        [arrayValue addObject:@"50元"];
+        //        [arrayValue addObject:@"100元"];
+        //        [arrayValue addObject:@"200元"];
+        //        [arrayValue addObject:@"300元"];
+        //
+        //
+        //        array=arrayValue;
+        //        tableShowed = NO;
+        //
+        //
+        //        //初始化存放充值信息的字典，用来传值到下一个页面
+        //        payInfoDic = [[NSMutableDictionary alloc] init];
+        //        payNumVaue = [[NSMutableString alloc]init];
         
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -131,7 +144,7 @@ extern NSMutableDictionary * payInfoDic;
             self.navigationController.navigationBar.translucent = NO;
             classTableview.backgroundColor=[UIColor iOS7blueGradientStartColor];
             self.view .backgroundColor = [UIColor groupTableViewBackgroundColor];
-          
+            
             
         }
         if([[[UIDevice currentDevice]systemVersion]floatValue]<7)
@@ -140,6 +153,11 @@ extern NSMutableDictionary * payInfoDic;
         }
         
     }
+    
+    //定义存放soap返回数据的数组，适用于缴费列表接口
+    resultArray = [[NSMutableArray alloc] init];
+    payMentArray = [[NSMutableArray alloc] init];
+    
     return self;
 }
 
@@ -152,7 +170,7 @@ extern NSMutableDictionary * payInfoDic;
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
-
+    
     if ([touch view] != classTableview) {
         [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*3/2);}];
     }
@@ -188,7 +206,44 @@ extern NSMutableDictionary * payInfoDic;
     return YES;
 }
 
+#pragma mark soapFeedback
 
+- (void)payMentListFeedback:(NSNotification *)note{
+    
+    
+    resultArray = (NSMutableArray*)[[note userInfo] objectForKey:@"1"];
+    
+    NSString * str = [[NSString alloc]init];
+    int len = 0;
+    for(int i = 0; i < resultArray.count; i++) {
+        str = [resultArray[i] objectForKey:@"payMoney"];
+        len = [str length];
+        payMentArray[i] = [str substringToIndex:len-3];
+    }
+    NSLog(@"== payMentArray.count=%d==", payMentArray.count);
+    
+    
+    classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
+    
+    classTableview.delegate=self;
+    classTableview.dataSource=self;
+    classTableview.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:classTableview];
+    classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
+    array=[[NSMutableArray alloc]init];
+    
+    
+    
+    array= payMentArray;
+    tableShowed = NO;
+    
+    
+    //初始化存放充值信息的字典，用来传值到下一个页面
+    payInfoDic = [[NSMutableDictionary alloc] init];
+    payNumVaue = [[NSMutableString alloc]init];
+    
+    
+}
 
 - (void)toPayPage{
     
@@ -282,7 +337,7 @@ extern NSMutableDictionary * payInfoDic;
 {
     return @"充值金额";
 }
--(void)showTable
+-(void)showTables
 {
     
     
@@ -297,17 +352,18 @@ extern NSMutableDictionary * payInfoDic;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  
+    
     [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*1.5);}];
     selectedString = [array objectAtIndex:indexPath.row];
     
     //获取充值金额，并赋值给payNumValue
-     //payNumVaue = [[NSString alloc]initWithString:selectedString ];
-    [payNumVaue release];
-    payNumVaue = [NSString stringWithFormat:@"%@", selectedString];
+    //payNumVaue = [[NSString alloc]initWithString:selectedString ];
+    [self.payNumVaue setString:@""];
+    [self.payNumVaue appendString: selectedString];
     
-    [payNumButton setTitle:payNumVaue forState:UIControlStateNormal];
-
+    [payNumButton setTitle:selectedString forState:UIControlStateNormal];
+    
+    
 }
 
 

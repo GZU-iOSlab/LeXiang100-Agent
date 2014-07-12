@@ -13,13 +13,15 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "AddresseBookTableViewController.h"
 
-@interface PayViewController : UIViewController<UITextFieldDelegate>{
+@interface PayViewController : UIViewController<UITextFieldDelegate, UIAlertViewDelegate>{
     
     UITextField * bossPWD;
     AddresseBookTableViewController * addressBook;
     UILabel * busiLabel;
     UITextField * busiText;
-
+    
+    UIAlertView *confirmPayAlert;
+    
 }
 
 

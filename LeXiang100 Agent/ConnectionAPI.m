@@ -27,13 +27,16 @@ extern BOOL testDataOn;
 extern NSNotificationCenter *nc;
 extern NSMutableDictionary * UserInfo;
 
+
 -(ConnectionAPI *) init{
     getXMLResults = [[NSMutableString alloc]init];
     soapResults = [[NSMutableString alloc]init];
+    
+    //
     return self;
 }
 - (void)getSoapFromInterface:(NSString *)interface {
-
+    
     
     NSString * soapMsg = [NSString stringWithFormat:
                           @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
@@ -98,7 +101,7 @@ extern NSMutableDictionary * UserInfo;
         webData = [[NSMutableData data]retain];
         //NSLog(@"%@  22222",webData);
     }else NSLog(@"con为假  %@",webData);
-        
+    
 }
 
 - (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2{
@@ -148,7 +151,7 @@ extern NSMutableDictionary * UserInfo;
         webData = [[NSMutableData data]retain];
         //NSLog(@"%@  22222",webData);
     }else NSLog(@"con为假  %@",webData);
-        }
+}
 - (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 {
     NSLog(@"value1:%@ value2:%@ value3:%@", value1, value2, value3);
     if ( [interface isEqualToString:@"orderVasOffer"]) {
@@ -196,7 +199,7 @@ extern NSMutableDictionary * UserInfo;
         webData = [[NSMutableData data]retain];
         //NSLog(@"%@  22222",webData);
     }else NSLog(@"con为假  %@",webData);
-        }
+}
 
 - (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 Parameter4:(NSString *)parameter4 Value4:(NSString *)value4{
     NSLog(@"value2:%@ value3:%@",value2,value3);
@@ -237,7 +240,7 @@ extern NSMutableDictionary * UserInfo;
         webData = [[NSMutableData data]retain];
         //NSLog(@"%@  22222",webData);
     }else NSLog(@"con为假  %@",webData);
-        }
+}
 
 - (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 Parameter4:(NSString *)parameter4 Value4:(NSString *)value4 Parameter5:(NSString *)parameter5 Value5:(NSString *)value5{
     NSLog(@"value2:%@ value3:%@",value2,value3);
@@ -292,8 +295,24 @@ extern NSMutableDictionary * UserInfo;
 
 //查询缴费金额列表，接口1
 -(void)queryAllPayMoneysWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Token:(NSString *)token{
-    [self getSoapFromInterface:interface Parameter1:parameter1 Value1:token];
     [self showAlerView];
+    if (testDataOn) {
+        [getXMLResults setString:@""];
+        [getXMLResults appendString:@"queryAllPayMoneys"];
+        needToAnalysis = YES;
+        NSData *aData = [testData.paymentList dataUsingEncoding: NSUTF8StringEncoding];
+        [soapResults setString:@""];
+        [soapResults appendString:testData.paymentList];
+        resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        if (self.resultDic == nil) {
+            self.resultDic = [[NSDictionary alloc]init];
+        }
+        NSXMLParser * test;
+        NSString * testString;
+        [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
+    } else {
+        [self getSoapFromInterface:interface Parameter1:parameter1 Value1:token];
+    }
 }
 //提交缴费请求，接口2
 - (void)payMoneyToCustPhoneWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)ophone Parameter2:(NSString *)parameter2 PayMoney:(NSString *)payMoney Parameter3:(NSString *)parameter3 CustPhone:(NSString *)custPhone Parameter4:(NSString *)parameter4 BossPwd:(NSString *)bossPwd Parameter5:(NSString *)parameter5 Token:(NSString *)token{
@@ -307,13 +326,14 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.payment];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSMutableDictionary alloc]init];
+            self.resultDic = [[NSDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
         [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
-    }else
-    [self getSoapForInterface:interface Parameter1:parameter1 Value1:ophone Parameter2:parameter2 Value2:payMoney Parameter3:parameter3 Value3:custPhone Parameter4:parameter4 Value4:bossPwd Parameter5:parameter5 Value5:token];
+    }else {
+        [self getSoapForInterface:interface Parameter1:parameter1 Value1:ophone Parameter2:parameter2 Value2:payMoney Parameter3:parameter3 Value3:custPhone Parameter4:parameter4 Value4:bossPwd Parameter5:parameter5 Value5:token];
+    }
 }
 
 //查询缴费历史记录，接口3
@@ -331,8 +351,27 @@ extern NSMutableDictionary * UserInfo;
 
 //在线版本检测，接口5
 -(void)queryVersionInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 ClientVersion:(NSString *)clientVersion Parameter2:(NSString *)parameter2 DataVersion:(NSString *)dataVersion Parameter3:(NSString *)parameter3 AppName:(NSString *)appName{
-    [self getSoapForInterface:interface Parameter1:parameter1 Value1:clientVersion Parameter2:parameter2 Value2:dataVersion Parameter3:parameter3 Value3:appName];
     [self showAlerView];
+    if (testDataOn) {
+        [getXMLResults setString:@""];
+        [getXMLResults appendString:@"queryVersionInfo"];
+        needToAnalysis = YES;
+        NSData *aData = [testData.updateCheckList dataUsingEncoding: NSUTF8StringEncoding];
+        [soapResults setString:@""];
+        [soapResults appendString:testData.updateCheckList];
+        resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        if (self.resultDic == nil) {
+            self.resultDic = [[NSDictionary alloc]init];
+        }
+        NSXMLParser * test;
+        NSString * testString;
+        [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
+    }else {
+        [self getSoapForInterface:interface Parameter1:parameter1 Value1:clientVersion Parameter2:parameter2 Value2:dataVersion Parameter3:parameter3 Value3:appName];
+        
+    }
+    
+    
 }
 
 //获取动态验证码，接口6
@@ -351,7 +390,7 @@ extern NSMutableDictionary * UserInfo;
         NSString * testString;
         [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
     }else
-    [self getSoapFromInterface:interface Parameter1:parameter1 Value1:phone];
+        [self getSoapFromInterface:interface Parameter1:parameter1 Value1:phone];
 }
 
 //代理商登录手机客户端，接口7
@@ -362,17 +401,13 @@ extern NSMutableDictionary * UserInfo;
         [getXMLResults appendString:@"agentLogin"];
         needToAnalysis = YES;
         NSData *aData = [testData.loginList dataUsingEncoding: NSUTF8StringEncoding];
+        
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         NSXMLParser * test;
         NSString * testString;
-        //NSString * verfyPw=[resultDic objectForKey:@"status"];
-        if (![verifyCode isEqualToString:testData.verify]) {
-            [resultDic removeObjectForKey:@"status"];
-            [resultDic setObject:@"3" forKey:@"status"];
-        }
         [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
     }else
-    [self getSoapForInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:passWord Parameter3:parameter3 Value3:verifyCode];
+        [self getSoapForInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:passWord Parameter3:parameter3 Value3:verifyCode];
     
 }
 
@@ -427,7 +462,7 @@ extern NSMutableDictionary * UserInfo;
     //%@ %@",[error localizedDescription],[[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
     //如果显示alert   取消
     //if (self.alerts.visible == YES) {
-        [self dimissAlert:self.alerts];
+    [self dimissAlert:self.alerts];
     //}
     [ConnectionAPI showAlertWithTitle:@"网络连接错误" AndMessages:@"网络连接错误,请重新尝试！"];
     [nc postNotificationName:@"loginFalse" object:self userInfo:nil];
@@ -453,11 +488,11 @@ extern NSMutableDictionary * UserInfo;
         needToAnalysis = NO;
     }
     else if([getXMLResults rangeOfString:@"faultcode"].length>0){
-        resultDic = [[[NSMutableDictionary alloc]init]autorelease];
+        resultDic = [[[NSDictionary alloc]init]autorelease];
         [ConnectionAPI showAlertWithTitle:@"错误" AndMessages:@"调用地址或参数错误！"];
         needToAnalysis = NO;
     }
-
+    
     // 使用NSXMLParser解析出我们想要的结果
     xmlParser = [[NSXMLParser alloc] initWithData: webData];
     
@@ -483,7 +518,7 @@ extern NSMutableDictionary * UserInfo;
         if ([getXMLResults rangeOfString:@"orderVasOfferResponse"].length > 0 ) {
             [soapResults appendString: string];
         }else{
-    [soapResults appendString: [DES3Util decrypt:string]];
+            [soapResults appendString: [DES3Util decrypt:string]];
         }
         NSLog(@"connection:%@",soapResults);
         
@@ -500,7 +535,7 @@ extern NSMutableDictionary * UserInfo;
         
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (resultDic == nil) {
-            resultDic = [[[NSMutableDictionary alloc]init]autorelease];
+            resultDic = [[[NSDictionary alloc]init]autorelease];
         }
     }
 }
@@ -510,31 +545,83 @@ extern NSMutableDictionary * UserInfo;
         
         NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObject:resultDic forKey:@"1"];
         //版本更新
+        
         if ([getXMLResults rangeOfString:@"queryVersionInfoResponse"].length>0 ) {
             [self showAlerView];
+            NSString * resultFor = [NSString stringWithFormat:@"%@",[self.resultDic objectForKey:@"status"]];
+            count++;
+            if ([resultFor isEqualToString:@"0"]) {
+                if (count != 1) {
+                    [ConnectionAPI showAlertWithTitle:nil AndMessages:@"数据无需更新！"];
+                }
+            }else if([resultFor isEqualToString:@"2"]){
+                NSDictionary * phoneUpdateCfg = [self.resultDic objectForKeyedSubscript:@"phoneUpdateCfg"];
+                NSString * releaseDate = [phoneUpdateCfg objectForKey:@"releaseDate"];
+                NSString * updateContent = [phoneUpdateCfg objectForKey:@"updateContent"];
+                NSString * messageToShow = [NSString stringWithFormat:@"发布日期：%@ \n更新内容：%@",releaseDate,updateContent];
+                alertVersionInfo = [[UIAlertView alloc]initWithTitle:@"更新到最新版本" message:messageToShow delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alertVersionInfo.delegate = self;
+                [alertVersionInfo show];
+                [alertVersionInfo release];
+            }
         }
+        
         //客户登陆
         else if ([getXMLResults rangeOfString:@"agentLogin"].length > 0){
             //做判断 默认成功
-            NSString * loginResult =[NSString stringWithFormat:@"%@",[resultDic objectForKey:@"status"]];
-            if ([loginResult isEqualToString:@"4"]) {
-                [nc postNotificationName:@"agentLogin" object:self userInfo:d];
-            }else if ([loginResult isEqualToString:@"1"]){
-                [ConnectionAPI showAlertWithTitle:@"服务器错误" AndMessages:nil];
-            }
-            else if ([loginResult isEqualToString:@"2"])
-            {
-                [ConnectionAPI showAlertWithTitle:@"密码错误" AndMessages:nil];
-            }
-            else if ([loginResult isEqualToString:@"3"])
-            {
-                [ConnectionAPI showAlertWithTitle:@"动态密码错误" AndMessages:nil];
-            }
+            [nc postNotificationName:@"agentLogin" object:self userInfo:d];
         }
         //缴费
         else if ([getXMLResults rangeOfString:@"payMoneyToCustPhone"].length>0){
             if ([soapResults isEqualToString:@"0"]) {
-                //NSLog(@"payMoneyToCustPhone:%@",resultDic);
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"充值成功！"];
+            } else if([soapResults isEqualToString:@"2"]) {
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"BOSS密码验证失败"];
+            } else {
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"服务端异常，请稍后再试！"];
+            }
+        }//缴费金额列表
+        else if ([getXMLResults rangeOfString:@"queryAllPayMoneys"].length>0){
+            if ([self.resultDic isKindOfClass:[NSArray class]]) {
+                
+                [nc postNotificationName:@"queryAllPayMoneysResponse" object:self userInfo:d];
+            }
+            //            NSArray * resultArray1 = (NSArray *)resultDic;
+            //            NSLog(@"%d", resultArray1.count);
+            //            for (int i=0; i<resultArray1.count; i++)
+            //            {
+            //                NSLog(@"第%d个元素---%@", i, [resultArray1[i] objectForKey:@"payMoney"]);
+            //                payMentArray[i] = resultArray1[i];
+            //            }//            if ([soapResults rangeOfString:@"payMoney"].length > 0) {
+            //            NSLog(@"========payMent====%d", payMentArray.count);
+            //
+            //            } else {
+            //
+            //                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"获取缴费金额列表失败，请稍后再试！"];
+            //
+            //            }
+            //         if (![soapResults isEqualToString:@"0"]) {
+            //               [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"获取缴费金额列表失败，请稍后再试！"];
+            //            } else {
+            //                NSDictionary * payMoney = [self.resultDic objectForKey:@"0"];
+            //                NSString * str = [payMoney objectForKey:@"payMoney"];
+            //                NSLog(@"%@",str);
+            //               [nc postNotificationName:@"aqueryAllPayMoneysResponse" object:self userInfo:d];
+            //           }
+            //            if ([soapResults isEqualToString:@"{}"]) {
+            //                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"获取缴费金额列表失败，请稍后再试！"];
+            //            } else {
+            //              [nc postNotificationName:@"aqueryAllPayMoneysResponse" object:self userInfo:d];
+            //            }
+        }
+        //版本测
+        else if ([getXMLResults rangeOfString:@"queryVersionInfo"].length>0){
+            if ([soapResults isEqualToString:@"0"]) {
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"充值成功！"];
+            } else if([soapResults isEqualToString:@"2"]) {
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"BOSS密码验证失败"];
+            } else {
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"服务端异常，请稍后再试！"];
             }
         }
         //验证码
@@ -545,9 +632,9 @@ extern NSMutableDictionary * UserInfo;
         }
     }
     //如果显示alert   取消   bug
-    //if (self.alerts.visible == YES) {
+    if (self.alerts.visible == YES) {
         [self dimissAlert:self.alerts];
-    //}
+    }
 }
 
 // 解析整个文件结束后
@@ -555,7 +642,7 @@ extern NSMutableDictionary * UserInfo;
     if (soapResults) {
         soapResults = nil;
     }
-
+    
 }
 
 // 出错时，例如强制结束解析
@@ -564,21 +651,17 @@ extern NSMutableDictionary * UserInfo;
         soapResults = nil;
     }
 }
--(void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
-    
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:titles message:messages delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
-    [alert show];
-}
+
 
 // 结束解析这个元素名
 //-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-//    
+//
 //    if (needToAnalysis) {
-//        
+//
 //        NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObject:resultDic forKey:@"1"];
 //        //版本更新
 //        if ([getXMLResults rangeOfString:@"queryVersionInfoResponse"].length>0 ) {
-//            
+//
 //        }
 //        //登录返回解析
 //        else if([getXMLResults rangeOfString:@"modifyLoginResponse"].length>0 ){
@@ -638,7 +721,7 @@ extern NSMutableDictionary * UserInfo;
 //        //一句话营销
 //        else if ([getXMLResults rangeOfString:@"awordShellQueryResponse"].length>0) {
 //            if ([soapResults isEqualToString:@"{}"]) {
-//                
+//
 //            }else{
 //                //NSString * custPhone = [UserInfo objectForKey:@"name" ];
 //                //NSString * token = [UserInfo objectForKey:@"token"];
@@ -661,7 +744,7 @@ extern NSMutableDictionary * UserInfo;
 //                    // [self UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
 //                    //[self OrderVasOfferWithInterface:@"orderVasOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
 //                }
-//                
+//
 //            }
 //        }
 //        //主推荐业务办理
@@ -698,7 +781,7 @@ extern NSMutableDictionary * UserInfo;
 //            [nc postNotificationName:@"loginFalse" object:self userInfo:d];
 //        }
 //    }
-//    
+//
 //    //如果显示alert   取消
 //    //    if (alerts.visible == YES && [getXMLResults rangeOfString:@"awordShellQueryResponse"].length == 0) {
 //    //        [self dimissAlert:alerts];
@@ -716,7 +799,7 @@ extern NSMutableDictionary * UserInfo;
 //    if (soapResults) {
 //        soapResults = nil;
 //    }
-//    
+//
 //}
 //
 //// 出错时，例如强制结束解析

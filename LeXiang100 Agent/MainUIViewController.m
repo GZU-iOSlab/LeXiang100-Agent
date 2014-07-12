@@ -17,10 +17,15 @@
 extern ConnectionAPI * soap;
 extern TestData * testData;
 extern BOOL testDataOn;
-@synthesize resultArray;
+
+
+extern NSNotificationCenter *nc;
+extern NSMutableDictionary * userDic;
+
 @synthesize classTableview;
 @synthesize array;
 
+@synthesize  alerts;
 
 
 #define iOS7  ([[[UIDevice currentDevice]systemVersion] floatValue] >= 7.0)?YES:NO
@@ -50,15 +55,18 @@ extern BOOL testDataOn;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [nc addObserver:self selector:@selector(payPressedFeedback:) name:@"queryAllPayMoneysResponse" object:nil];
+        
+        
         self.view.frame = [[UIScreen mainScreen] bounds];
         
         NSLog(@"!!%f",self.view.frame.size.height);
         
         self.title = @"中国移动通信-乐享100";
-    // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
+        // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"个人信息" style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"测试" style:UIBarButtonItemStyleBordered target:self action:@selector(test)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"注销" style:UIBarButtonItemStyleBordered target:self action:@selector(test)];
         self.view.backgroundColor = [UIColor whiteColor];
         
         //营销活动
@@ -136,8 +144,9 @@ extern BOOL testDataOn;
         buttonUpdate.userInteractionEnabled = YES;
         [buttonUpdate addTarget:self action:@selector(updatePressed:) forControlEvents:UIControlEventTouchUpInside];
         
+        //页面初始化
         pay = [[PayValueViewController alloc] init];
-        tableContrl = [[TableLevle2TableViewController alloc] init];
+        marketingTableView = [[MariketingTableViewController alloc] init];
         update = [[UpdateCheckingViewController alloc]init];
         payRecord = [[PayRecordViewController alloc]init];
         
@@ -156,7 +165,7 @@ extern BOOL testDataOn;
         }
         
         //针对iPad的界面调整
-     
+        
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
             
             buttonMarketing.frame = CGRectMake(firstY*2-viewWidth/30, firstY, iconSizeX, iconSizeY);
@@ -166,44 +175,58 @@ extern BOOL testDataOn;
             buttonPaid.frame =  CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 4, iconSizeX, iconSizeY);
             buttonUpdate.frame =  CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 5, iconSizeX, iconSizeY);
             
-             //classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
-            
-            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.2, viewHeight/100, viewWidth/2.8, viewHeight/6) style:UITableViewStylePlain];
-            
-            classTableview.delegate=self;
-            classTableview.dataSource=self;
-            classTableview.backgroundColor=[UIColor whiteColor];
-            [self.view addSubview:classTableview];
-            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/10);
-            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-            [arrayValue addObject:@"   工号 : 88888888"];
-            [arrayValue addObject:@"手机号: 18286057264"];
-            [arrayValue addObject:@"       密码修改  "];
-            [arrayValue addObject:@"          注销    "];
-            array=arrayValue;
-            tableShowed = NO;
-
-        } else {
-            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.5, viewHeight/4, viewWidth/2, viewHeight/3.2)style:UITableViewStylePlain];
-            
-            classTableview.delegate=self;
-            classTableview.dataSource=self;
-            classTableview.backgroundColor=[UIColor whiteColor];
-            [self.view addSubview:classTableview];
-            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
-            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-            [arrayValue addObject:@" 工号 : 88888888"];
-            [arrayValue addObject:@"手机号: 18286057264"];
-            [arrayValue addObject:@"         密码修改  "];
-            [arrayValue addObject:@"            注销    "];
-            array=arrayValue;
-            tableShowed = NO;
+            //classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
         }
+//            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.2, viewHeight/100, viewWidth/2.8, viewHeight/6) style:UITableViewStylePlain];
+//            
+//            classTableview.delegate=self;
+//            classTableview.dataSource=self;
+//            classTableview.backgroundColor=[UIColor whiteColor];
+//            [self.view addSubview:classTableview];
+//            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/10);
+//            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
+//            [arrayValue addObject:@"   工号 : 88888888"];
+//            [arrayValue addObject:@"手机号: 18286057264"];
+//            [arrayValue addObject:@"       密码修改  "];
+//            [arrayValue addObject:@"          注销    "];
+//            array=arrayValue;
+//            tableShowed = NO;
+//            
+//        } else {
+//            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.5, viewHeight/4, viewWidth/2, viewHeight/3.2)style:UITableViewStylePlain];
+//            
+//            classTableview.delegate=self;
+//            classTableview.dataSource=self;
+//            classTableview.backgroundColor=[UIColor whiteColor];
+//            [self.view addSubview:classTableview];
+//            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
+//            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
+//            
+//            [arrayValue addObject:@" 工号 : 88888888"];
+//            [arrayValue addObject:@"手机号: 18286057264"];
+//            [arrayValue addObject:@"         密码修改  "];
+//            [arrayValue addObject:@"            注销    "];
+//            array=arrayValue;
+//            tableShowed = NO;
+//        }
         
         
         
         
     }
+    
+    //staffId = [[NSString alloc]init];
+//    
+//    token = [userDic objectForKey:@"token"];
+//    staffId = [userDic objectForKey:@"staffId"];
+//    
+//    [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
+//    [staffId setDictionary:[[note userInfo] objectForKey:@"staffId"]];
+//    [staffName setDictionary:[[note userInfo] objectForKey:@"staffName"]];
+//    [userDic setDictionary:self.UserInfoDic];
+    
+    //定义存放soap返回数据的数组，适用于缴费列表接口
+   // NSMutableArray * resultArray = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -215,7 +238,7 @@ extern BOOL testDataOn;
     if (testDataOn == YES) {
         testDataOn = NO;
     }else
-    testDataOn = YES;
+        testDataOn = YES;
 }
 
 - (void)dealloc{
@@ -233,8 +256,6 @@ extern BOOL testDataOn;
     tableShowed = NO;
 }
 
--(void)login{
-}
 
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -258,22 +279,39 @@ extern BOOL testDataOn;
     return [super respondsToSelector:aSelector];
 }
 
+#pragma mark soapFeedback
+
+- (void)payPressedFeedback:(NSNotification *)note{
+  
+    
+    self.resultArray = (NSMutableArray*)[[note userInfo] objectForKey:@"1"];
+    
+    //    if([self.resultArray.count == 0]) {
+    //        [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"获取缴费金额列表失败，请稍后再试！"];
+    //    }
+    
+    
+}
+
 #pragma mark ButtonClick
 
 //营销活动
 -(void)marketingPressed:(id)sender {
-    [self.navigationController pushViewController:tableContrl animated:YES];
+    [self.navigationController pushViewController:marketingTableView animated:YES];
 }
 //充值缴费
--(void)payPressed:(id)sender{
-   [self.navigationController pushViewController:pay animated:YES];
+-(void)payPressed:(id)sender {
+  
+    
+    [soap queryAllPayMoneysWithInterface:@"queryAllPayMoneys" Parameter1:@"token" Token:[userDic objectForKey:@"token"]];
+        [self.navigationController pushViewController:pay animated:YES];
 }
 //控充值
 -(void)creditPressed:(id)sender {
     [[[[UIAlertView alloc] initWithTitle:@"提示" message:@"模块建设中" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil]autorelease]show];
     
-//    PayValueViewController *payValue = [[[PayValueViewController alloc] init]autorelease];
-//    [self.navigationController pushViewController:payValue animated:YES];
+    //    PayValueViewController *payValue = [[[PayValueViewController alloc] init]autorelease];
+    //    [self.navigationController pushViewController:payValue animated:YES];
 }
 //选号入网
 -(void)pickPressed:(id)sender {
@@ -319,29 +357,30 @@ extern BOOL testDataOn;
     cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/40];
     return cell;
 }
--(void)showTable
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        if (tableShowed) {
-            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/10);}];
-            tableShowed = NO;
-            self.classTableview.hidden = YES;
-        }else{
-            self.classTableview.hidden = NO;
-            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.2, viewHeight/10);}];
-            tableShowed = YES;
-        }
-    }else {
-        if (tableShowed) {
-            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/5);}];
-            tableShowed = NO;
-            self.classTableview.hidden = YES;
-        }else{
-            self.classTableview.hidden = NO;
-            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.3, viewHeight/5);}];
-            tableShowed = YES;
-        }
-    }
+-(void)showTable {
+    [self personMsgAlerView];
+    //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    //        if (tableShowed) {
+    //            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/10);}];
+    //            tableShowed = NO;
+    //            self.classTableview.hidden = YES;
+    //        }else{
+    //            self.classTableview.hidden = NO;
+    //            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.2, viewHeight/10);}];
+    //            tableShowed = YES;
+    //        }
+    //    }else {
+    //        if (tableShowed) {
+    //            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/5);}];
+    //            tableShowed = NO;
+    //            self.classTableview.hidden = YES;
+    //        }else{
+    //            self.classTableview.hidden = NO;
+    //            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.3, viewHeight/5);}];
+    //            tableShowed = YES;
+    //        }
+    //    }
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -401,6 +440,15 @@ extern BOOL testDataOn;
     return YES;
 }
 
+
+- (void)personMsgAlerView{
+
+    staffId = [NSString stringWithFormat:@"工 号:%@ \n 手机号:%@",[userDic objectForKey:@"staffId"], [userDic objectForKey:@"phone"]];
+    NSLog(@"===========satffid%@", [userDic objectForKey:@"staffId"]);
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"个人信息" message:staffId delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"修改密码", nil];
+    
+    [alert show];
+}
 
 - (void)viewDidLoad
 {

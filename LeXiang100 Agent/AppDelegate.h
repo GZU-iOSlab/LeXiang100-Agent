@@ -20,9 +20,7 @@ TestData * testData;
 BOOL testDataOn;
 ConnectionAPI * soap;
 NSMutableDictionary * userDic;
-NSMutableDictionary *staffName;
-NSMutableDictionary *staffId;
-NSMutableDictionary *loginPhone;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
