@@ -30,6 +30,7 @@ extern ConnectionAPI * soap;
 extern NSMutableDictionary * userDic;
 extern NSMutableDictionary * staffId;
 extern NSMutableDictionary * staffName;
+extern NSMutableDictionary * loginPhone;
 @synthesize backgroundText;
 @synthesize loginNameText;
 @synthesize loginPasswordText;
@@ -207,7 +208,7 @@ extern NSMutableDictionary * staffName;
     }
     else
     {
-        [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"phone" Phone:loginNameText.text Parameter2:@"passWord" passWord:loginPasswordText.text Parameter3:@"verifyCode" VerifyCode:loginDPasswordText.text];
+        [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"opPhone" Phone:loginNameText.text Parameter2:@"passWord" passWord:loginPasswordText.text Parameter3:@"verifyCode" VerifyCode:loginDPasswordText.text];
         [loginPasswordText resignFirstResponder];
         [loginNameText resignFirstResponder];
         [loginDPasswordText resignFirstResponder];
@@ -223,6 +224,7 @@ extern NSMutableDictionary * staffName;
     [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
     [staffId setDictionary:[[note userInfo] objectForKey:@"staffId"]];
     [staffName setDictionary:[[note userInfo] objectForKey:@"staffName"]];
+    [loginPhone setDictionary:(NSMutableDictionary*)loginNameText.text];
     [userDic setDictionary:self.UserInfoDic];
     [self.navigationController pushViewController:mainView animated:YES];
 }

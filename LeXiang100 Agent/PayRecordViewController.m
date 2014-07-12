@@ -23,6 +23,8 @@
 @synthesize tableCellArray;
 @synthesize tableArray;
 @synthesize recordTableview;
+extern NSMutableDictionary * loginPhone;
+extern NSMutableDictionary * userDic;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -295,6 +297,24 @@
 
 - (void)recommendedsoap
 {
+    startDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
+    if(self.recordTableview != nil){
+        self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/3);
+    }
+    
+    if (!([startLeftLabel.text isEqual:@""]))
+    {
+        NSString * name = (NSString *)loginPhone;
+        NSString * token = (NSString *)userDic;
+        NSString * startYear = [startLeftLabel.text substringWithRange:NSMakeRange(0,4)];
+        NSString * startMonth = [startLeftLabel.text substringWithRange:NSMakeRange(5,2)];
+        NSMutableString * startYearAndMonth = [[NSMutableString alloc]init];
+        [startYearAndMonth appendString:startYear];
+        [startYearAndMonth appendString:startMonth];
+        //[soap queryPayHistoryWithInterface:@"queryPayHistory" Parameter1:"opPhone" OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 Month:(NSString *)month Parameter3:(NSString *)parameter3 Start:(NSString *)start Parameter4:(NSString *)parameter4 Token:(NSString *)token
+                                //Parameter1:@"opPhone" ophone:name Parameter2:@"startMonth" StartMonth:startYearAndMonth Parameter3:@"endMonth" EndMonth:endYearAndMonth Parameter4:@"token" Token:token];
+        
+    }
     /*[self dateForSure];
     
     [UIView beginAnimations:@"下降" context:nil];
