@@ -8,14 +8,17 @@
 
 #import "UpdateCheckingViewController.h"
 
+
 #define viewWidth   self.view.frame.size.width
 #define viewHeight  self.view.frame.size.height
 
 @interface UpdateCheckingViewController ()
 
 @end
-
 @implementation UpdateCheckingViewController
+
+extern ConnectionAPI * soap;
+extern NSNotificationCenter *nc;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,7 +26,8 @@
     
     if (self) {
         // Custom initialization
-        
+        [nc addObserver:self selector:@selector(queryVersionFeedback:) name:@"queryVersionInfo" object:nil];
+
         self.title = @"检查更新";
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         
@@ -84,7 +88,7 @@
         updateButton.center=CGPointMake(viewWidth/2, viewHeight/2.5);
         updateButton.backgroundColor = [UIColor colorWithRed:0.27f green:0.85f blue:0.46f alpha:1.0f];
         [updateButton setTitle:@"检查更新" forState:UIControlStateNormal];
-        [updateButton addTarget:self action:@selector(updateData) forControlEvents:UIControlEventTouchUpInside];//添加点击按钮执行的方法
+        [updateButton addTarget:self action:@selector(updateCheck:) forControlEvents:UIControlEventTouchUpInside];//添加点击按钮执行的方法
         [self.view addSubview:updateButton];
         
         //乐享版权标题
@@ -114,11 +118,80 @@
     }
     return self;
 }
+#pragma mark soapFeedback
+
+- (void)queryVersionFeedback:(NSNotification *)note{
+    
+    NSDictionary * phoneUpdateCfg =[[[note userInfo]objectForKey:@"1"] objectForKey:@"phoneUpdateCfg"];
+    NSLog(@"%@",phoneUpdateCfg);
+  
+    if ([[phoneUpdateCfg objectForKey:@"releaseType"] intValue] == 1) {
+        [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"软件有更新，请到App Store下载最新版本！"];
+        
+          }
+    
+    if ([[phoneUpdateCfg objectForKey:@"releaseType"] intValue] == 2) {
+      //  [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"数据有更新，现在是否更新数据信息？"];
+        
+        [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"数据更新成功！"];
+        
+        NSString * dataVersion;
+        NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"YYYYMMddhhmmss"];
+        dataVersion = [formatter stringFromDate:[NSDate date]];
+        [phoneUpdateCfg setValue:dataVersion forKey:@"dataVersion"];
+        
+        NSLog(@"%@", dataVersion);
+        NSLog(@"%@==", [phoneUpdateCfg objectForKey:@"dataVersion"]);
+        NSDictionary * dic = [[NSDictionary alloc]initWithObjectsAndKeys:phoneUpdateCfg,@"phoneUpdateCfg", nil];
+        
+        [dic writeToFile:[self documentsPath:@"version.txt"] atomically:YES];
+        
+        
+     
+
+    }
+    
+}
+#pragma mark ButtonClick
+
+-(void)updateCheck:(id)sender {
+    NSDictionary * dic = [self readFileDic];
+    NSDictionary * phoneUpdateCfg = [dic objectForKey:@"phoneUpdateCfg"];
+    NSString * versionCode = [phoneUpdateCfg objectForKey:@"versionCode"];
+     NSString * dataVersion = [phoneUpdateCfg objectForKey:@"dataVersion"];
+    NSString * appName = [phoneUpdateCfg objectForKey:@"appName"];
+    
+    NSLog(@"%@===%@===%@",versionCode,dataVersion, appName );
+    [soap queryVersionInfoWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:versionCode Parameter2:@"dataVersion" DataVersion:dataVersion Parameter3:@"appName" AppName:appName];
+    
+}
+
+#pragma mark readfile
+
+-(NSDictionary *)readFileDic
+{
+    NSLog(@"To Read Vsersion Data........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"version.txt"];
+    //从filePath 这个指定的文件里读
+    NSDictionary * collectBusiArray = [NSDictionary dictionaryWithContentsOfFile:filePath];//[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];//[NSArray arrayWithContentsOfFile:filePath];
+    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    return collectBusiArray;
+    return collectBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+   
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,43 +201,10 @@
 }
 
 - (void)updateData{
-    /*NSDictionary * dic = [self readFileDic];
-    NSDictionary * phoneUpdateCfg = [dic objectForKey:@"phoneUpdateCfg"];
-    NSString * version = [phoneUpdateCfg objectForKey:@"versionCode"];
-    NSLog(@"version:%@",version);
-    if ([version rangeOfString:@"2014"].length == 0) {
-        version = @"123";
-    }
-    //[soap CheckVersionWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:@"1.0.0" Parameter2:@"dataVersion" DataVersion:version Parameter3:@"appName" AppName:@"lx100-iPhone"];
-    [soap HotServiceWithInterface:@"queryBusiHotInfo" Parameter1:@"versionTag" Version:@"public"];
-    
-    */
-}
 
--(NSDictionary *)readFileDic
-{
-   NSLog(@"To read collectBusi........\n");
-    //filePath 表示程序目录下指定文件
-  //  NSString *filePath = [self documentsPath:@"version.txt"];
-    //从filePath 这个指定的文件里读
-    NSDictionary * collectBusiArray;
-    
-    //[NSDictionary dictionaryWithContentsOfFile:filePath];//[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];//[NSArray arrayWithContentsOfFile:filePath];
-    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
-    return collectBusiArray;
-    
 }
 
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

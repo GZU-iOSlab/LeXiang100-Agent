@@ -45,6 +45,7 @@ extern NSMutableDictionary * userDic;
         //self.navigationController.navigationBar.tintColor = [UIColor iOS7lightBlueColor];
         [nc addObserver:self selector:@selector(loginFeedback:) name:@"agentLogin" object:nil];
         mainView = [[MainUIViewController alloc]init];
+        
        
         
         self.UserInfoDic = [[NSMutableDictionary alloc]init];
@@ -128,7 +129,7 @@ extern NSMutableDictionary * userDic;
         DPasswdBtn.titleLabel.textColor=[UIColor whiteColor];
         //DPasswdBtn.center=CGPointMake(viewWidth/2-viewWidth/20, viewHeight/4+viewHeight/40);
         DPasswdBtn.backgroundColor=[UIColor colorWithRed:(188.0/255.0) green:(122.0/255.0) blue:(216.0/255.0) alpha:0];
-         [DPasswdBtn addTarget:self action:@selector(loginWithName:AndPassword:AndVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
+         [DPasswdBtn addTarget:self action:@selector(getVerifyCode) forControlEvents:UIControlEventTouchUpInside];
         DPasswdBtn.titleLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         [self.backgroundText addSubview:DPasswdBtn];
         
@@ -171,7 +172,38 @@ extern NSMutableDictionary * userDic;
             backgroundText.backgroundColor = [UIColor groupTableViewBackgroundColor];
         }
     }
+    [self versionCheck];
     return self;
+}
+
+-(void)versionCheck {
+    NSDictionary * dic = [self readFileDic];
+    NSDictionary * phoneUpdateCfg = [dic objectForKey:@"phoneUpdateCfg"];
+    NSString * versionCode = [phoneUpdateCfg objectForKey:@"versionCode"];
+    NSString * dataVersion = [phoneUpdateCfg objectForKey:@"dataVersion"];
+    NSString * appName = [phoneUpdateCfg objectForKey:@"appName"];
+    
+    NSLog(@"%@===%@===%@",versionCode,dataVersion, appName );
+    [soap queryVersionInfoWithInterface:@"queryVersionInfo" Parameter1:@"clientVersion" ClientVersion:versionCode Parameter2:@"dataVersion" DataVersion:dataVersion Parameter3:@"appName" AppName:appName];
+}
+#pragma mark readfile
+
+-(NSDictionary *)readFileDic
+{
+    NSLog(@"To Read Vsersion Data........\n");
+    //filePath 表示程序目录下指定文件
+    NSString *filePath = [self documentsPath:@"version.txt"];
+    //从filePath 这个指定的文件里读
+    NSDictionary * collectBusiArray = [NSDictionary dictionaryWithContentsOfFile:filePath];//[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];//[NSArray arrayWithContentsOfFile:filePath];
+    //NSLog(@"%@",[collectBusiArray objectAtIndex:0] );
+    return collectBusiArray;
+    return collectBusiArray;
+}
+
+-(NSString *)documentsPath:(NSString *)fileName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
 }
 
 - (void)viewDidLoad
@@ -196,7 +228,13 @@ extern NSMutableDictionary * userDic;
     // Pass the selected object to the new view controller.
 }
 */
-
+-(void)getVerifyCode {
+    if ([loginNameText.text isEqualToString:@""]) {
+        [ConnectionAPI showAlertWithTitle:@"提示" AndMessages:@"请输入手机号码！"];
+    } else {
+        [soap acquireAgentVerifyWithInterface:@"acquireAgentVerify" Parameter1:@"phone" Phone:loginNameText.text];
+    }
+}
 - (void)loginWithName:(NSString *)name AndPassword:(NSString *)password AndVerifyCode:(NSString *)verifyCode{
     if ([loginNameText.text  isEqual: @""]) {
         [ConnectionAPI showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];

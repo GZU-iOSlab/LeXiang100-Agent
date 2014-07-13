@@ -16,6 +16,7 @@
     UIAlertView * alertVersionInfo;
     BOOL needToAnalysis;
     UIAlertView * pwdAlertView;
+//    NSMutableString * verifyCode;
 }
 @property (strong, nonatomic) NSMutableData *webData;
 @property (strong, nonatomic) NSMutableString *soapResults;

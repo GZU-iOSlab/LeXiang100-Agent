@@ -20,9 +20,9 @@
     //5版本检测借口
     self.updateCheckList = [[NSString alloc]initWithString:@"{\"phoneUpdateCfg\":{\"appName\":\"lx100-Agent\",\"id\":1,\"releaseDate\":\"2014-07-10\",\"releaseType\":1,\"releaseUser\":\"nieaw\",\"updateContent\":\"版本更新,新增加预开户激活动能.\",\"updateUrl\":\"http://www.gz.10086.cn/lx100/apk/lx100_android_agent_v1.0.0.apk\",\"versionCode\":\"1.0.1\"},\"status\":1}"];
     //6获取验证码
-    self.verify = [[NSString alloc]initWithString:@"XT5Y"];
+    self.verify = [[NSString alloc]initWithString:@"123456"];
     //7登录接口
-    self.loginList = [[NSString alloc]initWithString:@"{\"status\":4,\"token\":\"be93439a-4425-47de-b281-4f41afb7ff60\",\"staffName\":\"乐享测试1\",\"staffId\":\"88888888\",\"ifFirstLogin\":0}"];
+    self.loginList = [[NSString alloc]initWithString:@"{\"status\":4,\"token\":\"be93439a-4425-47de-b281-4f41afb7ff60\",\"staffName\":\"乐享测试1\",\"staffId\":\"88888888\",\"ifFirstLogin\":1}"];
     //8营销活动接口
     self.marketList = [[NSString alloc]initWithString:@"[{\"id\":3,\"cityCode\":\"851\",\"campaignName\":\"预交50元送50元话费（网龄3-12个月）\",\"campaignDesc\":\"预交50元送50元话费（网龄3-12个月）\",\"status\":0,\"offerId\":\"310000281701\",\"campSort\":1},{\"id\":4,\"cityCode\":\"851\",\"campaignName\":\"预交40元送50元话费（网龄12-36个月）\",\"campaignDesc\":\"预交40元送50元话费（网龄12-36个月）\",\"status\":0,\"offerId\":\"310000281702\",\"campSort\":2}]"];
     //9活动办理接口

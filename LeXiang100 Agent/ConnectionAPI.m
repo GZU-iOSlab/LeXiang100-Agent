@@ -32,7 +32,9 @@ extern NSMutableDictionary * UserInfo;
     getXMLResults = [[NSMutableString alloc]init];
     soapResults = [[NSMutableString alloc]init];
     
-    //
+    count = 0;
+//    verifyCode = [[NSMutableString alloc]init];
+    
     return self;
 }
 - (void)getSoapFromInterface:(NSString *)interface {
@@ -367,7 +369,9 @@ extern NSMutableDictionary * UserInfo;
 
 //在线版本检测，接口5
 -(void)queryVersionInfoWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 ClientVersion:(NSString *)clientVersion Parameter2:(NSString *)parameter2 DataVersion:(NSString *)dataVersion Parameter3:(NSString *)parameter3 AppName:(NSString *)appName{
-    [self showAlerView];
+    if(count != 0) {
+       [self showAlerView];
+    }
     if (testDataOn) {
         [getXMLResults setString:@""];
         [getXMLResults appendString:@"queryVersionInfo"];
@@ -583,24 +587,26 @@ extern NSMutableDictionary * UserInfo;
         NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObject:resultDic forKey:@"1"];
         //版本更新
         
-        if ([getXMLResults rangeOfString:@"queryVersionInfoResponse"].length>0 ) {
-            [self showAlerView];
+        if ([getXMLResults rangeOfString:@"queryVersionInfo"].length>0 ) {
+            
+            count ++;
             NSString * resultFor = [NSString stringWithFormat:@"%@",[self.resultDic objectForKey:@"status"]];
-            count++;
-            if ([resultFor isEqualToString:@"0"]) {
-                if (count != 1) {
-                    [ConnectionAPI showAlertWithTitle:nil AndMessages:@"数据无需更新！"];
-                }
-            }else if([resultFor isEqualToString:@"2"]){
-                NSDictionary * phoneUpdateCfg = [self.resultDic objectForKeyedSubscript:@"phoneUpdateCfg"];
-                NSString * releaseDate = [phoneUpdateCfg objectForKey:@"releaseDate"];
-                NSString * updateContent = [phoneUpdateCfg objectForKey:@"updateContent"];
-                NSString * messageToShow = [NSString stringWithFormat:@"发布日期：%@ \n更新内容：%@",releaseDate,updateContent];
-                alertVersionInfo = [[UIAlertView alloc]initWithTitle:@"更新到最新版本" message:messageToShow delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-                alertVersionInfo.delegate = self;
-                [alertVersionInfo show];
-                [alertVersionInfo release];
+           
+           if([resultFor isEqualToString:@""]){
+                 [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"网络或服务端异常，请稍后再试！"];
+           } else if([resultFor isEqualToString:@"1"]){
+               
+          //     NSDictionary * phoneUpdateCfg = [self.resultDic objectForKeyedSubscript:@"phoneUpdateCfg"];
+
+               //[ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"软件有更新，请到App Store下载最新版本！"];
+               
+               [nc postNotificationName:@"queryVersionInfo" object:self userInfo:d];
+
+           } else {
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"已经是最新版本，感谢您的使用！"];
+
             }
+            
         }
         //客户登陆
         else if ([getXMLResults rangeOfString:@"agentLogin"].length > 0){
@@ -654,20 +660,15 @@ extern NSMutableDictionary * UserInfo;
                 [nc postNotificationName:@"queryAllPayMoneysResponse" object:self userInfo:d];
             }
         }
-        //版本测
-        else if ([getXMLResults rangeOfString:@"queryVersionInfo"].length>0){
-            if ([soapResults isEqualToString:@"0"]) {
-                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"充值成功！"];
-            } else if([soapResults isEqualToString:@"2"]) {
-                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"BOSS密码验证失败"];
-            } else {
-                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"服务端异常，请稍后再试！"];
-            }
-        }
         //验证码
         else if ([getXMLResults rangeOfString:@"acquireAgentVerify"].length>0){
+            
             if (soapResults != NULL) {
-                [nc postNotificationName:@"acquireAgentVerify" object:self userInfo:d];
+//                [verifyCode setString:@""];
+//                [verifyCode appendString:soapResults];
+//               // [nc postNotificationName:@"acquireAgentVerify" object:self userInfo:d];
+                [ConnectionAPI showAlertWithTitle:nil AndMessages:@"获取验证码成功！"];
+
             }
         }  //密码修改
         else if ([getXMLResults rangeOfString:@"updateAgentPwd"].length>0){
