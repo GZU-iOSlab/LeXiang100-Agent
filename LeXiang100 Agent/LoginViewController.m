@@ -123,7 +123,7 @@ extern NSMutableDictionary * userDic;
         [self.backgroundText addSubview:self.loginDPasswordText];
         
         //获取动态密码按钮
-        UIButton * DPasswdBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        DPasswdBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         DPasswdBtn.frame = CGRectMake( viewWidth/2+viewWidth/6 , viewHeight/10+viewHeight/20+viewHeight/40, viewWidth*0.2, viewHeight/18);
         [DPasswdBtn setTitle:@"获 取" forState:UIControlStateNormal];
         DPasswdBtn.titleLabel.textColor=[UIColor whiteColor];
@@ -134,7 +134,7 @@ extern NSMutableDictionary * userDic;
         [self.backgroundText addSubview:DPasswdBtn];
         
         //登录按钮
-        UIButton * loginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        loginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         loginBtn.frame = CGRectMake( viewWidth/2, viewHeight/4.5, viewWidth*0.85, viewHeight/20);
         [loginBtn setTitle:@"登 录" forState:UIControlStateNormal];
         loginBtn.titleLabel.textColor=[UIColor whiteColor];
@@ -210,6 +210,11 @@ extern NSMutableDictionary * userDic;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+
+    [loginNameText becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

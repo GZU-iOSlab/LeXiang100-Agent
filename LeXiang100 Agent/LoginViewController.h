@@ -13,8 +13,8 @@
 @interface LoginViewController : UIViewController<UITextFieldDelegate>
 {
     MainUIViewController * mainView;
- 
-
+    UIButton * loginBtn;
+    UIButton * DPasswdBtn;
 }
 @property(nonatomic,strong)UITextField * backgroundText;
 @property(nonatomic,strong)UITextField * loginNameText;
