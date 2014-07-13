@@ -33,9 +33,6 @@ extern NSNotificationCenter *nc;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        
-        //self.title = service;
         
         [nc addObserver:self selector:@selector(payMentListFeedback:) name:@"queryAllPayMoneysResponse" object:nil];
         
@@ -43,7 +40,7 @@ extern NSNotificationCenter *nc;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"下一步" style:UIBarButtonItemStyleBordered target:self action:@selector(toPayPage)];
         UITextView * background = [[[UITextView alloc]init]autorelease];
         background.frame = self.view.frame;
-        //[self.view addSubview: background];
+        
         
         //通讯录tableview初始化
         addressBook = [[AddresseBookTableViewController alloc]init];
@@ -79,7 +76,7 @@ extern NSNotificationCenter *nc;
         servicesLabel.text = @"客户手机号码:";
         servicesLabel.backgroundColor = [UIColor clearColor];
         servicesLabel.font = [UIFont systemFontOfSize:viewHeight/35];
-        //servicesLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        
         [self.view addSubview:servicesLabel];
         
         
@@ -99,42 +96,9 @@ extern NSNotificationCenter *nc;
         noteLabel.text = @"说明：只支持贵州移动手机号码充值缴费";
         noteLabel.backgroundColor = [UIColor clearColor];
         noteLabel.font = [UIFont systemFontOfSize:viewHeight/35];
-        //servicesLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        
         [self.view addSubview:noteLabel];
-        
-        
-        //        classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
-        //
-        //        classTableview.delegate=self;
-        //        classTableview.dataSource=self;
-        //        classTableview.backgroundColor=[UIColor whiteColor];
-        //        [self.view addSubview:classTableview];
-        //        classTableview.center=CGPointMake(viewWidth/2, viewHeight*1.5);
-        //         array=[[NSMutableArray alloc]init];
-        //        arrayValue=[[NSMutableArray alloc]init];
-        //
-        ////        for (int i=0; i<payMentArray.count; i++)
-        ////        {
-        ////            //NSLog(@"第%d个元素---%@", i, [resultArray1[i] objectForKey:@"payMoney"]);
-        ////            [arrayValue addObject: payMentArray[i]] ;
-        ////        }//            if (
-        //
-        //        [arrayValue addObject:@"10元"];
-        //        [arrayValue addObject:@"20元"];
-        //        [arrayValue addObject:@"30元"];
-        //        [arrayValue addObject:@"50元"];
-        //        [arrayValue addObject:@"100元"];
-        //        [arrayValue addObject:@"200元"];
-        //        [arrayValue addObject:@"300元"];
-        //
-        //
-        //        array=arrayValue;
-        //        tableShowed = NO;
-        //
-        //
-        //        //初始化存放充值信息的字典，用来传值到下一个页面
-        //        payInfoDic = [[NSMutableDictionary alloc] init];
-        //        payNumVaue = [[NSMutableString alloc]init];
+       
         
         //解决ios7界面上移  配色等问题
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
@@ -315,14 +279,12 @@ extern NSNotificationCenter *nc;
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell==nil)
     {
-        //cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault:CellIdentifier];
         cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
         
     }
-    // if(indexPath.section==0)
-    //{
+   
     cell.imageView.image=[arrayImage objectAtIndex:[indexPath row]];
-    //}
+  
     cell.backgroundColor=[UIColor groupTableViewBackgroundColor];
     cell.textLabel.text=[array objectAtIndex:[indexPath row]];
     cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/25];
@@ -330,7 +292,7 @@ extern NSNotificationCenter *nc;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    // NSString *header=
+    
     return @"充值金额";
 }
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
@@ -357,8 +319,6 @@ extern NSNotificationCenter *nc;
     tableShowed = NO;
     selectedString = [array objectAtIndex:indexPath.row];
     
-    //获取充值金额，并赋值给payNumValue
-    //payNumVaue = [[NSString alloc]initWithString:selectedString ];
     [self.payNumVaue setString:@""];
     [self.payNumVaue appendString: selectedString];
     
@@ -395,13 +355,12 @@ extern NSNotificationCenter *nc;
         NSString *firstname = (NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
         if(firstname != nil){
             [str appendString:firstname];
-            //NSLog(@"firstname:%@",firstname);
         }
         //读取lastname
         NSString *lastname = (NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
         if(lastname != nil){
             [str appendString:lastname];
-            //NSLog(@"lastname:%@",lastname);
+           
         }
         [dic setObject:str forKey:@"name"];
         

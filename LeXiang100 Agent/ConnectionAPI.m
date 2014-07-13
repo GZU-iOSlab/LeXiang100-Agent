@@ -33,7 +33,7 @@ extern NSMutableDictionary * UserInfo;
     soapResults = [[NSMutableString alloc]init];
     
     count = 0;
-//    verifyCode = [[NSMutableString alloc]init];
+
     
     return self;
 }
@@ -72,7 +72,7 @@ extern NSMutableDictionary * UserInfo;
 }
 
 - (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1{
-    //value1 = [DES3Util encrypt:value1];
+
     
     NSString * soapMsg = [NSString stringWithFormat:
                           @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
@@ -101,7 +101,7 @@ extern NSMutableDictionary * UserInfo;
     conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
     if(conn){
         webData = [[NSMutableData data]retain];
-        //NSLog(@"%@  22222",webData);
+       
     }else NSLog(@"con为假  %@",webData);
     
 }
@@ -151,7 +151,7 @@ extern NSMutableDictionary * UserInfo;
     conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
     if(conn){
         webData = [[NSMutableData data]retain];
-        //NSLog(@"%@  22222",webData);
+        
     }else NSLog(@"con为假  %@",webData);
 }
 - (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 {
@@ -199,7 +199,7 @@ extern NSMutableDictionary * UserInfo;
     conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
     if(conn){
         webData = [[NSMutableData data]retain];
-        //NSLog(@"%@  22222",webData);
+       
     }else NSLog(@"con为假  %@",webData);
 }
 
@@ -240,7 +240,7 @@ extern NSMutableDictionary * UserInfo;
     conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
     if(conn){
         webData = [[NSMutableData data]retain];
-        //NSLog(@"%@  22222",webData);
+      
     }else NSLog(@"con为假  %@",webData);
 }
 
@@ -283,7 +283,7 @@ extern NSMutableDictionary * UserInfo;
     conn = [[NSURLConnection alloc]initWithRequest:req delegate:self];
     if(conn){
         webData = [[NSMutableData data]retain];
-        //NSLog(@"%@  22222",webData);
+       
     }else NSLog(@"con为假  %@",webData);
 }
 
@@ -626,7 +626,7 @@ extern NSMutableDictionary * UserInfo;
                 [ConnectionAPI showAlertWithTitle:@"动态密码错误" AndMessages:nil];
             }
         }
-        //缴费///////
+        //缴费
         else if ([getXMLResults rangeOfString:@"payMoneyToCustPhone"].length>0){
             if ([soapResults isEqualToString:@"0"]) {
                 [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"充值成功！"];
@@ -639,7 +639,7 @@ extern NSMutableDictionary * UserInfo;
         //缴费记录
         else if ([getXMLResults rangeOfString:@"queryPayHistory"].length>0){
             NSString * result =[NSString stringWithFormat:@"%@",[resultDic objectForKey:@"status"]];
-            //[self.resultDic objectForKey:@"status"];
+           
             if ([result isEqualToString:@"0"])
             {
                 [ConnectionAPI showAlertWithTitle:@"调用接口失败" AndMessages:nil];
@@ -664,17 +664,14 @@ extern NSMutableDictionary * UserInfo;
         else if ([getXMLResults rangeOfString:@"acquireAgentVerify"].length>0){
             
             if (soapResults != NULL) {
-//                [verifyCode setString:@""];
-//                [verifyCode appendString:soapResults];
-//               // [nc postNotificationName:@"acquireAgentVerify" object:self userInfo:d];
+                
                 [ConnectionAPI showAlertWithTitle:nil AndMessages:@"获取验证码成功！"];
-
             }
         }  //密码修改
         else if ([getXMLResults rangeOfString:@"updateAgentPwd"].length>0){
             
             if ([soapResults isEqualToString:@"0"]) {
-                //[ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"密码修改成功！"];
+              
                 pwdAlertView = [[UIAlertView alloc]initWithTitle:@"提示信息" message:@"密码修改成功！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 pwdAlertView.delegate = self;
                 [pwdAlertView show];
@@ -710,164 +707,6 @@ extern NSMutableDictionary * UserInfo;
     }
 }
 
-
-// 结束解析这个元素名
-//-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-//
-//    if (needToAnalysis) {
-//
-//        NSMutableDictionary *d = [NSMutableDictionary dictionaryWithObject:resultDic forKey:@"1"];
-//        //版本更新
-//        if ([getXMLResults rangeOfString:@"queryVersionInfoResponse"].length>0 ) {
-//
-//        }
-//        //登录返回解析
-//        else if([getXMLResults rangeOfString:@"modifyLoginResponse"].length>0 ){
-//            if ([soapResults rangeOfString:@":0,"].length>0) {
-//                [nc postNotificationName:@"loginResponse" object:self userInfo:d];
-//            }else if([soapResults rangeOfString:@":1,"].length>0){
-//                [connectionAPI showAlertWithTitle:@"登录失败" AndMessages:@"账号或密码错误！"];
-//                [nc postNotificationName:@"loginFalse" object:self userInfo:d];
-//            }else{
-//                [connectionAPI showAlertWithTitle:@"登录失败" AndMessages:@"登陆乐享100失败！"];
-//                [nc postNotificationName:@"loginFalse" object:self userInfo:d];
-//            }
-//        }
-//        //用户信息解析
-//        else if([getXMLResults rangeOfString:@"queryUserInfoResponse"].length>0){
-//            if ([soapResults rangeOfString:@"opName"].length>0&&[soapResults rangeOfString:@"opStatus"].length>0){
-//                [nc postNotificationName:@"queryUserInfoResponse" object:self userInfo:d];
-//            }else {
-//                [connectionAPI showAlertWithTitle:@"获取失败" AndMessages:@"获取个人信息失败！"];
-//                [nc postNotificationName:@"loginFalse" object:self userInfo:d];
-//            }
-//        }
-//        //银行账户解析
-//        else if([getXMLResults rangeOfString:@"queryBankInfoResponse"].length>0){
-//            //if ([soapResults rangeOfString:@"opName"].length>0&&[soapResults rangeOfString:@"opStatus"].length>0){
-//            [nc postNotificationName:@"queryBankInfoResponse" object:self userInfo:d];
-//            //}else [connectionAPI showAlertWithTitle:@"获取失败" AndMessages:@"获取个人信息失败！"];
-//        }
-//        //推荐记录查询解析
-//        else if ([getXMLResults rangeOfString:@"queryRecommendRecordsResponse"].length>0){
-//            if (!([soapResults rangeOfString:@"months"].length>0&&[soapResults rangeOfString:@"totalRecommend"].length>0)) {
-//                [connectionAPI showAlertWithTitle:@"没有推荐记录" AndMessages:@"在您查询的时间区间内没有推荐记录，请重新选择！"];
-//                //[nc postNotificationName:@"loginFalse" object:self userInfo:d];
-//            }else {
-//                [nc postNotificationName:@"queryRecommendRecordsResponse" object:self userInfo:d];
-//            }
-//        }
-//        //业务数据返回
-//        else if ([getXMLResults rangeOfString:@"queryBusiInfoResponse"].length>0){
-//            if ([resultDic isKindOfClass:[NSArray class]]) {
-//                NSLog(@"result is kind of arrry class");
-//                //            NSArray * resultArray = (NSArray *)resultDic;
-//                //            for (NSDictionary *dic in resultArray) {
-//                //                NSLog(@"dic:%@",[dic objectForKey:@"busiName"]);
-//                //            }
-//                [nc postNotificationName:@"queryBusiInfoResponse" object:self userInfo:d];
-//            }
-//        }
-//        //热点业务
-//        else if([getXMLResults rangeOfString:@"queryBusiHotInfoResponse"].length>0){
-//            if (!([soapResults rangeOfString:@"busiCode"].length>0&&[soapResults rangeOfString:@"id"].length>0)) {
-//                [connectionAPI showAlertWithTitle:@"获取热点业务失败" AndMessages:@"获取热点业务失败，请重试！"];
-//            }else {
-//                [nc postNotificationName:@"queryBusiHotInfoResponse" object:self userInfo:d];
-//            }
-//        }
-//        //一句话营销
-//        else if ([getXMLResults rangeOfString:@"awordShellQueryResponse"].length>0) {
-//            if ([soapResults isEqualToString:@"{}"]) {
-//
-//            }else{
-//                //NSString * custPhone = [UserInfo objectForKey:@"name" ];
-//                //NSString * token = [UserInfo objectForKey:@"token"];
-//                NSDictionary * offerList = [resultDic objectForKey:@"returnOfferList"];
-//                NSString * offerId;
-//                if (offerList.count ==0 ) {
-//                    NSLog(@"没有适合办理的业务");
-//                    [nc postNotificationName:@"awordResponseNo" object:self userInfo:d];
-//                }else{
-//                    if ([offerList isKindOfClass:[NSArray class]]) {
-//                        NSLog(@"i'm a array");
-//                        NSArray * offerArray = [resultDic objectForKey:@"returnOfferList"];
-//                        offerId = [[offerArray objectAtIndex:0]objectForKey:@"OFFER_ID"];
-//                    }
-//                    else if ([offerList isKindOfClass:[NSDictionary class]]){
-//                        offerId = [offerList objectForKey:@"OFFER_ID"];
-//                    }
-//                    NSLog(@"offerID:%@",offerId);
-//                    [nc postNotificationName:@"awordShellQueryResponse" object:self userInfo:d];
-//                    // [self UpdateUserMainOfferWithInterface:@"updateUserMainOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
-//                    //[self OrderVasOfferWithInterface:@"orderVasOffer" Parameter1:@"custPhone" CustPhone:custPhone Parameter2:@"OfferId"     ParameterOfferId:offerId Parameter3:@"token" Token:token];
-//                }
-//
-//            }
-//        }
-//        //主推荐业务办理
-//        else if (([getXMLResults rangeOfString:@"updateUserMainOfferResponse"].length>0)) {
-//            NSString * returnSingal = [resultDic objectForKey:@"X_RESULTCODE"];
-//            if ([returnSingal isEqualToString:@"0"]) {
-//                [connectionAPI showAlertWithTitle:@"推荐成功！" AndMessages:nil];
-//            }else   [connectionAPI showAlertWithTitle:@"推荐失败！" AndMessages:nil];
-//            NSLog(@"======================updateUserMainOfferResponse============================");
-//        }
-//        //增值业务办理
-//        else if (([getXMLResults rangeOfString:@"orderVasOfferResponse"].length>0)) {
-//            NSLog(@"======================orderVasOfferResponse============================");
-//        }
-//        //推荐业务返回
-//        else if ([getXMLResults rangeOfString:@"mockUpSMSResponse"].length>0){
-//            if ([soapResults isEqualToString:@"0"]) {
-//                [connectionAPI showAlertWithTitle:nil AndMessages:@"业务推荐成功！"];
-//            }else if ([soapResults isEqualToString:@"1"]){
-//                [connectionAPI showAlertWithTitle:nil AndMessages:@"业务推荐失败！"];
-//            }
-//        }
-//        //建议提交返回
-//        else if ([getXMLResults rangeOfString:@"saveSuggestInfoResponse"].length>0){
-//            if ([soapResults isEqualToString:@"0"]) {
-//                [connectionAPI showAlertWithTitle:nil AndMessages:@"建议提交成功！"];
-//            }else if ([soapResults isEqualToString:@"1"]){
-//                [connectionAPI showAlertWithTitle:nil AndMessages:@"建议提交失败！"];
-//            }
-//        }
-//        //返回数据为空
-//        else if (soapResults.length<5) {
-//            //[connectionAPI showAlertWithTitle:@"返回数据错误" AndMessages:@"返回数据为空，请检查输入项！"];
-//            [nc postNotificationName:@"loginFalse" object:self userInfo:d];
-//        }
-//    }
-//
-//    //如果显示alert   取消
-//    //    if (alerts.visible == YES && [getXMLResults rangeOfString:@"awordShellQueryResponse"].length == 0) {
-//    //        [self dimissAlert:alerts];
-//    //    }
-//    //[resultDic release];
-//    elementFound = FALSE;
-//    // 强制放弃解析
-//    [xmlParser abortParsing];
-//    soapResults = nil;
-//    //}
-//}
-//
-//// 解析整个文件结束后
-//- (void)parserDidEndDocument:(NSXMLParser *)parser {
-//    if (soapResults) {
-//        soapResults = nil;
-//    }
-//
-//}
-//
-//// 出错时，例如强制结束解析
-//- (void) parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-//    if (soapResults) {
-//        soapResults = nil;
-//    }
-//}
-//
-//
 
 #pragma mark - AlertView
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

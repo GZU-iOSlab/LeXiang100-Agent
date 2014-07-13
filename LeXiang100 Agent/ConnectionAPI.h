@@ -16,7 +16,7 @@
     UIAlertView * alertVersionInfo;
     BOOL needToAnalysis;
     UIAlertView * pwdAlertView;
-//    NSMutableString * verifyCode;
+
 }
 @property (strong, nonatomic) NSMutableData *webData;
 @property (strong, nonatomic) NSMutableString *soapResults;
@@ -28,11 +28,6 @@
 @property (strong, nonatomic) NSArray *resultArray;
 @property (strong, nonatomic) UIAlertView * alerts;
 
-//- (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1;
-//- (void)getSoapFromInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2;
-//- (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3;
-//- (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 Parameter4:(NSString *)parameter4 Value4:(NSString *)value4;
-//- (void)getSoapForInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Value1:(NSString *)value1 Parameter2:(NSString *)parameter2 Value2:(NSString *)value2 Parameter3:(NSString *)parameter3 Value3:(NSString *)value3 Parameter4:(NSString *)parameter4 Value4:(NSString *)value4 Parameter5:(NSString *)parameter5 Value5:(NSString *)value5;
 
 //查询缴费金额列表，接口1
 -(void)queryAllPayMoneysWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Token:(NSString *)token;

@@ -44,7 +44,7 @@
     
     NSMutableString * payMent;
     UIAlertView * personAlert;
-    //NSNotification * note;
+
     
 }
 
@@ -52,7 +52,5 @@
 @property (nonatomic,assign) UITableView * classTableview;
 @property (nonatomic,assign) NSArray *array;
 
-
-//-(void)personalMsgAlertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end

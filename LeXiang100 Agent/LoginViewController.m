@@ -209,7 +209,8 @@ extern NSMutableDictionary * userDic;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+   
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -220,19 +221,10 @@ extern NSMutableDictionary * userDic;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 -(void)getVerifyCode {
     if ([loginNameText.text isEqualToString:@""]) {
         [ConnectionAPI showAlertWithTitle:@"提示" AndMessages:@"请输入手机号码！"];
@@ -243,10 +235,11 @@ extern NSMutableDictionary * userDic;
 - (void)loginWithName:(NSString *)name AndPassword:(NSString *)password AndVerifyCode:(NSString *)verifyCode{
     if ([loginNameText.text  isEqual: @""]) {
         [ConnectionAPI showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
-        //[self showAlertWithTitle:nil AndMessages:@"手机号码不能为空"];
+       
+        
     }else if ([loginPasswordText.text  isEqual: @""]){
         [ConnectionAPI showAlertWithTitle:nil AndMessages:@"密码不能为空"];
-        //[self showAlertWithTitle:nil AndMessages:@"密码不能为空"];
+        
     }
     else if([loginDPasswordText.text isEqualToString:@""])
     {

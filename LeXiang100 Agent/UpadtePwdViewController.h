@@ -1,5 +1,5 @@
 //
-//  SpecialOfferViewController.h
+//  UpadtePwdViewController.h
 //  LeXiang100 Direct Selling
 //
 //  Created by ZengYifei on 14-6-22.
@@ -16,12 +16,10 @@
 #import "UpadtePwdViewController.h"
 #import "ConnectionAPI.h"
 #import "MainUIViewController.h"
-//#import "PayInfo.h"
+
 
 @interface UpadtePwdViewController : UIViewController<UITextFieldDelegate>
 {
-
-    
     UITextField * newPwdTextField;
     UITextField *confirmPwdTexField;
   
