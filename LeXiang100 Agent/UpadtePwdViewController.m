@@ -67,20 +67,14 @@ extern ConnectionAPI * soap;
         confirmPwdTexField.secureTextEntry = YES;
         [self.view addSubview:confirmPwdTexField];
   
-        
-
     }
     return self;
 }
 
 - (void)updateFeedback:(NSNotification *)note{
     
-    //MainUIViewController *mainView = [[MainUIViewController alloc] init];
     [self.navigationController popViewControllerAnimated:YES];
-    
-   
-
-}
+ }
 -(void)confirmUpdate:(id)sender {
    
     if([confirmPwdTexField.text isEqualToString:newPwdTextField.text]) {
@@ -113,9 +107,7 @@ extern ConnectionAPI * soap;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-//    if([newPwdTextField.text isEqualToString:@""] ||[confirmPwdTexField.text isEqualToString:@""] ) {
-//       self.navigationItem.rightBarButtonItem.enabled = NO;
-//    }
+ 
     NSLog(@"进入编辑模式时调用");
 }
 

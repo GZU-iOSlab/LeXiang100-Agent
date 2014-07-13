@@ -60,10 +60,9 @@ extern NSMutableDictionary * userDic;
         
         self.view.frame = [[UIScreen mainScreen] bounds];
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-        //NSLog(@"!!%f",self.view.frame.size.height);
+     
         
         self.title = @"中国移动通信-乐享100";
-        // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"个人信息" style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"注销" style:UIBarButtonItemStyleBordered target:self action:@selector(exitSys:)];
@@ -72,11 +71,11 @@ extern NSMutableDictionary * userDic;
         
         //营销活动
         UIImage * markingImg = [UIImage imageNamed:@"main_marketing_normal.jpg"];
-        //UIImage * markingImgPressed = [UIImage imageNamed:@"main_marketing_press.jpg"];
+     
         
         buttonMarketing = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonMarketing setBackgroundImage:markingImg forState:UIControlStateNormal];
-        //[buttonMarketing setImage:markingImgPressed forState:UIControlStateHighlighted];
+      
         
         buttonMarketing.frame = CGRectMake(firstY, firstY, iconSizeX, iconSizeY);
         [self.view addSubview:buttonMarketing];
@@ -86,7 +85,7 @@ extern NSMutableDictionary * userDic;
         
         //充值缴费
         UIImage * payImg = [UIImage imageNamed:@"main_pay_normal.jpg"];
-        //UIImage * payImgPressed = [UIImage imageNamed:@"main_pay_press.jpg"];
+      
         
         buttonPay = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonPay setBackgroundImage:payImg forState:UIControlStateNormal];
@@ -99,11 +98,10 @@ extern NSMutableDictionary * userDic;
         
         //信控充值
         UIImage * creditImg = [UIImage imageNamed:@"main_credit_normal.jpg"];
-        //UIImage * creditImgPressed = [UIImage imageNamed:@"main_credit_press.jpg"];
+     
         
         buttonCredit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonCredit setBackgroundImage:creditImg forState:UIControlStateNormal];
-        //[buttonCredit setImage:creditImgPressed forState:UIControlStateHighlighted];
         buttonCredit.frame = CGRectMake(firstY, firstY + iconSizeY * 2, iconSizeX, iconSizeY);
         [self.view addSubview:buttonCredit];
         buttonCredit.userInteractionEnabled = YES;
@@ -111,11 +109,10 @@ extern NSMutableDictionary * userDic;
         
         //选号入网
         UIImage * pickImge = [UIImage imageNamed:@"main_pick_normal.jpg"];
-        //UIImage * pickImgePressed = [UIImage imageNamed:@"main_pick_press.jpg"];
+       
         
         buttonPick = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonPick setBackgroundImage:pickImge forState:UIControlStateNormal];
-        //[buttonPick setImage:pickImgePressed forState:UIControlStateHighlighted];
         buttonPick.frame = CGRectMake(firstY, firstY + iconSizeY * 3, iconSizeX, iconSizeY);
         [self.view addSubview:buttonPick];
         buttonPick.userInteractionEnabled = YES;
@@ -123,11 +120,9 @@ extern NSMutableDictionary * userDic;
         
         //缴费查询
         UIImage * paidImg = [UIImage imageNamed:@"main_pay_history_normal.JPG"];
-        //UIImage * paidImgPressed = [UIImage imageNamed:@"main_pay_history_normal.JPG"];
         
         buttonPaid = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonPaid setBackgroundImage:paidImg forState:UIControlStateNormal];
-        //[buttonPaid setImage:paidImgPressed forState:UIControlStateHighlighted];
         buttonPaid.frame = CGRectMake(firstY, firstY + iconSizeY * 4, iconSizeX, iconSizeY);
         [self.view addSubview:buttonPaid];
         buttonPaid.userInteractionEnabled = YES;
@@ -135,11 +130,9 @@ extern NSMutableDictionary * userDic;
         
         //检查更新
         UIImage * updateImg = [UIImage imageNamed:@"main_update_normal.JPG"];
-        //UIImage * updateImgPressed = [UIImage imageNamed:@"main_update_press.JPG"];
         
         buttonUpdate = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [buttonUpdate setBackgroundImage:updateImg forState:UIControlStateNormal];
-        //[buttonUpdate setImage:updateImgPressed forState:UIControlStateHighlighted];
         buttonUpdate.frame = CGRectMake(firstY, firstY + iconSizeY * 5, iconSizeX, iconSizeY);
         [self.view addSubview:buttonUpdate];
         buttonUpdate.userInteractionEnabled = YES;
@@ -158,11 +151,7 @@ extern NSMutableDictionary * userDic;
             self.modalPresentationCapturesStatusBarAppearance = NO;
             self.navigationController.navigationBar.translucent = NO;
             self.view.backgroundColor = [UIColor lightTextColor];
-//            UIImage * metal = [UIImage imageNamed:@"metal.jpg"];
-//            UIImageView *imgViewMetal = [[UIImageView alloc] initWithImage:metal];
-//            imgViewMetal.frame = CGRectMake(0, 0, viewWidth, viewHeight);
-//            [self.view addSubview:imgViewMetal];
-//            [self.view sendSubviewToBack:imgViewMetal];
+
             self.view.backgroundColor = [UIColor whiteColor];
         }
         
@@ -232,8 +221,7 @@ extern NSMutableDictionary * userDic;
 }
 
 -(BOOL) respondsToSelector : (SEL)aSelector {
-    //printf("SELECTOR: %s\n", [NSStringFromSelector(aSelector) UTF8String]);
-    return [super respondsToSelector:aSelector];
+     return [super respondsToSelector:aSelector];
 }
 
 #pragma mark soapFeedback
@@ -278,8 +266,7 @@ extern NSMutableDictionary * userDic;
 }
 //注销
 -(void)exitSys:(id)sender{
-   // LoginViewController *loginView = [[LoginViewController alloc] init];
-    //[self.navigationController pushViewController:loginView animated:YES];
+   
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 #pragma mark - AlertView
@@ -326,11 +313,11 @@ extern NSMutableDictionary * userDic;
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(cell==nil)
     {
-        //cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault:CellIdentifier];
+        
         cell=[[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
     }
     cell.imageView.image=[arrayImage objectAtIndex:[indexPath row]];
-    //}
+    
     cell.backgroundColor=[UIColor groupTableViewBackgroundColor];
     cell.textLabel.text=[array objectAtIndex:[indexPath row]];
     cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/40];

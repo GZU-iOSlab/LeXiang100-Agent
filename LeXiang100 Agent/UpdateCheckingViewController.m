@@ -46,7 +46,8 @@ extern NSNotificationCenter *nc;
         scrollview.showsVerticalScrollIndicator=TRUE;
         UITextView * background = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
         background.editable=NO;
-        //[self.view addSubview:background];
+        
+    
         
         
         UIFont *font1 = [UIFont fontWithName:@"Arial" size:viewHeight/47];
@@ -131,7 +132,6 @@ extern NSNotificationCenter *nc;
           }
     
     if ([[phoneUpdateCfg objectForKey:@"releaseType"] intValue] == 2) {
-      //  [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"数据有更新，现在是否更新数据信息？"];
         
         [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"数据更新成功！"];
         

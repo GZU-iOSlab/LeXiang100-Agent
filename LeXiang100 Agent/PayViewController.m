@@ -226,7 +226,7 @@ extern NSMutableDictionary * userDic;
 
 - (void)confirmPay{
     
-    // [[[[UIAlertView alloc] initWithTitle:@"提示" message:@"确认充值吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil]autorelease]show];
+    
     [self showAlertView];
     
     
