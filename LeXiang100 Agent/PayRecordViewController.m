@@ -39,9 +39,10 @@ extern NSNotificationCenter *nc;
         [nc addObserver:self selector:@selector(showTableview:) name:@"queryPayHistory" object:nil];
         self.tableArray = [[NSMutableArray alloc]init];
         self.tableCellArray  = [[NSMutableArray alloc]init];
-        self.recordTableview = [[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth*4/5, 300)style:UITableViewStylePlain];
+        self.recordTableview = [[UITableView alloc]initWithFrame:CGRectMake(viewWidth/10, viewHeight/2, viewWidth, viewHeight*6/10)style:UITableViewStylePlain];
         self.recordTableview.delegate = self;
         self.recordTableview.dataSource = self;
+        //self.recordTableview.userInteractionEnabled = NO;
         
         backgroudText = [[UITextField alloc]initWithFrame:CGRectMake(viewWidth/20, viewHeight/10, viewWidth*0.99, viewHeight/20) ];
         backgroudText.borderStyle = UITextBorderStyleRoundedRect;
@@ -61,7 +62,7 @@ extern NSNotificationCenter *nc;
         startMonthText.borderStyle = UITextBorderStyleRoundedRect;
         startMonthText.backgroundColor = [UIColor whiteColor];
         startMonthText.delegate = self;
-        startMonthText.text = @"2012/6";
+        startMonthText.text = @"2012/06";
         startMonthText.leftView = startLeftLabel;
         startMonthText.leftViewMode = UITextFieldViewModeAlways;
         [backgroudText addSubview:startMonthText];
@@ -135,61 +136,22 @@ extern NSNotificationCenter *nc;
 #pragma mark textefield delegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if (textField == backgroudText) {
-        [UIView beginAnimations:@"下降" context:nil];
+    if (textField == backgroudText || textField == startMonthText) {
+        [UIView beginAnimations:@"切换" context:nil];
         [UIView setAnimationDuration:0.3];
-        startDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-        endDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-        dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/8);
+        startDatePicker.center = CGPointMake(viewWidth/2, viewHeight/3+startDatePicker.frame.size.height/2);
+        if ([[UIDevice currentDevice] userInterfaceIdiom]==UIUserInterfaceIdiomPhone) {
+            dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight*0.8);
+        }else
+        dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight/2+viewHeight/10);
         if(self.recordTableview != nil){
             self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/3);
         }
         [UIView commitAnimations];
-        startDatePickerShowed = NO;
-        endDatePickerShowed = NO;
-    }else if(textField == startMonthText){
-        if (endDatePickerShowed == YES) {
-            [UIView beginAnimations:@"下降" context:nil];
-            [UIView setAnimationDuration:0.3];
-            endDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-            dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/8);
-            [UIView commitAnimations];
-            endDatePickerShowed = NO;
-        }
-        [UIView beginAnimations:@"上升" context:nil];
-        [UIView setAnimationDuration:0.3];
-       /* if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
-            startDatePicker.frame = CGRectMake(0, viewHeight/2.2, viewWidth, viewHeight/3);
-            dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight/2+viewHeight/2.5);
-        }else{
-            startDatePicker.frame = CGRectMake(0, viewHeight/2, viewWidth, viewHeight/2);
-            dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight/2+viewHeight/3);
-        }*/
         startDatePickerShowed = YES;
-        if(self.recordTableview != nil){
-            self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/3);
-        }
-        [UIView commitAnimations];
-    }else if(textField == endMonthText){
-        if (startDatePickerShowed == YES) {
-            [UIView beginAnimations:@"下降" context:nil];
-            [UIView setAnimationDuration:0.3];
-            startDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-            
-            dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/8);
-            [UIView commitAnimations];
-            
-            startLeftLabel.text = [formatter stringFromDate:startDatePicker.date];
-        }
-        [UIView beginAnimations:@"上升" context:nil];
-        [UIView setAnimationDuration:0.3];
-        
-        
-        if(self.recordTableview != nil){
-            self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/3);
-        }
-        [UIView commitAnimations];
     }
+    
+    
     return  NO;//NO进入不了编辑模式
 }
 
@@ -200,43 +162,30 @@ extern NSNotificationCenter *nc;
     [UIView beginAnimations:@"下降" context:nil];
     [UIView setAnimationDuration:0.3];
     startDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-    //endDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
     dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/8);
     [UIView commitAnimations];
     startDatePickerShowed = NO;
-    //endDatePickerShowed = NO;
-    
-    //    if (self.recordTableview != nil) {
-    //        self.recordTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, viewHeight, viewWidth, viewHeight/2) style:UITableViewStyleGrouped];
-    //    }else{
-    //        self.recordTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, viewHeight, viewWidth, viewHeight/2) style:UITableViewStyleGrouped];
-    //    }
     
     [self.tableCellArray removeAllObjects];
     [self.tableArray removeAllObjects];
     if ([[[note userInfo] objectForKey:@"1"]isKindOfClass:[NSDictionary class]]) {
         NSLog(@"dic");
     }
-    NSDictionary * dic =[[note userInfo] objectForKey:@"1"];
-    for (NSString * str in dic) {
-        
-    }
-    NSArray * cellArray = [[NSArray alloc]initWithArray:[[note userInfo] objectForKey:@"1"]];
+    NSArray * cellArray = [[NSArray alloc]initWithArray:[[[note userInfo] objectForKey:@"1"]objectForKey:@"payHistories"]];
     for (NSMutableDictionary * dic in cellArray){
-        NSString * str = [NSString stringWithFormat:@"手机号码:%@,充值金额:%@元,充值%@",[dic objectForKey: @"opPhone"],[dic objectForKey: @"payMoney"],[dic objectForKey: @"statusDesc"]];
-        [self.tableCellArray addObject:str];
-        NSString * str1=[NSString stringWithFormat:@"充值时间:%@",[dic objectForKey: @"payTime"]];
+        NSString * str = [NSString stringWithFormat:@"手机号码:%@\n充值金额:%@元\n充值时间:%@",[dic objectForKey: @"opPhone"],[dic objectForKey: @"payMoney"],[[dic objectForKey: @"payTime"] substringWithRange:NSMakeRange(0,10)]];
+        [self.tableArray addObject:str];
+        NSString * str1=[NSString stringWithFormat:@"\n充值%@",[dic objectForKey: @"statusDesc"]];
         //str1 = [NSString stringWithFormat:@"%@年%@月",str2,str3];
-        [self.tableArray addObject:str1];
+        [self.tableCellArray addObject:str1];
         //NSLog(@"months:%@",str1);
     }
     
-    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        [UIView animateWithDuration:0.3 animations:^{self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight/1.3);}];
+        [UIView animateWithDuration:0.3 animations:^{self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight/1.5);}];
         NSLog(@"%f",viewHeight/1.3);
     }else{
-        [UIView animateWithDuration:0.3 animations:^{self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight/1.4);}];
+        [UIView animateWithDuration:0.3 animations:^{self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight/2);}];
     }
     [self.view addSubview:self.recordTableview];
     [self.recordTableview reloadData];
@@ -262,19 +211,32 @@ extern NSNotificationCenter *nc;
     static NSString * identifier = @"style-subtitle";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (nil == cell) {
-        cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier]autorelease];
-        
+        cell = [[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier]autorelease];
     }    // Configure the cell...
+    
     NSString * text = [self.tableArray objectAtIndex:indexPath.row];
     NSString * detailtext = [self.tableCellArray objectAtIndex:indexPath.row];
     NSLog(@"text:%@ detailtext:%@",text,detailtext);
+    
+    UIFont *font = [UIFont systemFontOfSize:13];
+    CGFloat contentWidth = self.recordTableview.frame.size.width;
+    CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(contentWidth-100, 1000) lineBreakMode:NSLineBreakByCharWrapping];
+    //cell.textLabel.frame = CGRectMake(0, 0, 100, 30);
+    CGRect rect = [cell.textLabel textRectForBounds:cell.textLabel.frame  limitedToNumberOfLines:0];
+    rect.size =size;
+    cell.textLabel.frame = rect;
+    cell.textLabel.numberOfLines = 0;
+    cell.detailTextLabel.frame = rect;
+    cell.detailTextLabel.numberOfLines = 0;
+    
     cell.textLabel.text = text;
     cell.textLabel.backgroundColor = [UIColor clearColor];
-    cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/35];
+    cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/44];
     cell.detailTextLabel.text = detailtext;
-    cell.detailTextLabel.font = [UIFont systemFontOfSize:viewHeight/35];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:viewHeight/40];
+    cell.detailTextLabel.textAlignment = NSTextAlignmentCenter;
     cell.detailTextLabel.backgroundColor = [UIColor clearColor];
-    cell.detailTextLabel.textColor = [UIColor blackColor];
+    cell.detailTextLabel.textColor = [UIColor iOS7redColor];
     if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [tableView setSeparatorInset:UIEdgeInsetsZero];
     }
@@ -286,12 +248,29 @@ extern NSNotificationCenter *nc;
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.1;
-}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];//选中后的反显颜色即刻消失
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return 100;
+    }else
+    return 50;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *header= [NSString stringWithFormat:@"共%d条记录",self.tableArray.count];
+    return header;
+}
+-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    NSString *header= [NSString stringWithFormat:@"共%d条记录",self.tableArray.count];
+    return header;
 }
 
 - (void)dateForSure{
@@ -306,11 +285,12 @@ extern NSNotificationCenter *nc;
 {
     [UIView beginAnimations:@"下降" context:nil];
     [UIView setAnimationDuration:0.3];
-    startDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
+    startDatePicker.center = CGPointMake(viewWidth/2, viewHeight*3/2);
     dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/8);
     if(self.recordTableview != nil){
         self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/3);
     }
+    [UIView commitAnimations];
     
     if (!([startMonthText.text isEqual:@""]))
     {
@@ -325,38 +305,7 @@ extern NSNotificationCenter *nc;
         [soap queryPayHistoryWithInterface:@"queryPayHistory" Parameter1:@"opPhone" OpPhone:opPhone Parameter2:@"month" Month:startYearAndMonth Parameter3:@"start" Start:start Parameter4:@"token" Token:token];
         [startYearAndMonth release];
     }
-    /*[self dateForSure];
     
-    [UIView beginAnimations:@"下降" context:nil];
-    [UIView setAnimationDuration:0.3];
-    startDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-    endDatePicker.frame = CGRectMake(0, viewHeight, viewWidth, viewHeight/3);
-    dateSureBtn.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/8);
-    if(self.recordTableview != nil){
-        self.recordTableview.center = CGPointMake(viewWidth/2, viewHeight+viewHeight/3);
-    }
-    
-    [UIView commitAnimations];
-    if (!([startLeftLabel.text isEqual:@""]||[endLeftLabel.text isEqual:@""])) {
-        NSString * name = [UserInfo objectForKey:@"name"];
-        NSString * token = [UserInfo objectForKey:@"token"];
-        NSString * startYear = [startLeftLabel.text substringWithRange:NSMakeRange(0,4)];
-        NSString * startMonth = [startLeftLabel.text substringWithRange:NSMakeRange(5,2)];
-        NSMutableString * startYearAndMonth = [[NSMutableString alloc]init];
-        [startYearAndMonth appendString:startYear];
-        [startYearAndMonth appendString:startMonth];
-        NSString * endYear = [endLeftLabel.text substringWithRange:NSMakeRange(0,4)];
-        NSString * endMonth = [endLeftLabel.text substringWithRange:NSMakeRange(5,2)];
-        NSMutableString * endYearAndMonth = [[NSMutableString alloc]init];
-        [endYearAndMonth appendString:endYear];
-        [endYearAndMonth appendString:endMonth];
-        [soap RecommendedRecordWithInterface:@"queryRecommendRecords" Parameter1:@"opPhone" Name:name Parameter2:@"startMonth" StartMonth:startYearAndMonth Parameter3:@"endMonth" EndMonth:endYearAndMonth Parameter4:@"token" Token:token];
-        [startYearAndMonth release];
-        [endYearAndMonth release];
-    }
-    if (self.recordTableview != nil) {
-        //[self.recordTableview release];
-    }*/
 }
 
 

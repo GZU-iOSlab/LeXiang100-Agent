@@ -8,21 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "ConnectionAPI.h"
-
+#import "UIColorForiOS7Colors.h"
 @interface PayRecordViewController : UIViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 {
-        UITextField * backgroudText;
-        UIDatePicker * startDatePicker;
-        UIDatePicker * endDatePicker;
-        UITextField * startMonthText;
-        UITextField * endMonthText;
-        Boolean startDatePickerShowed;
-        Boolean endDatePickerShowed;
-        UIButton * dateSureBtn;
-        UILabel * startLeftLabel;
-        UILabel * endLeftLabel;
-        
-        NSDateFormatter * formatter;
+    UITextField * backgroudText;
+    UIDatePicker * startDatePicker;
+    UITextField * startMonthText;
+    Boolean startDatePickerShowed;
+    UIButton * dateSureBtn;
+    UILabel * startLeftLabel;
+    NSDateFormatter * formatter;
 }
 @property (nonatomic,strong) NSMutableArray * tableCellArray;
 @property (nonatomic,strong) NSMutableArray * tableArray;
