@@ -16,6 +16,8 @@
 #import "PayRecordViewController.h"
 #import "TestData.h"
 
+#import "UpadtePwdViewController.h"
+
 @interface MainUIViewController : UIViewController<UITextFieldDelegate,UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate>{
     
     UITextField * messageText;
@@ -42,6 +44,7 @@
     
     
     NSMutableString * payMent;
+    UIAlertView * personAlert;
     //NSNotification * note;
     
 }
@@ -50,8 +53,7 @@
 @property (nonatomic,assign) UITableView * classTableview;
 @property (nonatomic,assign) NSArray *array;
 
-@property (strong, nonatomic) UIAlertView * alerts;
 
-- (void)personMsgAlerView;
+-(void)personalMsgAlertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end

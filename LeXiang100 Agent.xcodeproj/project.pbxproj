@@ -70,6 +70,7 @@
 		C2E3FCF619668A39006C7975 /* UpdateCheckingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3FCF519668A39006C7975 /* UpdateCheckingViewController.m */; };
 		C2E3FCF919669B30006C7975 /* PayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E3FCF819669B30006C7975 /* PayRecordViewController.m */; };
 		DC84ED8819713F40004FC315 /* MarketingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC84ED8719713F40004FC315 /* MarketingTableViewController.m */; };
+		DC84ED8B19715D8C004FC315 /* UpadtePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC84ED8A19715D8C004FC315 /* UpadtePwdViewController.m */; };
 		DCC3D626196C21CD0069B605 /* AddresseBookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */; };
 		DCC3D632196C227B0069B605 /* ConnectionAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D62F196C227B0069B605 /* ConnectionAPI.m */; };
 		DCC3D633196C227B0069B605 /* DES3Util.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D631196C227B0069B605 /* DES3Util.m */; };
@@ -163,6 +164,8 @@
 		C2E3FCF819669B30006C7975 /* PayRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayRecordViewController.m; sourceTree = "<group>"; };
 		DC84ED8619713F40004FC315 /* MariketingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MariketingTableViewController.h; sourceTree = "<group>"; };
 		DC84ED8719713F40004FC315 /* MarketingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketingTableViewController.m; sourceTree = "<group>"; };
+		DC84ED8919715D8C004FC315 /* UpadtePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpadtePwdViewController.h; sourceTree = "<group>"; };
+		DC84ED8A19715D8C004FC315 /* UpadtePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpadtePwdViewController.m; sourceTree = "<group>"; };
 		DCC3D624196C21CD0069B605 /* AddresseBookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddresseBookTableViewController.h; sourceTree = "<group>"; };
 		DCC3D625196C21CD0069B605 /* AddresseBookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddresseBookTableViewController.m; sourceTree = "<group>"; };
 		DCC3D62E196C227B0069B605 /* ConnectionAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionAPI.h; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				DCC3D63F196C23040069B605 /* PayViewController.m */,
 				DCC3D641196C23650069B605 /* PayValueViewController.h */,
 				DCC3D642196C23650069B605 /* PayValueViewController.m */,
+				DC84ED8919715D8C004FC315 /* UpadtePwdViewController.h */,
+				DC84ED8A19715D8C004FC315 /* UpadtePwdViewController.m */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -510,6 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCC3D640196C23040069B605 /* PayViewController.m in Sources */,
+				DC84ED8B19715D8C004FC315 /* UpadtePwdViewController.m in Sources */,
 				DC84ED8819713F40004FC315 /* MarketingTableViewController.m in Sources */,
 				DCC3D633196C227B0069B605 /* DES3Util.m in Sources */,
 				C2E3FCF919669B30006C7975 /* PayRecordViewController.m in Sources */,

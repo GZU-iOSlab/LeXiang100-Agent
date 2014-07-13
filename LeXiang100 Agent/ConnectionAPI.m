@@ -427,8 +427,26 @@ extern NSMutableDictionary * UserInfo;
 
 //代理商首次登录，修改初始密码,接口10
 -(void)updateAgentPwdWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 Phone:(NSString *)phone Parameter2:(NSString *)parameter2 NewPwd:(NSString *)newPwd {
-    [self getSoapFromInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:newPwd];
     [self showAlerView];
+    if (testDataOn) {
+        [getXMLResults setString:@""];
+        [getXMLResults appendString:@"updateAgentPwd"];
+        needToAnalysis = YES;
+        NSData *aData = [testData.modifyPasswrldList dataUsingEncoding: NSUTF8StringEncoding];
+        [soapResults setString:@""];
+        [soapResults appendString:testData.modifyPasswrldList];
+        resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        if (self.resultDic == nil) {
+            self.resultDic = [[NSDictionary alloc]init];
+        }
+        NSXMLParser * test;
+        NSString * testString;
+        [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
+    } else {
+          [self getSoapFromInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:newPwd];
+    }
+   
+ 
 }
 
 #pragma mark -
@@ -586,33 +604,6 @@ extern NSMutableDictionary * UserInfo;
                 
                 [nc postNotificationName:@"queryAllPayMoneysResponse" object:self userInfo:d];
             }
-            //            NSArray * resultArray1 = (NSArray *)resultDic;
-            //            NSLog(@"%d", resultArray1.count);
-            //            for (int i=0; i<resultArray1.count; i++)
-            //            {
-            //                NSLog(@"第%d个元素---%@", i, [resultArray1[i] objectForKey:@"payMoney"]);
-            //                payMentArray[i] = resultArray1[i];
-            //            }//            if ([soapResults rangeOfString:@"payMoney"].length > 0) {
-            //            NSLog(@"========payMent====%d", payMentArray.count);
-            //
-            //            } else {
-            //
-            //                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"获取缴费金额列表失败，请稍后再试！"];
-            //
-            //            }
-            //         if (![soapResults isEqualToString:@"0"]) {
-            //               [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"获取缴费金额列表失败，请稍后再试！"];
-            //            } else {
-            //                NSDictionary * payMoney = [self.resultDic objectForKey:@"0"];
-            //                NSString * str = [payMoney objectForKey:@"payMoney"];
-            //                NSLog(@"%@",str);
-            //               [nc postNotificationName:@"aqueryAllPayMoneysResponse" object:self userInfo:d];
-            //           }
-            //            if ([soapResults isEqualToString:@"{}"]) {
-            //                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"获取缴费金额列表失败，请稍后再试！"];
-            //            } else {
-            //              [nc postNotificationName:@"aqueryAllPayMoneysResponse" object:self userInfo:d];
-            //            }
         }
         //版本测
         else if ([getXMLResults rangeOfString:@"queryVersionInfo"].length>0){
@@ -629,7 +620,24 @@ extern NSMutableDictionary * UserInfo;
             if (soapResults != NULL) {
                 [nc postNotificationName:@"acquireAgentVerify" object:self userInfo:d];
             }
-        }
+        }  //密码修改
+        else if ([getXMLResults rangeOfString:@"updateAgentPwd"].length>0){
+            
+            if ([soapResults isEqualToString:@"0"]) {
+                //[ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"密码修改成功！"];
+                pwdAlertView = [[UIAlertView alloc]initWithTitle:@"提示信息" message:@"密码修改成功！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                pwdAlertView.delegate = self;
+                [pwdAlertView show];
+                [pwdAlertView release];
+
+            } else if([soapResults isEqualToString:@"1"]) {
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"该手机号不是代理商，请核对身份"];
+            } else {
+                [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"服务端异常，请稍后再试！"];
+            }
+            
+      }
+
     }
     //如果显示alert   取消   bug
     if (self.alerts.visible == YES) {
@@ -810,6 +818,17 @@ extern NSMutableDictionary * UserInfo;
 //}
 //
 //
+
+#pragma mark - AlertView
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        
+    }else if (buttonIndex == 1){
+        if([alertView isEqual:pwdAlertView]) {
+           [nc postNotificationName:@"updateAgentPwd" object:self userInfo:self.resultDic];
+        }
+    }
+}
 
 + (void)showAlertWithTitle:(NSString *)titles AndMessages:(NSString *)messages{
     

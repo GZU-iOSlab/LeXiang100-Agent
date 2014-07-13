@@ -1,7 +1,7 @@
 
 #import "PayValueViewController.h"
 #import <UIKit/UIKit.h>
-#import "PayInfo.h"
+ 
 
 @interface PayValueViewController ()
 

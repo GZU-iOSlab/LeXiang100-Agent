@@ -15,6 +15,7 @@
     int count;
     UIAlertView * alertVersionInfo;
     BOOL needToAnalysis;
+    UIAlertView * pwdAlertView;
 }
 @property (strong, nonatomic) NSMutableData *webData;
 @property (strong, nonatomic) NSMutableString *soapResults;

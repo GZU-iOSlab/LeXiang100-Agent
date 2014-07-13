@@ -48,6 +48,8 @@ extern NSMutableDictionary * phone;
         
         [nc addObserver:self selector:@selector(loginFeedback:) name:@"agentLogin" object:nil];
         mainView = [[MainUIViewController alloc]init];
+       
+        
         self.UserInfoDic = [[NSMutableDictionary alloc]init];
         
         //乐享图标
@@ -212,6 +214,11 @@ extern NSMutableDictionary * phone;
         [loginPasswordText resignFirstResponder];
         [loginNameText resignFirstResponder];
         [loginDPasswordText resignFirstResponder];
+        
+        loginNameText.text = @"";
+        loginPasswordText.text = @"";
+        loginDPasswordText.text = @"";
+        
     }
 }
 
@@ -221,15 +228,25 @@ extern NSMutableDictionary * phone;
 }*/
 
 - (void)loginFeedback:(NSNotification *)note{
-//    [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
-//    [staffId setDictionary:[[note userInfo] objectForKey:@"staffId"]];
-//    [staffName setDictionary:[[note userInfo] objectForKey:@"staffName"]];
+
     [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"1" ]];
     NSLog(@"%@",(NSArray*)self.UserInfoDic);
     [userDic setDictionary:self.UserInfoDic];
     [userDic setObject:self.loginNameText.text forKey:@"phone"];
-    [self.navigationController pushViewController:mainView animated:YES];
-}
+    
+
+   
+
+    if ([[UserInfoDic objectForKey:@"ifFirstLogin"]intValue] == 0) {
+        UpadtePwdViewController * updateView = [[UpadtePwdViewController alloc] init];
+       [self.navigationController pushViewController:updateView animated:YES];
+        [updateView release];
+       
+   } else {
+          [self.navigationController pushViewController:mainView animated:YES];
+     
+    }
+  }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (textField == backgroundText) {

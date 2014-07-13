@@ -14,6 +14,7 @@
 @end
 
 @implementation MainUIViewController
+
 extern ConnectionAPI * soap;
 extern TestData * testData;
 extern BOOL testDataOn;
@@ -25,7 +26,6 @@ extern NSMutableDictionary * userDic;
 @synthesize classTableview;
 @synthesize array;
 
-@synthesize  alerts;
 
 
 #define iOS7  ([[[UIDevice currentDevice]systemVersion] floatValue] >= 7.0)?YES:NO
@@ -66,7 +66,7 @@ extern NSMutableDictionary * userDic;
         // UIImage * loginImg = [UIImage imageNamed:@"main_title_login_normal.png"];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"个人信息" style:UIBarButtonItemStyleBordered target:self action:@selector(showTable)];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"注销" style:UIBarButtonItemStyleBordered target:self action:@selector(test)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"注销" style:UIBarButtonItemStyleBordered target:self action:@selector(exitSys:)];
         self.view.backgroundColor = [UIColor whiteColor];
         
         //营销活动
@@ -175,58 +175,13 @@ extern NSMutableDictionary * userDic;
             buttonPaid.frame =  CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 4, iconSizeX, iconSizeY);
             buttonUpdate.frame =  CGRectMake(firstY*2-viewWidth/30, firstY + iconSizeY * 5, iconSizeX, iconSizeY);
             
-            //classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
+         
         }
-//            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.2, viewHeight/100, viewWidth/2.8, viewHeight/6) style:UITableViewStylePlain];
-//            
-//            classTableview.delegate=self;
-//            classTableview.dataSource=self;
-//            classTableview.backgroundColor=[UIColor whiteColor];
-//            [self.view addSubview:classTableview];
-//            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/10);
-//            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-//            [arrayValue addObject:@"   工号 : 88888888"];
-//            [arrayValue addObject:@"手机号: 18286057264"];
-//            [arrayValue addObject:@"       密码修改  "];
-//            [arrayValue addObject:@"          注销    "];
-//            array=arrayValue;
-//            tableShowed = NO;
-//            
-//        } else {
-//            classTableview=[[UITableView alloc]initWithFrame:CGRectMake(viewWidth/2.5, viewHeight/4, viewWidth/2, viewHeight/3.2)style:UITableViewStylePlain];
-//            
-//            classTableview.delegate=self;
-//            classTableview.dataSource=self;
-//            classTableview.backgroundColor=[UIColor whiteColor];
-//            [self.view addSubview:classTableview];
-//            classTableview.center=CGPointMake(viewWidth*3/2, viewHeight/5);
-//            NSMutableArray *arrayValue=[[NSMutableArray alloc]init];
-//            
-//            [arrayValue addObject:@" 工号 : 88888888"];
-//            [arrayValue addObject:@"手机号: 18286057264"];
-//            [arrayValue addObject:@"         密码修改  "];
-//            [arrayValue addObject:@"            注销    "];
-//            array=arrayValue;
-//            tableShowed = NO;
-//        }
-        
-        
+
         
         
     }
-    
-    //staffId = [[NSString alloc]init];
-//    
-//    token = [userDic objectForKey:@"token"];
-//    staffId = [userDic objectForKey:@"staffId"];
-//    
-//    [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"token"]];
-//    [staffId setDictionary:[[note userInfo] objectForKey:@"staffId"]];
-//    [staffName setDictionary:[[note userInfo] objectForKey:@"staffName"]];
-//    [userDic setDictionary:self.UserInfoDic];
-    
-    //定义存放soap返回数据的数组，适用于缴费列表接口
-   // NSMutableArray * resultArray = [[NSMutableArray alloc] init];
+
     return self;
 }
 
@@ -286,11 +241,6 @@ extern NSMutableDictionary * userDic;
     
     self.resultArray = (NSMutableArray*)[[note userInfo] objectForKey:@"1"];
     
-    //    if([self.resultArray.count == 0]) {
-    //        [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"获取缴费金额列表失败，请稍后再试！"];
-    //    }
-    
-    
 }
 
 #pragma mark ButtonClick
@@ -309,9 +259,6 @@ extern NSMutableDictionary * userDic;
 //控充值
 -(void)creditPressed:(id)sender {
     [[[[UIAlertView alloc] initWithTitle:@"提示" message:@"模块建设中" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil]autorelease]show];
-    
-    //    PayValueViewController *payValue = [[[PayValueViewController alloc] init]autorelease];
-    //    [self.navigationController pushViewController:payValue animated:YES];
 }
 //选号入网
 -(void)pickPressed:(id)sender {
@@ -325,9 +272,39 @@ extern NSMutableDictionary * userDic;
 
 -(void)updatePressed:(id)sender{
     [self.navigationController pushViewController:update animated:YES];
+    
+}
+//注销
+-(void)exitSys:(id)sender{
+   // LoginViewController *loginView = [[LoginViewController alloc] init];
+    //[self.navigationController pushViewController:loginView animated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+#pragma mark - AlertView
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        
+    }else if (buttonIndex == 1){
+        if([alertView isEqual:personAlert]) {
+            UpadtePwdViewController * updateView = [[UpadtePwdViewController alloc]init];
+           [self.navigationController pushViewController:updateView animated:YES];
+            [updateView release];
+        }
+    }
 }
 
 
+-(void)showTable {
+    
+    staffId = [NSString stringWithFormat:@"工  号:%@ \n    手机号:%@",[userDic objectForKey:@"staffId"], [userDic objectForKey:@"phone"]];
+    NSLog(@"===========satffid%@", [userDic objectForKey:@"staffId"]);
+    personAlert = [[UIAlertView alloc]initWithTitle:@"个人信息" message:staffId delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"修改密码", nil];
+    personAlert.delegate = self;
+    [personAlert show];
+    [personAlert release];
+    
+}
 
 #pragma mark tableview delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -357,31 +334,7 @@ extern NSMutableDictionary * userDic;
     cell.textLabel.font = [UIFont systemFontOfSize:viewHeight/40];
     return cell;
 }
--(void)showTable {
-    [self personMsgAlerView];
-    //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-    //        if (tableShowed) {
-    //            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/10);}];
-    //            tableShowed = NO;
-    //            self.classTableview.hidden = YES;
-    //        }else{
-    //            self.classTableview.hidden = NO;
-    //            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.2, viewHeight/10);}];
-    //            tableShowed = YES;
-    //        }
-    //    }else {
-    //        if (tableShowed) {
-    //            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth*3/2, viewHeight/5);}];
-    //            tableShowed = NO;
-    //            self.classTableview.hidden = YES;
-    //        }else{
-    //            self.classTableview.hidden = NO;
-    //            [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/1.3, viewHeight/5);}];
-    //            tableShowed = YES;
-    //        }
-    //    }
-    
-}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -404,6 +357,8 @@ extern NSMutableDictionary * userDic;
     if ([touch view] != classTableview) {
         [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*3/2);}];
     }
+    
+    
 }
 
 
@@ -441,14 +396,7 @@ extern NSMutableDictionary * userDic;
 }
 
 
-- (void)personMsgAlerView{
 
-    staffId = [NSString stringWithFormat:@"工 号:%@ \n 手机号:%@",[userDic objectForKey:@"staffId"], [userDic objectForKey:@"phone"]];
-    NSLog(@"===========satffid%@", [userDic objectForKey:@"staffId"]);
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"个人信息" message:staffId delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"修改密码", nil];
-    
-    [alert show];
-}
 
 - (void)viewDidLoad
 {
