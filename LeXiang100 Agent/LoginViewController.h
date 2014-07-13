@@ -15,6 +15,9 @@
     MainUIViewController * mainView;
     UIButton * loginBtn;
     UIButton * DPasswdBtn;
+    NSTimer * timer;
+    UILabel * DPasswdLabel;
+    int secondCount;
 }
 @property(nonatomic,strong)UITextField * backgroundText;
 @property(nonatomic,strong)UITextField * loginNameText;

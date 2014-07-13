@@ -404,10 +404,14 @@ extern NSMutableDictionary * UserInfo;
         [soapResults setString:@""];
         [soapResults appendString:testData.verify];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        if (self.resultDic == nil) {
+            self.resultDic = [[NSMutableDictionary alloc]init];
+        }
         [resultDic setValue:testData.verify forKey:@"verify"];
         NSXMLParser * test;
         NSString * testString;
         [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
+        
     }else
         [self getSoapFromInterface:interface Parameter1:parameter1 Value1:phone];
 }
@@ -666,7 +670,7 @@ extern NSMutableDictionary * UserInfo;
             if (soapResults != NULL) {
 //                [verifyCode setString:@""];
 //                [verifyCode appendString:soapResults];
-//               // [nc postNotificationName:@"acquireAgentVerify" object:self userInfo:d];
+                [nc postNotificationName:@"acquireAgentVerify" object:self userInfo:d];
                 [ConnectionAPI showAlertWithTitle:nil AndMessages:@"获取验证码成功！"];
 
             }

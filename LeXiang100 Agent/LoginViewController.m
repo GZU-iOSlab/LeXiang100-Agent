@@ -44,6 +44,7 @@ extern NSMutableDictionary * userDic;
         self.view.backgroundColor=[UIColor scrollViewTexturedBackgroundColor];
         //self.navigationController.navigationBar.tintColor = [UIColor iOS7lightBlueColor];
         [nc addObserver:self selector:@selector(loginFeedback:) name:@"agentLogin" object:nil];
+        [nc addObserver:self selector:@selector(timeCount) name:@"acquireAgentVerify" object:nil];
         mainView = [[MainUIViewController alloc]init];
         
        
@@ -132,6 +133,17 @@ extern NSMutableDictionary * userDic;
          [DPasswdBtn addTarget:self action:@selector(getVerifyCode) forControlEvents:UIControlEventTouchUpInside];
         DPasswdBtn.titleLabel.font = [UIFont systemFontOfSize:viewHeight/40];
         [self.backgroundText addSubview:DPasswdBtn];
+        
+        //倒计时动态码
+        DPasswdLabel = [[UILabel alloc]init];
+        DPasswdLabel.frame = CGRectMake( viewWidth/2+viewWidth/6 , viewHeight/10+viewHeight/20+viewHeight/40, viewWidth*0.185, viewHeight/18);
+        DPasswdLabel.textAlignment = NSTextAlignmentCenter;
+        DPasswdLabel.textColor = [UIColor blackColor];
+        DPasswdLabel.backgroundColor = [UIColor iOS7silverGradientStartColor];
+        DPasswdLabel.font  = [UIFont systemFontOfSize:viewHeight/40];
+        DPasswdLabel.userInteractionEnabled = NO;
+        DPasswdLabel.hidden = YES;
+        [self.backgroundText addSubview:DPasswdLabel];
         
         //登录按钮
         loginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -280,9 +292,6 @@ extern NSMutableDictionary * userDic;
     [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"1" ]];
     [userDic setDictionary:self.UserInfoDic];
     [userDic setObject:self.loginNameText.text forKey:@"phone"];
-    
-
-   
 
     if ([[UserInfoDic objectForKey:@"ifFirstLogin"]intValue] == 0) {
         UpadtePwdViewController * updateView = [[UpadtePwdViewController alloc] init];
@@ -293,7 +302,44 @@ extern NSMutableDictionary * userDic;
           [self.navigationController pushViewController:mainView animated:YES];
      
     }
-  }
+}
+
+#pragma mark UesrTouche
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    if ([touch view] == DPasswdLabel) {
+        if ([loginNameText.text isEqualToString:@""]) {
+            [ConnectionAPI showAlertWithTitle:@"提示" AndMessages:@"请输入手机号码！"];
+        } else {
+            [soap acquireAgentVerifyWithInterface:@"acquireAgentVerify" Parameter1:@"phone" Phone:loginNameText.text];
+        }
+    }
+    NSLog(@"touch");
+}
+
+- (void)timeCount{
+    //开启定时器
+    [timer setFireDate:[NSDate distantPast]];
+    timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(secondsCount) userInfo:nil repeats:YES];
+    secondCount = 60;
+    DPasswdLabel.hidden = NO;
+    DPasswdBtn.hidden = YES;
+}
+
+- (void)secondsCount{
+    if (secondCount != 0) {
+        DPasswdLabel.text = [NSString stringWithFormat:@"%d", secondCount];
+        NSLog(@"%d",secondCount);
+        secondCount--;
+    }else if(secondCount == 0){
+        //关闭定时器
+        [timer setFireDate:[NSDate distantFuture]];
+        DPasswdLabel.hidden = YES;
+        DPasswdBtn.hidden = NO;
+    }
+    
+}
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (textField == backgroundText) {
