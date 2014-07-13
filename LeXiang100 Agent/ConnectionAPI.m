@@ -456,7 +456,7 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.modifyPasswrldList];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;

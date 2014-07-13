@@ -27,11 +27,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     //self.window.backgroundColor = [UIColor whiteColor];
-    self.viewController = [[MainUIViewController alloc] init];
+    //self.viewController = [[MainUIViewController alloc] init];
     //[[IQKeyboardManager sharedManager] setEnable:YES];
     //[[IQKeyboardManager sharedManager] setKeyboardDistanceFromTextField:50];
     LoginViewController * login = [[LoginViewController alloc]init];
-    self.nav = [[UINavigationController alloc]initWithRootViewController:self.viewController];
+    self.nav = [[UINavigationController alloc]initWithRootViewController:login];
     self.window.rootViewController = self.nav;
     [self.window makeKeyAndVisible];
     
