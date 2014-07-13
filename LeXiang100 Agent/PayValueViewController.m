@@ -354,6 +354,7 @@ extern NSNotificationCenter *nc;
 {
     
     [UIView animateWithDuration:0.3 animations:^{self.classTableview.center = CGPointMake(viewWidth/2, viewHeight*1.5);}];
+    tableShowed = NO;
     selectedString = [array objectAtIndex:indexPath.row];
     
     //获取充值金额，并赋值给payNumValue

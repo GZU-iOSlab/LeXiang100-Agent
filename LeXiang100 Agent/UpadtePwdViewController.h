@@ -18,7 +18,7 @@
 #import "MainUIViewController.h"
 //#import "PayInfo.h"
 
-@interface UpadtePwdViewController : UIViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface UpadtePwdViewController : UIViewController<UITextFieldDelegate>
 {
 
     

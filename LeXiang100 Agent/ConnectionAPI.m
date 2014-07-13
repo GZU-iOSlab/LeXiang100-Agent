@@ -305,7 +305,7 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.paymentList];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
@@ -326,7 +326,7 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.payment];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
@@ -338,9 +338,25 @@ extern NSMutableDictionary * UserInfo;
 
 //查询缴费历史记录，接口3
 -(void)queryPayHistoryWithInterface:(NSString *)interface Parameter1:(NSString *)parameter1 OpPhone:(NSString *)opPhone Parameter2:(NSString *)parameter2 Month:(NSString *)month Parameter3:(NSString *)parameter3 Start:(NSString *)start Parameter4:(NSString *)parameter4 Token:(NSString *)token{
-    [self getSoapForInterface:interface Parameter1:parameter1 Value1:opPhone Parameter2:parameter2 Value2:month Parameter3:parameter3 Value3:start Parameter4:parameter4 Value4:token];
     [self showAlerView];
-    
+    if (testDataOn) {
+        [getXMLResults setString:@""];
+        [getXMLResults appendString:@"queryPayHistory"];
+        needToAnalysis = YES;
+        NSData *aData = [testData.payRecordList dataUsingEncoding: NSUTF8StringEncoding];
+        [soapResults setString:@""];
+        [soapResults appendString:testData.payRecordList];
+        resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
+        if (self.resultDic == nil) {
+            self.resultDic = [[NSMutableDictionary alloc]init];
+        }
+        NSXMLParser * test;
+        NSString * testString;
+        [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
+    }else {
+
+    [self getSoapForInterface:interface Parameter1:parameter1 Value1:opPhone Parameter2:parameter2 Value2:month Parameter3:parameter3 Value3:start Parameter4:parameter4 Value4:token];
+    }
 }
 
 //获取公钥,接口4
@@ -361,14 +377,13 @@ extern NSMutableDictionary * UserInfo;
         [soapResults appendString:testData.updateCheckList];
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (self.resultDic == nil) {
-            self.resultDic = [[NSDictionary alloc]init];
+            self.resultDic = [[NSMutableDictionary alloc]init];
         }
         NSXMLParser * test;
         NSString * testString;
         [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
     }else {
         [self getSoapForInterface:interface Parameter1:parameter1 Value1:clientVersion Parameter2:parameter2 Value2:dataVersion Parameter3:parameter3 Value3:appName];
-        
     }
     
     
@@ -401,10 +416,14 @@ extern NSMutableDictionary * UserInfo;
         [getXMLResults appendString:@"agentLogin"];
         needToAnalysis = YES;
         NSData *aData = [testData.loginList dataUsingEncoding: NSUTF8StringEncoding];
-        
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         NSXMLParser * test;
         NSString * testString;
+        //NSString * verfyPw=[resultDic objectForKey:@"status"];
+        if (![verifyCode isEqualToString:testData.verify]) {
+            [resultDic removeObjectForKey:@"status"];
+            [resultDic setObject:@"3" forKey:@"status"];
+        }
         [self parser:test didEndElement:testString namespaceURI:testString qualifiedName:testString];
     }else
         [self getSoapForInterface:interface Parameter1:parameter1 Value1:phone Parameter2:parameter2 Value2:passWord Parameter3:parameter3 Value3:verifyCode];
@@ -506,7 +525,7 @@ extern NSMutableDictionary * UserInfo;
         needToAnalysis = NO;
     }
     else if([getXMLResults rangeOfString:@"faultcode"].length>0){
-        resultDic = [[[NSDictionary alloc]init]autorelease];
+        resultDic = [[[NSMutableDictionary alloc]init]autorelease];
         [ConnectionAPI showAlertWithTitle:@"错误" AndMessages:@"调用地址或参数错误！"];
         needToAnalysis = NO;
     }
@@ -553,7 +572,7 @@ extern NSMutableDictionary * UserInfo;
         
         resultDic = [NSJSONSerialization JSONObjectWithData:aData options:NSJSONReadingMutableContainers error:nil];
         if (resultDic == nil) {
-            resultDic = [[[NSDictionary alloc]init]autorelease];
+            resultDic = [[[NSMutableDictionary alloc]init]autorelease];
         }
     }
 }
@@ -583,13 +602,25 @@ extern NSMutableDictionary * UserInfo;
                 [alertVersionInfo release];
             }
         }
-        
         //客户登陆
         else if ([getXMLResults rangeOfString:@"agentLogin"].length > 0){
             //做判断 默认成功
-            [nc postNotificationName:@"agentLogin" object:self userInfo:d];
+            NSString * loginResult =[NSString stringWithFormat:@"%@",[resultDic objectForKey:@"status"]];
+            if ([loginResult isEqualToString:@"4"]) {
+                [nc postNotificationName:@"agentLogin" object:self userInfo:d];
+            }else if ([loginResult isEqualToString:@"1"]){
+                [ConnectionAPI showAlertWithTitle:@"服务器错误" AndMessages:nil];
+            }
+            else if ([loginResult isEqualToString:@"2"])
+            {
+                [ConnectionAPI showAlertWithTitle:@"密码错误" AndMessages:nil];
+            }
+            else if ([loginResult isEqualToString:@"3"])
+            {
+                [ConnectionAPI showAlertWithTitle:@"动态密码错误" AndMessages:nil];
+            }
         }
-        //缴费
+        //缴费///////
         else if ([getXMLResults rangeOfString:@"payMoneyToCustPhone"].length>0){
             if ([soapResults isEqualToString:@"0"]) {
                 [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"充值成功！"];
@@ -598,7 +629,25 @@ extern NSMutableDictionary * UserInfo;
             } else {
                 [ConnectionAPI showAlertWithTitle:@"提示信息" AndMessages:@"服务端异常，请稍后再试！"];
             }
-        }//缴费金额列表
+        }
+        //缴费记录
+        else if ([getXMLResults rangeOfString:@"queryPayHistory"].length>0){
+            NSString * result =[NSString stringWithFormat:@"%@",[resultDic objectForKey:@"status"]];
+            //[self.resultDic objectForKey:@"status"];
+            if ([result isEqualToString:@"0"])
+            {
+                [ConnectionAPI showAlertWithTitle:@"调用接口失败" AndMessages:nil];
+            }
+            else if([result isEqualToString:@"1"])
+            {
+                [ConnectionAPI showAlertWithTitle:@"服务端异常" AndMessages:nil];
+            }
+            else if ([result isEqualToString:@"2"])
+            {
+                [nc postNotificationName:@"queryPayHistory" object:self userInfo:d];
+            }
+        }
+        //缴费金额列表
         else if ([getXMLResults rangeOfString:@"queryAllPayMoneys"].length>0){
             if ([self.resultDic isKindOfClass:[NSArray class]]) {
                 

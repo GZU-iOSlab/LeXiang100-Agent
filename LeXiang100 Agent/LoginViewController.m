@@ -28,9 +28,6 @@
 extern NSNotificationCenter *nc;
 extern ConnectionAPI * soap;
 extern NSMutableDictionary * userDic;
-extern NSMutableDictionary * staffId;
-extern NSMutableDictionary * staffName;
-extern NSMutableDictionary * phone;
 @synthesize backgroundText;
 @synthesize loginNameText;
 @synthesize loginPasswordText;
@@ -44,8 +41,8 @@ extern NSMutableDictionary * phone;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.view .backgroundColor=[UIColor scrollViewTexturedBackgroundColor];
-        
+        self.view.backgroundColor=[UIColor scrollViewTexturedBackgroundColor];
+        //self.navigationController.navigationBar.tintColor = [UIColor iOS7lightBlueColor];
         [nc addObserver:self selector:@selector(loginFeedback:) name:@"agentLogin" object:nil];
         mainView = [[MainUIViewController alloc]init];
        
@@ -55,14 +52,13 @@ extern NSMutableDictionary * phone;
         //乐享图标
         UIImage * Image = [UIImage imageNamed:@"login_title.png"];
         UIImageView * imgView = [[UIImageView alloc]initWithImage:Image];
-        imgView.frame = CGRectMake(viewWidth/2-viewWidth/8, viewHeight/6, viewWidth/3, viewWidth/6);
-        
+        imgView.frame = CGRectMake(viewWidth/2-viewWidth/6, viewHeight/16, viewWidth/3, viewWidth/6);
         [self.view addSubview:imgView];
         
         self.backgroundText = [[UITextField alloc]initWithFrame:CGRectMake(0, viewHeight/2-viewHeight/40, viewWidth*0.9, viewHeight/3)];
         self.backgroundText.borderStyle = UITextBorderStyleRoundedRect;
         self.backgroundText.backgroundColor = [UIColor lightTextColor];
-        self.backgroundText.center=CGPointMake(viewWidth/2, viewHeight/2-viewHeight/40);
+        self.backgroundText.center=CGPointMake(viewWidth/2, viewHeight/2-viewHeight/8);
         self.backgroundText.delegate = self;
         [self.view addSubview:backgroundText];
         
@@ -77,11 +73,13 @@ extern NSMutableDictionary * phone;
         self.loginNameText = [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/4 , viewHeight/40, viewWidth*0.6, viewHeight/18)];
         self.loginNameText.borderStyle = UITextBorderStyleRoundedRect;
         //self.loginNameText.text=@"123";
-        self.loginNameText.font = [UIFont systemFontOfSize:viewHeight/60];
+        self.loginNameText.font = [UIFont systemFontOfSize:viewHeight/39];
+        self.loginNameText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;  //垂直居中
         self.loginNameText.delegate = self;
-        self.loginNameText.placeholder=@"乐享100注册的手机号码";
+        self.loginNameText.placeholder=@"注册乐享100的手机号码";
         self.loginNameText.clearButtonMode =UITextFieldViewModeWhileEditing;
         self.loginNameText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        [self.loginNameText becomeFirstResponder];
         [self.backgroundText addSubview:self.loginNameText];
         
         //密码输入标题
@@ -100,7 +98,8 @@ extern NSMutableDictionary * phone;
         self.loginPasswordText.delegate = self;
         self.loginPasswordText.placeholder=@"乐享100网站的登录密码";
         self.loginPasswordText.clearButtonMode =UITextFieldViewModeWhileEditing;
-        self.loginPasswordText.font = [UIFont systemFontOfSize:viewHeight/60];
+        self.loginPasswordText.font = [UIFont systemFontOfSize:viewHeight/39];
+        self.loginPasswordText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         [self.backgroundText addSubview:self.loginPasswordText];
         
         //动态密码标题
@@ -114,7 +113,8 @@ extern NSMutableDictionary * phone;
         self.loginDPasswordText = [[UITextField alloc]initWithFrame:CGRectMake( viewWidth/4 , viewHeight/10+viewHeight/20+viewHeight/40, viewWidth*0.4, viewHeight/18)];
         self.loginDPasswordText.borderStyle = UITextBorderStyleRoundedRect;
         //self.loginNameText.text=@"123";
-        self.loginDPasswordText.font = [UIFont systemFontOfSize:viewHeight/60];
+        self.loginDPasswordText.font = [UIFont systemFontOfSize:viewHeight/39];
+        self.loginDPasswordText.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         self.loginDPasswordText.delegate = self;
         self.loginDPasswordText.placeholder=@"动态密码";
         self.loginDPasswordText.clearButtonMode =UITextFieldViewModeWhileEditing;
@@ -147,7 +147,7 @@ extern NSMutableDictionary * phone;
         UILabel *  copyright= [[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/10, viewWidth/3, viewHeight/20)];
         copyright.text = @"乐享100 版权所有";
         copyright.font = [UIFont systemFontOfSize:viewHeight/60];
-        copyright.center=CGPointMake(viewWidth/2, viewHeight*0.7);
+        copyright.center=CGPointMake(viewWidth/2, viewHeight*0.6);
         copyright.textAlignment = NSTextAlignmentCenter;
         copyright.backgroundColor = [UIColor clearColor];
         [self.view addSubview:copyright];
@@ -156,14 +156,18 @@ extern NSMutableDictionary * phone;
         UILabel *  copyright_c= [[[UILabel alloc]initWithFrame:CGRectMake(viewWidth/5, viewHeight/4+viewHeight/5, viewWidth/1.5, viewHeight/20)]autorelease];
         //copyright_c.center = CGPointMake(viewWidth/2, viewHeight/0.8);
         copyright_c.text = @"Copyright© 2010 乐享100.All Right Rreserved.";
-        copyright_c.center=CGPointMake(viewWidth/2, viewHeight*0.75);
+        copyright_c.center=CGPointMake(viewWidth/2, viewHeight*0.65);
          copyright_c.font = [UIFont systemFontOfSize:viewHeight/60];
         copyright_c.backgroundColor = [UIColor clearColor];
         copyright_c.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:copyright_c];
         
         if ([[[UIDevice currentDevice]systemVersion]floatValue]>=7) {
-            self.view .backgroundColor=[UIColor lightTextColor];
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+            self.extendedLayoutIncludesOpaqueBars =NO;
+            self.modalPresentationCapturesStatusBarAppearance = NO;
+            self.navigationController.navigationBar.translucent = NO;
+            self.view.backgroundColor=[UIColor iOS7lightBlueColor];
             backgroundText.backgroundColor = [UIColor groupTableViewBackgroundColor];
         }
     }
@@ -210,7 +214,7 @@ extern NSMutableDictionary * phone;
     }
     else
     {
-        [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"phone" Phone:loginNameText.text Parameter2:@"passWord" passWord:loginPasswordText.text Parameter3:@"verifyCode" VerifyCode:loginDPasswordText.text];
+        [soap agentLoginWithInterface:@"agentLogin" Parameter1:@"opPhone" Phone:loginNameText.text Parameter2:@"passWord" passWord:loginPasswordText.text Parameter3:@"verifyCode" VerifyCode:loginDPasswordText.text];
         [loginPasswordText resignFirstResponder];
         [loginNameText resignFirstResponder];
         [loginDPasswordText resignFirstResponder];
@@ -229,8 +233,8 @@ extern NSMutableDictionary * phone;
 
 - (void)loginFeedback:(NSNotification *)note{
 
+
     [self.UserInfoDic setDictionary:[[note userInfo] objectForKey:@"1" ]];
-    NSLog(@"%@",(NSArray*)self.UserInfoDic);
     [userDic setDictionary:self.UserInfoDic];
     [userDic setObject:self.loginNameText.text forKey:@"phone"];
     

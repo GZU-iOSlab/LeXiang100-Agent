@@ -42,7 +42,6 @@
     PayRecordViewController * payRecord;
     
     
-    
     NSMutableString * payMent;
     UIAlertView * personAlert;
     //NSNotification * note;
@@ -54,6 +53,6 @@
 @property (nonatomic,assign) NSArray *array;
 
 
--(void)personalMsgAlertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+//-(void)personalMsgAlertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end
