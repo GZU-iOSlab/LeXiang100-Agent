@@ -8,9 +8,8 @@
 //
 
 #import "ConnectionAPI.h"
-
+static int count;
 @implementation ConnectionAPI
-
 
 @synthesize webData;
 @synthesize soapResults;
@@ -31,10 +30,6 @@ extern NSMutableDictionary * UserInfo;
 -(ConnectionAPI *) init{
     getXMLResults = [[NSMutableString alloc]init];
     soapResults = [[NSMutableString alloc]init];
-    
-    count = 0;
-
-    
     return self;
 }
 - (void)getSoapFromInterface:(NSString *)interface {

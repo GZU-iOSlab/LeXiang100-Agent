@@ -12,7 +12,7 @@
 #import <math.h>
 
 @interface ConnectionAPI : NSObject<NSXMLParserDelegate, NSURLConnectionDelegate>{
-    int count;
+    //int count;
     UIAlertView * alertVersionInfo;
     BOOL needToAnalysis;
     UIAlertView * pwdAlertView;
